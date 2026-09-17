@@ -23,7 +23,7 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
   }, [releases]);
 
   const totalReleases = publishedReleases.length;
-  const radius = isMobile ? 28 : 50;
+  const radius = isMobile ? 34 : 50;
 
   return (
     <group>
@@ -64,9 +64,30 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
         const angleStep = (2 * Math.PI) / totalReleases;
         const currentAngle = archiveRotation + index * angleStep;
 
+        // Angle relative to camera forward vector (facing camera = 0)
+        const normAngle = Math.atan2(Math.sin(currentAngle), Math.cos(currentAngle));
+        const absAngle = Math.abs(normAngle);
+
+        // MOBILE OPTIMIZATION:
+        // On mobile in the archive zone, ONLY render the front arc (max 5 cards: center, 1-2 left, 1-2 right).
+        // This completely eliminates the crowded fence/barcode of thin vertical slivers!
+        if (isMobile && archiveTransition > 0.35 && !isSelected) {
+          if (absAngle > angleStep * 2.2) {
+            return null;
+          }
+        }
+
+        // DESKTOP OPTIMIZATION:
+        // Hide cards on the far backside of the cylinder (cos < -0.2) to prevent back-face visual clutter
+        if (!isMobile && archiveTransition > 0.5 && !isSelected) {
+          if (Math.cos(currentAngle) < -0.2) {
+            return null;
+          }
+        }
+
         const ringX = Math.sin(currentAngle) * radius;
         const ringZ = -1150 + Math.cos(currentAngle) * radius;
-        const ringY = isMobile ? 0.8 : Math.sin(index * 1.2) * 4.5;
+        const ringY = isMobile ? 0.0 : Math.sin(index * 1.2) * 4.5;
 
         const ringRotY = currentAngle;
         const ringRotX = 0;
@@ -81,7 +102,7 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
         const finalRotY = THREE.MathUtils.lerp(heroPos[1] ? heroRot[1] : 0, ringRotY, archiveTransition);
         const finalRotZ = THREE.MathUtils.lerp(heroPos[2] ? heroRot[2] : 0, ringRotZ, archiveTransition);
 
-        // Distance Culling: hide cards that are too far from camera to maintain 60 FPS
+        // Distance Culling
         const distToCam = Math.abs(finalZ - cameraZ);
         if (distToCam > 1800 && !isSelected) {
           return null;

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, ArrowDown, Disc3, Radio, Crosshair, Zap, Heart, Sparkles } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
@@ -29,8 +29,8 @@ export const HeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-void-950 via-void-950/70 to-transparent" />
       </div>
 
-      {/* 00b. Prominent 4K Anime Character Pilot (High-Density, Crisp Artwork) */}
-      <div className="absolute top-1/2 -translate-y-1/2 right-0 sm:right-6 lg:right-16 w-72 sm:w-[28rem] lg:w-[38rem] h-[34rem] sm:h-[42rem] lg:h-[50rem] pointer-events-none opacity-60 sm:opacity-85 mix-blend-screen z-0">
+      {/* 00b. Prominent 4K Anime Character Pilot (Hidden on mobile to prevent text collision, prominent on desktop) */}
+      <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 right-0 sm:right-6 lg:right-16 w-72 sm:w-[28rem] lg:w-[38rem] h-[34rem] sm:h-[42rem] lg:h-[50rem] pointer-events-none opacity-60 sm:opacity-85 mix-blend-screen z-0">
         <PosterCutout
           src="/assets/anime/hero-character.jpg"
           alt="dYnex Anime Pilot Character"
@@ -83,7 +83,7 @@ export const HeroSection: React.FC = () => {
       </motion.div>
 
       {/* 02. Center Main Editorial Poster & Anime Showcase */}
-      <div className="w-full my-auto py-6 sm:py-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pointer-events-auto relative z-10">
+      <div className="w-full my-auto py-6 sm:py-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 sm:gap-8 pointer-events-auto relative z-10">
         {/* Left: Expressive Layered Brand Typography & Anime Profile Info */}
         <div className="max-w-2xl relative z-10 w-full space-y-4">
           {/* Genre & Role Strip with anime badges */}
@@ -127,12 +127,12 @@ export const HeroSection: React.FC = () => {
             </motion.h1>
           </div>
 
-          {/* Anime Character Profile Telemetry Box */}
+          {/* Anime Character Profile Telemetry Box (Desktop only to prevent mobile vertical clutter) */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="p-3.5 sm:p-4 bg-void-950/90 backdrop-blur-md border border-signal-red/60 shadow-poster-red-offset max-w-xl"
+            className="hidden sm:block p-3.5 sm:p-4 bg-void-950/90 backdrop-blur-md border border-signal-red/60 shadow-poster-red-offset max-w-xl"
           >
             <div className="flex items-center justify-between text-[10px] font-mono text-signal-red uppercase pb-1.5 mb-2 border-b border-void-800">
               <span className="font-bold flex items-center gap-1">
@@ -211,14 +211,14 @@ export const HeroSection: React.FC = () => {
             className="w-full sm:w-auto relative flex flex-col items-start lg:items-end mt-4 lg:mt-0 z-20"
           >
             {/* Offset Red Shadow Frame for physical poster feel */}
-            <div className="relative group max-w-sm w-full">
-              {/* Back Offset Red Rim */}
-              <div className="absolute -inset-1.5 bg-signal-red/30 border border-signal-red/60 -rotate-1 group-hover:rotate-0 transition-transform duration-300 pointer-events-none" />
+            <div className="relative group max-w-[310px] sm:max-w-sm w-full mx-auto">
+              {/* Back Offset Red Rim (Desktop only to avoid mobile viewport overflow) */}
+              <div className="hidden sm:block absolute -inset-1.5 bg-signal-red/30 border border-signal-red/60 -rotate-1 group-hover:rotate-0 transition-transform duration-300 pointer-events-none" />
 
               {/* Main Poster Container */}
               <div
                 onClick={() => setSelectedRelease(featuredRelease)}
-                className="tactical-border relative p-4 bg-void-950/95 backdrop-blur-xl border border-void-700 group-hover:border-signal-red transition-all duration-300 rounded-none cursor-pointer w-full"
+                className="tactical-border relative p-3 sm:p-4 bg-void-950/95 backdrop-blur-xl border border-void-700 group-hover:border-signal-red transition-all duration-300 rounded-none cursor-pointer w-full shadow-2xl"
               >
                 {/* Header inside frame */}
                 <div className="flex items-center justify-between text-[10px] font-mono text-technical-muted mb-3 border-b border-void-800 pb-2">
@@ -287,7 +287,7 @@ export const HeroSection: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.8 }}
-        className="w-full flex flex-col sm:flex-row sm:items-center justify-between text-[10px] sm:text-[11px] font-mono text-technical-muted border-t border-void-800/80 pt-3 pointer-events-auto gap-2 relative z-10"
+        className="w-full flex flex-col sm:flex-row sm:items-center justify-between text-[10px] sm:text-[11px] font-mono text-technical-muted border-t border-void-800/80 pt-3 mt-8 pointer-events-auto gap-2 relative z-10"
       >
         <div className="flex items-center space-x-2">
           <Crosshair size={12} className="text-signal-red animate-pulse" />

@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -310,7 +310,7 @@ export const ArchiveSection: React.FC = () => {
 
       {/* 02. Interactive 3D Orbit Touch & Drag Zone with Dedicated Vertical Space */}
       <div
-        className="w-full h-60 sm:h-72 md:h-84 relative flex flex-col items-center justify-center pointer-events-auto touch-pan-y cursor-grab active:cursor-grabbing select-none my-2 sm:my-4"
+        className="w-full h-72 sm:h-80 md:h-96 relative flex flex-col items-center justify-center pointer-events-auto touch-pan-y cursor-grab active:cursor-grabbing select-none my-2 sm:my-4"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -318,16 +318,10 @@ export const ArchiveSection: React.FC = () => {
         onMouseEnter={() => setIsHoveredDragZone(true)}
         onMouseLeave={() => setIsHoveredDragZone(false)}
       >
-        {/* Targeting Reticle & Radar Wireframe */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+        {/* Subtle Targeting Reticle & Radar Wireframe */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
           <div className="w-56 h-56 sm:w-80 sm:h-80 rounded-full border border-void-700/60 border-dashed" />
           <div className="absolute w-36 h-36 sm:w-56 sm:h-56 rounded-full border border-signal-red/30" />
-          <div className="absolute text-[8px] font-mono text-technical-muted top-2 left-2">
-            [ RADIAL TRACKING // CYLINDER 360° ]
-          </div>
-          <div className="absolute text-[8px] font-mono text-signal-red bottom-2 right-2">
-            Z-TARGET: -1150
-          </div>
         </div>
 
         {/* Touch drag guidance overlay */}
