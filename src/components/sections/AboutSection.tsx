@@ -56,7 +56,7 @@ export const AboutSection: React.FC = () => {
       <div className="max-w-4xl mx-auto w-full pointer-events-auto">
         {/* Zone indicator */}
         <div className="flex items-center space-x-2 text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-4">
-          <span>// 03</span>
+          <span className="text-cyber-purple-glow">// 03</span>
           <span>{language === 'ru' ? 'МАНИФЕСТ ИДЕНТИЧНОСТИ' : 'IDENTITY MANIFESTO'}</span>
         </div>
 
@@ -65,18 +65,22 @@ export const AboutSection: React.FC = () => {
           {language === 'ru' ? (
             <>
               БЕЗ ФИКСИРОВАННОЙ<br />
-              <span className="text-signal-red">ЧАСТОТЫ.</span>
+              <span className="bg-gradient-to-r from-signal-red to-cyber-purple bg-clip-text text-transparent">
+                ЧАСТОТЫ.
+              </span>
             </>
           ) : (
             <>
               NO FIXED<br />
-              <span className="text-signal-red">FREQUENCY.</span>
+              <span className="bg-gradient-to-r from-signal-red to-cyber-purple bg-clip-text text-transparent">
+                FREQUENCY.
+              </span>
             </>
           )}
         </h2>
 
         {/* Character-by-character scroll revealed paragraph */}
-        <div className="mb-12 p-6 sm:p-8 bg-void-900/40 backdrop-blur-md border border-void-800/80 rounded-sm">
+        <div className="mb-12 p-6 sm:p-8 bg-void-950/80 backdrop-blur-md border border-void-800/90 rounded-sm hover:border-cyber-purple/40 transition-colors">
           <RevealText text={language === 'ru' ? manifestoRu : manifestoEn} />
         </div>
 
@@ -92,7 +96,7 @@ export const AboutSection: React.FC = () => {
           </div>
           <div className="space-y-1">
             <div className="text-technical-muted uppercase">{language === 'ru' ? 'КАТАЛОГ:' : 'CATALOG:'}</div>
-            <div className="text-signal-red font-bold">{language === 'ru' ? '24 РЕЛИЗА' : '24 RELEASES'}</div>
+            <div className="text-cyber-purple-glow font-bold">{language === 'ru' ? '24 РЕЛИЗА' : '24 RELEASES'}</div>
           </div>
           <div className="space-y-1">
             <div className="text-technical-muted uppercase">{language === 'ru' ? 'СТАТУС:' : 'STATUS:'}</div>

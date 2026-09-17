@@ -52,15 +52,15 @@ export const ArchiveSection: React.FC = () => {
         </div>
 
         {/* Search & Filter Bar */}
-        <div className="flex flex-wrap items-center gap-3 bg-void-900/70 backdrop-blur-md p-3 border border-void-800 rounded-sm">
+        <div className="flex flex-wrap items-center gap-3 bg-void-950/80 backdrop-blur-md p-3 border border-void-800 rounded-sm">
           {/* Year Buttons */}
           <div className="flex items-center space-x-1 border-r border-void-800 pr-3">
             <button
               onClick={() => setActiveYearFilter(null)}
-              className={`px-2.5 py-1 text-xs font-mono rounded-sm transition-colors ${
+              className={`px-2.5 py-1 text-xs font-mono rounded-sm transition-all ${
                 activeYearFilter === null
-                  ? 'bg-signal-red text-white'
-                  : 'text-technical-muted hover:text-white'
+                  ? 'bg-gradient-to-r from-signal-red to-cyber-purple-deep text-white shadow-[0_0_10px_rgba(139,92,246,0.3)]'
+                  : 'text-technical-muted hover:text-cyber-purple-glow'
               }`}
             >
               {language === 'ru' ? 'ВСЕ' : 'ALL'}
@@ -69,10 +69,10 @@ export const ArchiveSection: React.FC = () => {
               <button
                 key={y}
                 onClick={() => setActiveYearFilter(activeYearFilter === y ? null : y)}
-                className={`px-2.5 py-1 text-xs font-mono rounded-sm transition-colors ${
+                className={`px-2.5 py-1 text-xs font-mono rounded-sm transition-all ${
                   activeYearFilter === y
-                    ? 'bg-signal-red text-white'
-                    : 'text-technical-muted hover:text-white'
+                    ? 'bg-gradient-to-r from-signal-red to-cyber-purple-deep text-white shadow-[0_0_10px_rgba(139,92,246,0.3)]'
+                    : 'text-technical-muted hover:text-cyber-purple-glow'
                 }`}
               >
                 {y}
@@ -88,7 +88,7 @@ export const ArchiveSection: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={language === 'ru' ? 'Поиск релиза...' : 'Search release...'}
-              className="bg-void-950 border border-void-800 text-xs font-mono text-technical-light pl-8 pr-3 py-1 rounded-sm focus:outline-none focus:border-signal-red w-36 sm:w-44 placeholder:text-technical-muted/60"
+              className="bg-void-950 border border-void-800 text-xs font-mono text-technical-light pl-8 pr-3 py-1 rounded-sm focus:outline-none focus:border-cyber-purple w-36 sm:w-44 placeholder:text-technical-muted/60 transition-colors"
             />
           </div>
 
@@ -97,8 +97,8 @@ export const ArchiveSection: React.FC = () => {
             onClick={() => setShowAccessibleList(!showAccessibleList)}
             className={`p-1.5 border rounded-sm transition-colors ${
               showAccessibleList
-                ? 'bg-signal-red text-white border-signal-red'
-                : 'bg-void-950 border-void-800 text-technical-muted hover:text-white'
+                ? 'bg-cyber-purple text-white border-cyber-purple shadow-cyber-purple-glow'
+                : 'bg-void-950 border-void-800 text-technical-muted hover:text-cyber-purple-glow'
             }`}
             title={language === 'ru' ? 'Текстовый список релизов' : 'Accessible release list'}
             aria-label="Переключить текстовый список релизов"
@@ -114,10 +114,10 @@ export const ArchiveSection: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="my-8 p-6 bg-void-950/95 backdrop-blur-xl border border-void-800 rounded-sm pointer-events-auto max-h-[60vh] overflow-y-auto"
+          className="my-8 p-6 bg-void-950/95 backdrop-blur-xl border border-void-800 rounded-sm pointer-events-auto max-h-[60vh] overflow-y-auto shadow-2xl"
         >
           <div className="text-xs font-mono text-technical-muted uppercase tracking-widest mb-4 flex justify-between items-center border-b border-void-800 pb-2">
-            <span>{language === 'ru' ? 'СЕМАНТИЧЕСКИЙ СПИСОК РЕЛИЗОВ' : 'ACCESSIBLE RELEASE ARCHIVE'}</span>
+            <span className="text-cyber-purple-glow">{language === 'ru' ? 'СЕМАНТИЧЕСКИЙ СПИСОК РЕЛИЗОВ' : 'ACCESSIBLE RELEASE ARCHIVE'}</span>
             <span className="text-signal-red">{filteredReleases.length} {language === 'ru' ? 'НАЙДЕНО' : 'FOUND'}</span>
           </div>
 
@@ -134,7 +134,7 @@ export const ArchiveSection: React.FC = () => {
                 }}
                 tabIndex={0}
                 role="button"
-                className="flex items-center space-x-3 p-3 bg-void-900/80 hover:bg-void-850 border border-void-800 hover:border-signal-red/60 rounded-sm cursor-pointer transition-colors focus:outline-none focus:ring-1 focus:ring-signal-red"
+                className="flex items-center space-x-3 p-3 bg-void-900/80 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 hover:shadow-cyber-purple-glow rounded-sm cursor-pointer transition-all focus:outline-none focus:ring-1 focus:ring-cyber-purple"
               >
                 <img
                   src={r.artworkUrl}
@@ -154,7 +154,7 @@ export const ArchiveSection: React.FC = () => {
 
       {/* Bottom Orbital Drag Hint & Telemetry */}
       <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto text-xs font-mono text-technical-muted">
-        <div className="flex items-center space-x-2 bg-void-900/60 backdrop-blur-sm border border-void-800 px-3 py-1.5 rounded-sm">
+        <div className="flex items-center space-x-2 bg-void-950/70 backdrop-blur-sm border border-void-800 px-3 py-1.5 rounded-sm">
           <RotateCw size={13} className="text-signal-red animate-spin-slow" />
           <span>
             {language === 'ru'

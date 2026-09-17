@@ -57,11 +57,17 @@ export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, scrollVelocity, i
       positions[i * 3 + 1] = (pseudoRandom(s++) - 0.5) * 2000;
       positions[i * 3 + 2] = (pseudoRandom(s++) - 0.5) * 7500 - 3000;
 
-      const isRed = pseudoRandom(s++) < 0.03;
-      if (isRed) {
-        colors[i * 3] = 0.9;
+      const rnd = pseudoRandom(s++);
+      if (rnd < 0.03) {
+        // Signal Red
+        colors[i * 3] = 0.92;
         colors[i * 3 + 1] = 0.1;
         colors[i * 3 + 2] = 0.15;
+      } else if (rnd < 0.065) {
+        // Cyber Purple
+        colors[i * 3] = 0.65;
+        colors[i * 3 + 1] = 0.38;
+        colors[i * 3 + 2] = 0.98;
       } else {
         const b = 0.5 + pseudoRandom(s++) * 0.4;
         colors[i * 3] = b;
@@ -88,11 +94,17 @@ export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, scrollVelocity, i
       positions[i * 3 + 1] = (pseudoRandom(s++) - 0.5) * 1200;
       positions[i * 3 + 2] = (pseudoRandom(s++) - 0.5) * 7000 - 3000;
 
-      const isRed = pseudoRandom(s++) < 0.05;
-      if (isRed) {
+      const rnd = pseudoRandom(s++);
+      if (rnd < 0.04) {
+        // Signal Red
         colors[i * 3] = 0.95;
         colors[i * 3 + 1] = 0.15;
         colors[i * 3 + 2] = 0.18;
+      } else if (rnd < 0.08) {
+        // Cyber Purple
+        colors[i * 3] = 0.7;
+        colors[i * 3 + 1] = 0.42;
+        colors[i * 3 + 2] = 0.98;
       } else {
         const b = 0.8 + pseudoRandom(s++) * 0.2;
         colors[i * 3] = b;
@@ -119,11 +131,17 @@ export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, scrollVelocity, i
       positions[i * 3 + 1] = (pseudoRandom(s++) - 0.5) * 600;
       positions[i * 3 + 2] = (pseudoRandom(s++) - 0.5) * 6500 - 3000;
 
-      const isRed = pseudoRandom(s++) < 0.08;
-      if (isRed) {
+      const rnd = pseudoRandom(s++);
+      if (rnd < 0.06) {
+        // Signal Red
         colors[i * 3] = 1.0;
         colors[i * 3 + 1] = 0.1;
         colors[i * 3 + 2] = 0.15;
+      } else if (rnd < 0.12) {
+        // Cyber Purple
+        colors[i * 3] = 0.75;
+        colors[i * 3 + 1] = 0.45;
+        colors[i * 3 + 2] = 1.0;
       } else {
         colors[i * 3] = 0.98;
         colors[i * 3 + 1] = 0.98;

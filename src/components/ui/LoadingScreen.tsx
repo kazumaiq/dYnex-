@@ -62,7 +62,7 @@ export const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete
             {/* Progress Bar */}
             <div className="w-48 h-[2px] bg-void-800 relative overflow-hidden">
               <div
-                className="h-full bg-signal-red transition-all duration-100 ease-out"
+                className="h-full bg-gradient-to-r from-signal-red via-cyber-purple to-cyber-purple-glow transition-all duration-100 ease-out shadow-cyber-purple-glow"
                 style={{ width: `${progress}%` }}
               />
             </div>

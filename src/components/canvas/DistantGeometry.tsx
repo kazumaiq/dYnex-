@@ -36,11 +36,11 @@ export const DistantGeometry: React.FC = () => {
       <group ref={ring1Ref} position={[0, 0, -250]}>
         <lineSegments>
           <ringGeometry args={[55, 55.2, 96]} />
-          <lineBasicMaterial color="#77777D" transparent opacity={0.18} />
+          <lineBasicMaterial color="#8B5CF6" transparent opacity={0.16} />
         </lineSegments>
         <lineSegments>
           <ringGeometry args={[78, 78.15, 128]} />
-          <lineBasicMaterial color="#E61924" transparent opacity={0.12} />
+          <lineBasicMaterial color="#E61924" transparent opacity={0.14} />
         </lineSegments>
       </group>
 
@@ -48,22 +48,21 @@ export const DistantGeometry: React.FC = () => {
       <group ref={ring2Ref} position={[0, 0, -1100]}>
         <lineSegments>
           <ringGeometry args={[110, 110.3, 128]} />
-          <lineBasicMaterial color="#D8D8D5" transparent opacity={0.12} />
+          <lineBasicMaterial color="#8B5CF6" transparent opacity={0.12} />
         </lineSegments>
         <lineSegments>
           <ringGeometry args={[145, 145.2, 128]} />
-          <lineBasicMaterial color="#77777D" transparent opacity={0.08} />
+          <lineBasicMaterial color="#E61924" transparent opacity={0.09} />
         </lineSegments>
       </group>
 
       {/* ZONE 3 (DEEP SPACE): Technical grid planes */}
       <group ref={techGridRef} position={[0, 0, -2300]}>
         <gridHelper
-          args={[300, 24, '#E61924', '#1A1B20']}
+          args={[300, 24, '#8B5CF6', '#120d1f']}
           rotation={[Math.PI / 2.2, 0, 0]}
           position={[0, -40, 0]}
         />
-
       </group>
 
       {/* ZONE 4 (NETWORK): Collaborator celestial circles */}
@@ -74,7 +73,7 @@ export const DistantGeometry: React.FC = () => {
         </lineSegments>
         <lineSegments>
           <ringGeometry args={[120, 120.2, 128]} />
-          <lineBasicMaterial color="#77777D" transparent opacity={0.1} />
+          <lineBasicMaterial color="#8B5CF6" transparent opacity={0.12} />
         </lineSegments>
       </group>
 
@@ -82,11 +81,11 @@ export const DistantGeometry: React.FC = () => {
       <group ref={ring4Ref} position={[0, 0, -5600]}>
         <lineSegments>
           <ringGeometry args={[200, 200.5, 128]} />
-          <lineBasicMaterial color="#D8D8D5" transparent opacity={0.1} />
+          <lineBasicMaterial color="#8B5CF6" transparent opacity={0.14} />
         </lineSegments>
         <lineSegments>
           <ringGeometry args={[280, 280.4, 128]} />
-          <lineBasicMaterial color="#E61924" transparent opacity={0.08} />
+          <lineBasicMaterial color="#E61924" transparent opacity={0.1} />
         </lineSegments>
       </group>
     </group>

@@ -21,12 +21,12 @@ export const AtmosphericLights: React.FC<{ cameraZ: number }> = ({ cameraZ }) =>
         color="#E61924"
       />
 
-      {/* Cool fill light */}
+      {/* Cyber purple atmospheric fill light */}
       <pointLight
         position={[20, 15, cameraZ - 80]}
-        intensity={0.4}
-        distance={220}
-        color="#77777D"
+        intensity={0.65}
+        distance={240}
+        color="#8B5CF6"
       />
     </group>
   );

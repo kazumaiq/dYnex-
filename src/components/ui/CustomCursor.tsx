@@ -48,7 +48,7 @@ export const CustomCursor: React.FC = () => {
       <div
         className={`w-6 h-6 rounded-full border transition-all duration-150 flex items-center justify-center ${
           isPointer
-            ? 'scale-125 border-signal-red bg-signal-red/10'
+            ? 'scale-125 border-cyber-purple bg-signal-red/10 shadow-[0_0_12px_rgba(139,92,246,0.6)]'
             : 'scale-100 border-technical-muted/60'
         }`}
       >

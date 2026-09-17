@@ -84,9 +84,10 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-8 p-4 bg-void-900/60 backdrop-blur-md border border-void-800 rounded-sm inline-flex items-center space-x-4 max-w-md"
+            className="mb-8 p-4 bg-void-950/80 backdrop-blur-md border border-void-800 hover:border-cyber-purple/70 hover:shadow-cyber-purple-glow transition-all duration-300 rounded-sm inline-flex items-center space-x-4 max-w-md cursor-pointer group"
+            onClick={() => setSelectedRelease(featuredRelease)}
           >
-            <div className="w-12 h-12 rounded-sm overflow-hidden border border-void-700 shrink-0">
+            <div className="w-12 h-12 rounded-sm overflow-hidden border border-void-700 shrink-0 group-hover:border-cyber-purple transition-colors">
               <img
                 src={featuredRelease.artworkUrl}
                 alt={featuredRelease.title}
@@ -94,11 +95,11 @@ export const HeroSection: React.FC = () => {
               />
             </div>
             <div className="text-xs font-mono">
-              <div className="text-signal-red text-[10px] tracking-widest flex items-center space-x-1">
+              <div className="text-signal-red group-hover:text-cyber-purple-glow transition-colors text-[10px] tracking-widest flex items-center space-x-1">
                 <Disc3 size={11} className="animate-spin-slow" />
                 <span>{language === 'ru' ? 'АКТИВНЫЙ РЕЛИЗ' : 'FEATURED RELEASE'}</span>
               </div>
-              <div className="font-bold text-white text-sm tracking-tight">
+              <div className="font-bold text-white text-sm tracking-tight group-hover:text-cyber-purple-glow transition-colors">
                 {featuredRelease.title}
               </div>
               <div className="text-technical-muted text-[11px]">
@@ -118,7 +119,7 @@ export const HeroSection: React.FC = () => {
           {/* Primary CTA: Listen Now */}
           <button
             onClick={() => setSelectedRelease(featuredRelease)}
-            className="group relative px-6 py-3.5 bg-signal-red hover:bg-signal-red-glow text-white font-mono text-xs tracking-widest uppercase rounded-sm flex items-center space-x-3 transition-all duration-200 shadow-lg shadow-signal-red/20"
+            className="group relative px-6 py-3.5 bg-gradient-to-r from-signal-red to-signal-red-glow hover:shadow-neon-mix text-white font-mono text-xs tracking-widest uppercase rounded-sm flex items-center space-x-3 transition-all duration-200"
           >
             <Play size={14} className="fill-white" />
             <span>{language === 'ru' ? 'СЛУШАТЬ РЕЛИЗ' : 'LISTEN NOW'}</span>
@@ -127,10 +128,10 @@ export const HeroSection: React.FC = () => {
           {/* Secondary CTA: Enter Archive */}
           <button
             onClick={handleEnterArchive}
-            className="px-6 py-3.5 bg-void-900/80 hover:bg-void-800 border border-void-700/80 hover:border-signal-red/50 text-technical-light font-mono text-xs tracking-widest uppercase rounded-sm flex items-center space-x-3 transition-colors duration-200"
+            className="group px-6 py-3.5 bg-void-950/80 hover:bg-void-900 border border-void-800 hover:border-cyber-purple/70 text-technical-light hover:text-cyber-purple-glow font-mono text-xs tracking-widest uppercase rounded-sm flex items-center space-x-3 transition-all duration-200"
           >
             <span>{language === 'ru' ? 'ВОЙТИ В АРХИВ' : 'ENTER ARCHIVE'}</span>
-            <ArrowDown size={14} className="text-signal-red group-hover:translate-y-0.5 transition-transform" />
+            <ArrowDown size={14} className="text-signal-red group-hover:text-cyber-purple group-hover:translate-y-0.5 transition-all" />
           </button>
         </motion.div>
       </div>

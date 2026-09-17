@@ -29,7 +29,7 @@ export const Footer: React.FC<{ onOpenAdmin: () => void }> = ({ onOpenAdmin }) =
             href="https://music.apple.com/us/artist/dynex/1697850899"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-1 hover:text-signal-red transition-colors"
+            className="flex items-center space-x-1 hover:text-cyber-purple-glow transition-colors"
           >
             <span>Apple Music</span>
             <ExternalLink size={10} />
@@ -47,7 +47,7 @@ export const Footer: React.FC<{ onOpenAdmin: () => void }> = ({ onOpenAdmin }) =
             href="https://vk.com/audio?q=dYnex"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-1 hover:text-signal-red transition-colors"
+            className="flex items-center space-x-1 hover:text-cyber-purple-glow transition-colors"
           >
             <span>VK Музыка</span>
             <ExternalLink size={10} />
@@ -67,12 +67,12 @@ export const Footer: React.FC<{ onOpenAdmin: () => void }> = ({ onOpenAdmin }) =
         <div className="flex flex-col items-center md:items-end space-y-2">
           <div className="flex items-center space-x-2 text-[10px] text-technical-silver">
             <Radio size={12} className="text-signal-red animate-pulse" />
-            <span>{language === 'ru' ? 'СЕРВЕР: VERCEL EDGE // АКТИВЕН' : 'HOST: VERCEL EDGE // ACTIVE'}</span>
+            <span className="text-cyber-purple-glow">{language === 'ru' ? 'СЕРВЕР: VERCEL EDGE // АКТИВЕН' : 'HOST: VERCEL EDGE // ACTIVE'}</span>
           </div>
 
           <button
             onClick={onOpenAdmin}
-            className="flex items-center space-x-1.5 px-2.5 py-1 bg-void-900 hover:bg-void-850 border border-void-800 hover:border-signal-red/60 text-[10px] text-technical-muted hover:text-white rounded-sm transition-colors"
+            className="flex items-center space-x-1.5 px-2.5 py-1 bg-void-950 hover:bg-void-900 border border-void-800 hover:border-cyber-purple/60 text-[10px] text-technical-muted hover:text-cyber-purple-glow rounded-sm transition-colors"
           >
             <Lock size={10} className="text-signal-red" />
             <span>{language === 'ru' ? 'ПАНЕЛЬ УПРАВЛЕНИЯ /ADMIN' : 'CONTROL TERMINAL /ADMIN'}</span>

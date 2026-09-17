@@ -15,7 +15,7 @@ export const MarqueeSection: React.FC = () => {
         >
           {Array.from({ length: 6 }).map((_, i) => (
             <span key={i} className="mr-6">
-              dYnex<span className="text-signal-red">?</span> // ЭЛЕКТРОННЫЙ АРХИВ // 2023—2026 // PHONK //
+              dYnex<span className="text-signal-red">?</span> // <span className="text-cyber-purple/50">ЭЛЕКТРОННЫЙ АРХИВ</span> // 2023—2026 // <span className="text-signal-red/60">PHONK</span> //
             </span>
           ))}
         </motion.div>
@@ -30,7 +30,7 @@ export const MarqueeSection: React.FC = () => {
         >
           {Array.from({ length: 6 }).map((_, i) => (
             <span key={i} className="mr-6">
-              NO FIXED FREQUENCY // ABSTRACT // CYBER MEMORIES // MONTAGEM BATERIA //
+              NO FIXED FREQUENCY // <span className="text-cyber-purple/60">ABSTRACT</span> // CYBER MEMORIES // <span className="text-signal-red/60">MONTAGEM BATERIA</span> //
             </span>
           ))}
         </motion.div>

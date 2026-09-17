@@ -79,12 +79,12 @@ export const TimelineSection: React.FC = () => {
                 onClick={() => setSelectedYear(m.year)}
                 className={`p-4 border text-left rounded-sm transition-all duration-200 ${
                   isActive
-                    ? 'bg-void-900 border-signal-red shadow-lg shadow-signal-red/10'
-                    : 'bg-void-950/70 border-void-800 hover:border-void-700'
+                    ? 'bg-void-900 border-cyber-purple shadow-cyber-purple-glow'
+                    : 'bg-void-950/70 border-void-800 hover:border-void-700 hover:bg-void-900/60'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`text-2xl font-black font-sans ${isActive ? 'text-signal-red' : 'text-technical-silver'}`}>
+                  <span className={`text-2xl font-black font-sans ${isActive ? 'text-cyber-purple-glow' : 'text-technical-silver'}`}>
                     {m.year}
                   </span>
                   {isActive && <span className="w-2 h-2 rounded-full bg-signal-red animate-pulse" />}
@@ -98,11 +98,11 @@ export const TimelineSection: React.FC = () => {
         </div>
 
         {/* Active Year Detail Box */}
-        <div className="p-6 sm:p-8 bg-void-900/60 backdrop-blur-md border border-void-800 rounded-sm">
+        <div className="p-6 sm:p-8 bg-void-950/80 backdrop-blur-md border border-void-800 rounded-sm">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 border-b border-void-800 pb-6">
             <div>
               <div className="text-xs font-mono text-signal-red tracking-widest uppercase mb-1 flex items-center space-x-2">
-                <Calendar size={13} />
+                <Calendar size={13} className="text-cyber-purple-glow" />
                 <span>{language === 'ru' ? 'ЭТАП РАЗВИТИЯ' : 'PHASE MILESTONE'}</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-bold font-sans text-white">
@@ -125,22 +125,22 @@ export const TimelineSection: React.FC = () => {
                 <div
                   key={r.id}
                   onClick={() => setSelectedRelease(r)}
-                  className="flex items-center space-x-3 p-2.5 bg-void-950/80 hover:bg-void-850 border border-void-800 hover:border-signal-red/60 rounded-sm cursor-pointer transition-colors group"
+                  className="flex items-center space-x-3 p-2.5 bg-void-900/80 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 hover:shadow-cyber-purple-glow rounded-sm cursor-pointer transition-all group"
                 >
                   <img
                     src={r.artworkUrl}
                     alt={r.title}
-                    className="w-10 h-10 rounded-sm object-cover border border-void-700 shrink-0"
+                    className="w-10 h-10 rounded-sm object-cover border border-void-700 shrink-0 group-hover:border-cyber-purple transition-colors"
                   />
                   <div className="overflow-hidden flex-1">
-                    <div className="text-xs font-bold text-white group-hover:text-signal-red transition-colors truncate">
+                    <div className="text-xs font-bold text-white group-hover:text-cyber-purple-glow transition-colors truncate">
                       {r.title}
                     </div>
                     <div className="text-[10px] font-mono text-technical-muted truncate">
                       {r.artists}
                     </div>
                   </div>
-                  <ArrowRight size={12} className="text-technical-muted group-hover:text-signal-red transition-colors shrink-0" />
+                  <ArrowRight size={12} className="text-technical-muted group-hover:text-cyber-purple-glow transition-colors shrink-0" />
                 </div>
               ))}
             </div>

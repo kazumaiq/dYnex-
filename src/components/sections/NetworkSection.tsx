@@ -40,17 +40,17 @@ export const NetworkSection: React.FC = () => {
                 <button
                   key={c.id}
                   onClick={() => setActiveCollaboratorId(c.id)}
-                  className={`w-full p-3 text-left border rounded-sm transition-all duration-150 flex items-center justify-between ${
+                  className={`w-full p-3 text-left border rounded-sm transition-all duration-200 flex items-center justify-between ${
                     isActive
-                      ? 'bg-void-900 border-signal-red text-white'
-                      : 'bg-void-950/70 border-void-800 text-technical-silver hover:border-void-700'
+                      ? 'bg-void-900 border-cyber-purple text-white shadow-cyber-purple-glow'
+                      : 'bg-void-950/80 border-void-800 text-technical-silver hover:border-cyber-purple/50 hover:bg-void-900/60'
                   }`}
                 >
                   <div className="overflow-hidden">
                     <div className="text-sm font-bold font-sans truncate">{c.name}</div>
                     <div className="text-[10px] font-mono text-technical-muted truncate">{c.role}</div>
                   </div>
-                  <div className="text-xs font-mono text-signal-red shrink-0 ml-2">
+                  <div className="text-xs font-mono text-cyber-purple-glow shrink-0 ml-2">
                     {c.trackCount} {language === 'ru' ? 'ТР.' : 'TR.'}
                   </div>
                 </button>
@@ -59,12 +59,12 @@ export const NetworkSection: React.FC = () => {
           </div>
 
           {/* Right: Detailed Node Card & Related Releases */}
-          <div className="lg:col-span-2 p-6 sm:p-8 bg-void-900/70 backdrop-blur-md border border-void-800 rounded-sm flex flex-col justify-between">
+          <div className="lg:col-span-2 p-6 sm:p-8 bg-void-950/80 backdrop-blur-md border border-void-800 rounded-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between border-b border-void-800 pb-4 mb-6">
                 <div>
                   <div className="flex items-center space-x-2 text-[10px] font-mono text-signal-red uppercase tracking-widest mb-1">
-                    <Users size={12} />
+                    <Users size={12} className="text-cyber-purple-glow" />
                     <span>{language === 'ru' ? 'ВЕРИФИЦИРОВАННЫЙ СОАВТОР' : 'VERIFIED COLLABORATOR'}</span>
                   </div>
                   <h3 className="text-3xl font-black font-sans text-white">
@@ -75,8 +75,8 @@ export const NetworkSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-1.5 text-xs font-mono text-signal-red bg-void-950 px-3 py-1.5 border border-void-800 rounded-sm">
-                  <ShieldCheck size={14} />
+                <div className="flex items-center space-x-1.5 text-xs font-mono text-cyber-purple-glow bg-void-950 px-3 py-1.5 border border-void-800 rounded-sm">
+                  <ShieldCheck size={14} className="text-signal-red" />
                   <span>VERIFIED</span>
                 </div>
               </div>
@@ -92,15 +92,15 @@ export const NetworkSection: React.FC = () => {
                     <div
                       key={rel.id}
                       onClick={() => setSelectedRelease(rel)}
-                      className="flex items-center space-x-3 p-3 bg-void-950/80 hover:bg-void-850 border border-void-800 hover:border-signal-red/60 rounded-sm cursor-pointer transition-colors"
+                      className="flex items-center space-x-3 p-3 bg-void-900/80 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 hover:shadow-cyber-purple-glow rounded-sm cursor-pointer transition-all group"
                     >
                       <img
                         src={rel.artworkUrl}
                         alt={rel.title}
-                        className="w-12 h-12 rounded-sm object-cover border border-void-700 shrink-0"
+                        className="w-12 h-12 rounded-sm object-cover border border-void-700 shrink-0 group-hover:border-cyber-purple transition-colors"
                       />
                       <div className="overflow-hidden">
-                        <div className="text-xs font-bold text-white truncate">{rel.title}</div>
+                        <div className="text-xs font-bold text-white group-hover:text-cyber-purple-glow transition-colors truncate">{rel.title}</div>
                         <div className="text-[10px] font-mono text-technical-muted truncate">{rel.artists}</div>
                         <div className="text-[10px] font-mono text-signal-red mt-0.5">{rel.year} // {rel.type}</div>
                       </div>
