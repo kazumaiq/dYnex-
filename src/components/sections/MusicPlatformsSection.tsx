@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Radio, Disc3 } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
@@ -102,7 +102,23 @@ export const MusicPlatformsSection: React.FC = () => {
       id="platforms"
       className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 flex flex-col justify-center pointer-events-none select-none overflow-hidden max-w-7xl mx-auto"
     >
-      <div className="w-full pointer-events-auto">
+      {/* Background Cyberpunk Accents */}
+      <div className="hidden sm:block absolute -left-16 top-1/4 w-80 h-auto pointer-events-none opacity-20 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-lily-botanical.jpg"
+          alt="Lily Accent"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+      <div className="hidden lg:block absolute -right-16 bottom-1/4 w-80 h-auto pointer-events-none opacity-20 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-roses-bottom.jpg"
+          alt="Roses Accent"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div className="w-full pointer-events-auto relative z-10">
         {/* Top Header Tag */}
         <div className="flex items-center space-x-3 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-3">
           <span className="flex h-2 w-2 relative">

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, ArrowDown, Disc3, Radio, Crosshair, Zap, Heart, Sparkles } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
@@ -17,56 +17,69 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32 pb-8 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-24 sm:pt-28 pb-6 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
     >
-      {/* 00. Atmospheric Cyberpunk Anime City Backdrop */}
-      <div className="absolute inset-0 pointer-events-none opacity-25 mix-blend-screen z-0 overflow-hidden">
+      {/* 00. Master Cyberpunk Collage Backdrop (Matches User Mockup Exactly) */}
+      <div className="absolute inset-0 pointer-events-none opacity-80 sm:opacity-90 mix-blend-screen z-0 overflow-hidden">
         <img
-          src="/assets/anime/city-backdrop.jpg"
-          alt="Neo Tokyo Phonk City"
+          src="/assets/collage/hero-master-bg-empty.jpg"
+          alt="dYnex? Cyberpunk Collage Backdrop"
           className="w-full h-full object-cover object-center filter contrast-125"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-void-950 via-void-950/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-void-950/60 via-transparent to-void-950/90" />
       </div>
 
-      {/* 00b. Prominent 4K Anime Character Pilot (High-Density, Crisp Artwork) */}
-      <div className="absolute top-1/2 -translate-y-1/2 right-0 sm:right-6 lg:right-16 w-72 sm:w-[28rem] lg:w-[38rem] h-[34rem] sm:h-[42rem] lg:h-[50rem] pointer-events-none opacity-60 sm:opacity-85 mix-blend-screen z-0">
-        <PosterCutout
-          src="/assets/anime/hero-character.jpg"
-          alt="dYnex Anime Pilot Character"
-          maskType="radial"
-          cropPosition="center 20%"
-          className="w-full h-full"
+      {/* 00a. High-Resolution Left Botanical Lily Layer */}
+      <div className="hidden sm:block absolute -left-4 top-12 w-64 sm:w-80 lg:w-96 h-auto pointer-events-none opacity-85 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-lily-botanical.jpg"
+          alt="Botanical Lily"
+          className="w-full h-auto object-contain filter contrast-125 drop-shadow-[0_0_25px_rgba(230,25,36,0.3)]"
         />
       </div>
 
-      {/* Floating Anime Sparkles & Light Points */}
+      {/* 00b. High-Resolution Right Anime Character Layer (Anby Demara Style) */}
+      <div className="absolute top-1/2 -translate-y-1/2 right-0 w-72 sm:w-[28rem] lg:w-[38rem] h-[34rem] sm:h-[44rem] lg:h-[50rem] pointer-events-none opacity-75 sm:opacity-90 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-anby-character.jpg"
+          alt="Anime Tactical Character"
+          className="w-full h-full object-contain object-right filter contrast-125"
+        />
+      </div>
+
+      {/* 00c. Bottom Center Roses Layer */}
+      <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-12 w-64 lg:w-80 h-auto pointer-events-none opacity-80 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-roses-bottom.jpg"
+          alt="Dark Roses"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+
+      {/* Floating Sparkles & Accents */}
       <div className="absolute top-1/4 left-1/3 text-signal-red font-mono text-sm pointer-events-none select-none animate-pulse opacity-70 z-0">
         ✦
       </div>
       <div className="absolute top-1/2 right-1/4 text-white font-mono text-xs pointer-events-none select-none animate-ping opacity-50 z-0">
         ✧
       </div>
-      <div className="absolute bottom-1/3 left-1/4 text-signal-red font-mono text-xs pointer-events-none select-none opacity-60 z-0">
-        ★
-      </div>
 
-      {/* 01. Top Tactical HUD & Coordinate Telemetry */}
+      {/* 01. Top Tactical HUD */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="w-full flex items-center justify-between font-mono text-[10px] sm:text-xs text-technical-silver pointer-events-auto border-b border-void-800 pb-3 relative z-10"
+        className="w-full flex items-center justify-between font-mono text-[10px] sm:text-xs text-technical-silver pointer-events-auto border-b border-void-800/80 pb-2.5 relative z-10"
       >
         <div className="flex items-center space-x-2.5">
           <span className="w-2 h-2 rounded-full bg-signal-red animate-ping" />
           <span className="font-bold text-signal-red tracking-widest-tech uppercase flex items-center gap-1.5">
             <Sparkles size={11} />
-            {language === 'ru' ? 'ЗОНА 01 // АНИМЕ АРХИВ' : 'ZONE 01 // ANIME ARCHIVE'}
+            {language === 'ru' ? 'ЗОНА 01 // 3D АРХИВ' : 'ZONE 01 // 3D ARCHIVE'}
           </span>
           <span className="text-void-700 hidden sm:inline">|</span>
           <span className="text-technical-muted hidden sm:inline tracking-wider">
-            {language === 'ru' ? 'ЦИФРОВОЙ ЗВУКОВОЙ ПОРТАЛ' : 'DIGITAL SONIC PORTAL'}
+            {language === 'ru' ? 'ЗВУКОВОЙ ПОРТАЛ' : 'SONIC PORTAL'}
           </span>
         </div>
 
@@ -74,135 +87,118 @@ export const HeroSection: React.FC = () => {
         <div className="flex items-center space-x-3 text-technical-muted text-[10px]">
           <div className="flex items-center space-x-2">
             <Radio size={11} className="text-signal-red animate-pulse" />
-            <span>LOC: 55°45'N 37°37'E</span>
+            <span>LOC: 34°41'N 73°56'E</span>
             <span className="text-void-700 hidden sm:inline">//</span>
-            <span className="text-signal-red font-bold hidden sm:inline">BROADCAST ACTIVE</span>
+            <span className="text-signal-red font-bold hidden sm:inline">ONLINE // 10</span>
           </div>
           <div className="barcode-pattern w-14 sm:w-16 h-2.5 sm:h-3 opacity-80" />
         </div>
       </motion.div>
 
       {/* 02. Center Main Editorial Poster & Anime Showcase */}
-      <div className="w-full my-auto py-6 sm:py-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pointer-events-auto relative z-10">
-        {/* Left: Expressive Layered Brand Typography & Anime Profile Info */}
-        <div className="max-w-2xl relative z-10 w-full space-y-4">
-          {/* Genre & Role Strip with anime badges */}
+      <div className="w-full my-auto py-4 sm:py-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pointer-events-auto relative z-10">
+        {/* Left: Expressive Layered Brand Typography */}
+        <div className="max-w-2xl relative z-10 w-full space-y-3.5">
+          {/* Header Subtitle Badge: [■ МУЗЫКАЛЬНЫЙ ПРОДЮСЕР & ЗВУКОВОЙ АРХИТЕКТОР 2023 ->] */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-[11px] sm:text-xs font-mono tracking-widest-tech uppercase flex flex-wrap items-center gap-2"
+            className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-technical-silver"
           >
-            <span className="px-2 py-0.5 bg-signal-red text-white font-bold text-[10px]">
-              dYnex? STUDIO
-            </span>
-            <span className="text-technical-silver">
+            <span className="w-2.5 h-2.5 bg-white inline-block shrink-0" />
+            <span className="font-bold tracking-widest text-white">
               {language === 'ru'
                 ? 'МУЗЫКАЛЬНЫЙ ПРОДЮСЕР & ЗВУКОВОЙ АРХИТЕКТОР'
-                : 'SOUND ARCHITECT & MUSIC PRODUCER'}
+                : 'MUSIC PRODUCER & SOUND ARCHITECT'}
             </span>
-            <span className="text-signal-red flex items-center gap-1 font-bold">
-              <Zap size={11} className="fill-signal-red" /> 2023—2026
-            </span>
+            <span className="text-signal-red font-bold ml-1">2023 →</span>
           </motion.div>
 
-          {/* Massive Artist Wordmark with Ghost Underlay */}
-          <div className="relative my-2">
-            {/* Ghost Wireframe Underlay */}
-            <div
-              aria-hidden="true"
-              className="absolute -top-3 -left-1 font-sans font-black text-6xl sm:text-8xl lg:text-[10rem] tracking-tighter text-stroke-ghost leading-none select-none pointer-events-none opacity-45"
-            >
-              dYnex?
-            </div>
-
-            {/* Front Solid Wordmark */}
+          {/* Massive Artist Wordmark: dYnex? */}
+          <div className="relative py-1">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative font-sans font-black text-5xl sm:text-7xl lg:text-9xl tracking-tighter text-white leading-none"
+              className="font-sans font-black text-6xl sm:text-8xl lg:text-[7.5rem] tracking-tighter text-white leading-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]"
             >
               dYnex<span className="text-signal-red">?</span>
             </motion.h1>
           </div>
 
-          {/* Anime Character Profile Telemetry Box */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="p-3.5 sm:p-4 bg-void-950/90 backdrop-blur-md border border-signal-red/60 shadow-poster-red-offset max-w-xl"
-          >
-            <div className="flex items-center justify-between text-[10px] font-mono text-signal-red uppercase pb-1.5 mb-2 border-b border-void-800">
-              <span className="font-bold flex items-center gap-1">
-                <Heart size={10} className="fill-signal-red" /> ARCHIVE PILOT // プロデューサー
-              </span>
-              <span className="text-technical-silver font-bold">ATTRIBUTE: ELECTRIC ⚡</span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono text-[10px] text-technical-silver">
-              <div>
-                <span className="text-technical-muted block">STYLE:</span>
-                <span className="text-white font-bold">DRIFT & PHONK</span>
-              </div>
-              <div>
-                <span className="text-technical-muted block">SYNTHESIS:</span>
-                <span className="text-white font-bold">DARK ELECTRONIC</span>
-              </div>
-              <div className="col-span-2 sm:col-span-1">
-                <span className="text-technical-muted block">STATUS:</span>
-                <span className="text-signal-red font-bold">VERIFIED MASTER</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Sound Manifesto Subhead with Japanese subtitle */}
+          {/* Genre Line: [● PHONK • EXPERIMENTAL ELECTRONIC • BRAZILIAN FUNK] */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-xs sm:text-sm font-mono text-technical-silver tracking-widest space-y-1.5"
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono tracking-widest text-technical-silver uppercase"
           >
-            <div className="flex items-center space-x-2 text-signal-red text-[11px] font-bold">
-              <span>●</span>
-              <span>PHONK • EXPERIMENTAL ELECTRONIC • BRAZILIAN DRIFT</span>
-              <span className="text-technical-muted font-normal hidden sm:inline">// 音響宇宙</span>
-            </div>
-            <p className="text-technical-muted text-xs leading-relaxed max-w-lg">
-              {language === 'ru'
-                ? 'Самобытная пространственная вселенная, балансирующая между футуристичным электронным саундом и гипнотическим ритмом.'
-                : 'A spatial sonic universe navigating between futuristic electronic soundscapes, dark phonk, and hypnotic rhythmic pressure.'}
-            </p>
+            <span className="w-2 h-2 rounded-full bg-signal-red inline-block shrink-0" />
+            <span className="font-bold tracking-wider text-technical-light">
+              PHONK • EXPERIMENTAL ELECTRONIC • BRAZILIAN FUNK
+            </span>
           </motion.div>
 
-          {/* Action CTAs: Sharp Technical Buttons */}
+          {/* Sound Manifesto Paragraph */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-xs sm:text-sm font-mono text-technical-muted leading-relaxed max-w-lg"
+          >
+            {language === 'ru'
+              ? 'Самобытная пространственная вселенная, балансирующая между футуристичным электронным саундом и гипнотической ритмикой.'
+              : 'A spatial sonic universe navigating between futuristic electronic soundscapes, dark phonk, and hypnotic rhythmic pressure.'}
+          </motion.p>
+
+          {/* Action CTAs: Matches User Mockup */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2"
           >
-            {/* Primary CTA: Listen Featured */}
+            {/* Primary CTA: Solid Signal Red Button */}
             <button
               onClick={() => setSelectedRelease(featuredRelease)}
-              className="group relative px-6 py-3.5 bg-signal-red hover:bg-signal-red-glow text-white font-mono text-xs tracking-widest uppercase rounded-none flex items-center space-x-3 transition-all duration-200 active:scale-95 shadow-signal-red-sharp"
+              className="group px-6 py-3.5 bg-signal-red hover:bg-signal-red-glow text-white font-mono text-xs font-bold tracking-widest uppercase rounded-none flex items-center space-x-2.5 transition-all duration-200 active:scale-95 shadow-signal-red-sharp"
             >
               <Play size={13} className="fill-white" />
               <span>{language === 'ru' ? 'СЛУШАТЬ РЕЛИЗ' : 'LISTEN NOW'}</span>
             </button>
 
-            {/* Secondary CTA: Enter Archive */}
+            {/* Secondary CTA: Border Button */}
             <button
               onClick={handleEnterArchive}
-              className="group px-5 py-3.5 bg-void-950/90 hover:bg-void-900 border border-void-800 hover:border-signal-red text-technical-light hover:text-signal-red font-mono text-xs tracking-widest uppercase rounded-none flex items-center space-x-2.5 transition-all duration-200 active:scale-95"
+              className="group px-5 py-3.5 bg-void-950/90 hover:bg-void-900 border border-void-700 hover:border-signal-red text-technical-light hover:text-white font-mono text-xs tracking-widest uppercase rounded-none flex items-center space-x-2 transition-all duration-200 active:scale-95"
             >
               <span>{language === 'ru' ? 'ВОЙТИ В 3D АРХИВ' : 'ENTER 3D ARCHIVE'}</span>
-              <ArrowDown size={14} className="text-signal-red group-hover:translate-y-0.5 transition-all" />
+              <ArrowDown size={14} className="text-signal-red group-hover:translate-y-0.5 transition-transform" />
             </button>
           </motion.div>
+
+          {/* Bottom Catalog Scroll Hint: [ СКРОЛЛ ДЛЯ ДЕТАЛЕЙ / КАТАЛОГ ] */}
+          <div className="pt-2 text-[10px] font-mono text-technical-muted tracking-widest uppercase flex items-center gap-1.5">
+            <span className="text-signal-red font-bold">[</span>
+            <span>{language === 'ru' ? 'СКРОЛЛ ДЛЯ ДЕТАЛЕЙ / КАТАЛОГ' : 'SCROLL FOR DETAILS / CATALOG'}</span>
+            <span className="text-signal-red font-bold">]</span>
+          </div>
+
+          {/* Bottom Left Technical Telemetry Box (ZONA 01, Barcode, Coordinates) */}
+          <div className="pt-3 hidden sm:flex items-center space-x-4 text-[9px] font-mono text-technical-muted">
+            <div className="flex items-center space-x-2">
+              <span className="text-signal-red font-black text-sm">Z</span>
+              <div>
+                <div className="text-signal-red font-bold">ZONA 01 // ORBITAL ENTRY</div>
+                <div>34° 41' N / 73° 56' E • CXR 2024-2026</div>
+              </div>
+            </div>
+            <div className="barcode-pattern w-20 h-4 opacity-70" />
+          </div>
         </div>
 
-        {/* Right: Featured Release Tactical Anime Poster Showcase */}
+        {/* Right: Featured Release Card Styled Exactly Like User Mockup */}
         {featuredRelease && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -210,56 +206,47 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.9, delay: 0.5 }}
             className="w-full sm:w-auto relative flex flex-col items-start lg:items-end mt-4 lg:mt-0 z-20"
           >
-            {/* Offset Red Shadow Frame for physical poster feel */}
             <div className="relative group max-w-sm w-full">
-              {/* Back Offset Red Rim */}
-              <div className="absolute -inset-1.5 bg-signal-red/30 border border-signal-red/60 -rotate-1 group-hover:rotate-0 transition-transform duration-300 pointer-events-none" />
+              {/* Back Offset Red Rim for Tactical Feeling */}
+              <div className="absolute -inset-1 bg-signal-red/25 border border-signal-red/50 pointer-events-none" />
 
-              {/* Main Poster Container */}
+              {/* Main Card Container */}
               <div
                 onClick={() => setSelectedRelease(featuredRelease)}
-                className="tactical-border relative p-4 bg-void-950/95 backdrop-blur-xl border border-void-700 group-hover:border-signal-red transition-all duration-300 rounded-none cursor-pointer w-full"
+                className="tactical-border relative p-3.5 sm:p-4 bg-void-950/95 backdrop-blur-2xl border border-void-700 group-hover:border-signal-red transition-all duration-300 rounded-none cursor-pointer w-full shadow-2xl"
               >
-                {/* Header inside frame */}
-                <div className="flex items-center justify-between text-[10px] font-mono text-technical-muted mb-3 border-b border-void-800 pb-2">
-                  <div className="flex items-center space-x-1.5 text-signal-red">
-                    <Disc3 size={11} className="animate-spin-slow" />
-                    <span className="font-bold tracking-widest">
-                      {language === 'ru' ? 'АКТУАЛЬНЫЙ РЕЛИЗ' : 'ACTIVE RELEASE'}
+                {/* Header Row: АКТУАЛЬНЫЙ РЕЛИЗ #2026 FEATURED */}
+                <div className="flex items-center justify-between text-[10px] font-mono mb-3 border-b border-void-800 pb-2">
+                  <span className="text-technical-muted uppercase tracking-wider font-bold">
+                    {language === 'ru' ? 'АКТУАЛЬНЫЙ РЕЛИЗ' : 'ACTIVE RELEASE'}
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-technical-silver font-mono">#2026</span>
+                    <span className="px-1.5 py-0.5 bg-signal-red text-white text-[9px] font-bold uppercase">
+                      FEATURED
                     </span>
-                  </div>
-                  <div className="flex items-center space-x-1.5 text-signal-red font-mono">
-                    <Heart size={10} className="fill-signal-red text-signal-red" />
-                    <span>#{featuredRelease.year}</span>
                   </div>
                 </div>
 
-                {/* Artwork with subtle border */}
+                {/* Release Artwork Container */}
                 <div className="relative aspect-square w-full rounded-none overflow-hidden border border-void-700 group-hover:border-signal-red transition-colors mb-3">
                   <img
                     src={featuredRelease.artworkUrl}
                     alt={featuredRelease.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-2 right-2 px-2 py-0.5 bg-void-950/90 border border-signal-red text-[9px] font-mono text-signal-red font-bold flex items-center gap-1">
-                    <Sparkles size={9} />
-                    VERIFIED
-                  </div>
-                  <div className="absolute bottom-2 left-2 px-1.5 py-0.5 bg-void-950/80 text-[8px] font-mono text-technical-silver">
-                    ISRC: {featuredRelease.isrc || 'DNX-2026-01'}
-                  </div>
                 </div>
 
                 {/* Release Metadata Block */}
-                <div className="font-mono text-xs space-y-1">
-                  <div className="font-sans font-bold text-white text-lg group-hover:text-signal-red transition-colors truncate">
+                <div className="font-mono space-y-1.5">
+                  <div className="font-sans font-black text-white text-xl group-hover:text-signal-red transition-colors truncate">
                     {featuredRelease.title}
                   </div>
-                  <div className="text-technical-silver text-[11px] truncate">
+                  <div className="text-technical-silver text-xs truncate">
                     {featuredRelease.artists}
                   </div>
                   <div className="flex items-center justify-between text-[10px] text-technical-muted pt-2 border-t border-void-800/80">
-                    <span>GENRE: {featuredRelease.genre}</span>
+                    <span className="uppercase">GENRE: {featuredRelease.genre}</span>
                     <span className="text-signal-red font-bold group-hover:translate-x-1 transition-transform flex items-center space-x-1">
                       <span>{language === 'ru' ? 'ОТКРЫТЬ' : 'OPEN'}</span>
                       <span>→</span>
@@ -267,8 +254,19 @@ export const HeroSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Barcode Accent */}
-                <div className="barcode-pattern w-full h-2.5 mt-3 opacity-80" />
+                {/* Red Audio Waveform Equalizer Bar at Card Bottom (From Mockup) */}
+                <div className="w-full flex items-center space-x-0.5 mt-3 pt-2 border-t border-void-800/80">
+                  {Array.from({ length: 32 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 bg-signal-red"
+                      style={{
+                        height: `${Math.max(3, (Math.sin(i * 0.45) * 0.5 + 0.5) * 14)}px`,
+                        opacity: 0.6 + (i % 3) * 0.15,
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>

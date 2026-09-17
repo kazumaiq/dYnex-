@@ -6,8 +6,17 @@ export const Footer: React.FC<{ onOpenAdmin: () => void }> = ({ onOpenAdmin }) =
   const { language } = useArchive();
 
   return (
-    <footer className="relative z-10 w-full py-16 px-6 border-t border-void-800/80 bg-void-950/60 backdrop-blur-md select-none font-mono text-xs text-technical-muted">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+    <footer className="relative z-10 w-full py-16 px-6 border-t border-void-800/80 bg-void-950/60 backdrop-blur-md select-none font-mono text-xs text-technical-muted overflow-hidden">
+      {/* Background Cyberpunk Collage Accents */}
+      <div className="hidden sm:block absolute right-4 -bottom-6 w-56 h-auto pointer-events-none opacity-20 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-roses-bottom.jpg"
+          alt="Roses Accent"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
         {/* Brand & Concept */}
         <div className="flex flex-col space-y-2 text-center md:text-left">
           <div className="text-2xl font-bold font-sans tracking-tight text-white">

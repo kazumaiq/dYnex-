@@ -12,12 +12,12 @@ export const StickyReleaseStack: React.FC = () => {
 
   const displayReleases = stackReleases.length >= 3 ? stackReleases : releases.slice(0, 4);
 
-  // Bespoke 4K anime artwork backdrops for each stack card
+  // Master collage artwork backdrops for each stack card
   const stackBackdrops = [
-    '/assets/anime/city-backdrop.jpg',
-    '/assets/anime/samurai-character.jpg',
-    '/assets/anime/dj-producer.jpg',
-    '/assets/anime/hero-character.jpg',
+    '/assets/collage/botanical-cyber.jpg',
+    '/assets/collage/anime-tactical.jpg',
+    '/assets/collage/risograph-roses.jpg',
+    '/assets/collage/hero-master-full.jpg',
   ];
 
   return (
@@ -25,6 +25,21 @@ export const StickyReleaseStack: React.FC = () => {
       id="stack"
       className="relative w-full px-4 sm:px-8 lg:px-12 py-20 sm:py-28 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
     >
+      {/* Background Cyberpunk Accents */}
+      <div className="hidden sm:block absolute -right-16 top-1/4 w-80 h-auto pointer-events-none opacity-20 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-anby-character.jpg"
+          alt="Anime Accent"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+      <div className="hidden lg:block absolute -left-12 bottom-1/4 w-72 h-auto pointer-events-none opacity-25 mix-blend-screen z-0">
+        <img
+          src="/assets/collage/hero-lily-botanical.jpg"
+          alt="Botanical Accent"
+          className="w-full h-auto object-contain"
+        />
+      </div>
       <div className="w-full pointer-events-auto mb-8 sm:mb-12">
         <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-2">
           <Sparkles size={13} className="text-signal-red" />
