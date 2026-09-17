@@ -1,0 +1,13 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vscode
+.DS_Store
+
+# Scratch search files
+abstract_search.json
+broca.json
+dynex_full_discography.json
+itunes_dynex.json
+vervix_search.json
