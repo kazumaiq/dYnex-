@@ -104,13 +104,13 @@
 .crt-overlay {
   background: linear-gradient(
     rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.22) 50%
+    rgba(0, 0, 0, 0.26) 50%
   ),
   linear-gradient(
     90deg,
-    rgba(230, 25, 36, 0.02),
+    rgba(230, 25, 36, 0.03),
     rgba(0, 0, 0, 0),
-    rgba(139, 92, 246, 0.02)
+    rgba(255, 255, 255, 0.015)
   );
   background-size: 100% 3px, 4px 100%;
 }
@@ -124,8 +124,8 @@
   position: absolute;
   top: -1px;
   left: -1px;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-top: 2px solid #E61924;
   border-left: 2px solid #E61924;
 }
@@ -134,8 +134,43 @@
   position: absolute;
   bottom: -1px;
   right: -1px;
-  width: 6px;
-  height: 6px;
-  border-bottom: 2px solid #8B5CF6;
-  border-right: 2px solid #8B5CF6;
+  width: 7px;
+  height: 7px;
+  border-bottom: 2px solid #E61924;
+  border-right: 2px solid #E61924;
+}
+
+/* Red Editorial Poster Frame */
+.poster-frame-red {
+  position: relative;
+  border: 1px solid rgba(230, 25, 36, 0.5);
+  box-shadow: 0 0 0 1px rgba(2, 2, 4, 0.9), inset 0 0 0 1px rgba(230, 25, 36, 0.2);
+}
+
+/* Risograph / Film Grain Texture */
+.risograph-texture {
+  background-image: radial-gradient(rgba(230, 25, 36, 0.15) 1px, transparent 1px), radial-gradient(rgba(242, 242, 238, 0.08) 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+
+/* Cutout Mask Fade for Image Collage Fragments */
+.cutout-mask-radial {
+  mask-image: radial-gradient(circle at center, black 45%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 75%);
+}
+
+.cutout-mask-bottom {
+  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+}
+
+.cutout-mask-left {
+  mask-image: linear-gradient(to right, transparent 0%, black 35%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%, black 85%, transparent 100%);
+}
+
+/* Split Background Diagonal */
+.split-bg-diagonal {
+  background: linear-gradient(135deg, rgba(230, 25, 36, 0.15) 0%, rgba(2, 2, 4, 0.95) 55%);
 }

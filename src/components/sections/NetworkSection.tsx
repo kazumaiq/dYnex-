@@ -19,7 +19,7 @@ export const NetworkSection: React.FC = () => {
       <div className="w-full pointer-events-auto">
         {/* Header */}
         <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-2">
-          <span className="text-cyber-purple-glow">// 05</span>
+          <span className="font-bold">// 05</span>
           <span className="font-bold">{language === 'ru' ? 'СЕТЬ КОЛЛАБОРАЦИЙ & СОАВТОРОВ' : 'COLLABORATOR NETWORK'}</span>
           <span className="text-void-700">//</span>
           <span className="text-technical-muted">提携ノード // NODES</span>
@@ -42,7 +42,7 @@ export const NetworkSection: React.FC = () => {
                 <button
                   key={c.id}
                   onClick={() => setActiveCollaboratorId(c.id)}
-                  className={`w-full p-3.5 text-left border rounded-sm transition-all duration-200 flex items-center justify-between group ${
+                  className={`w-full p-3.5 text-left border rounded-none transition-all duration-200 flex items-center justify-between group ${
                     isActive
                       ? 'tactical-border bg-void-900 border-signal-red text-white shadow-[0_0_15px_rgba(230,25,36,0.3)]'
                       : 'bg-void-950/85 border-void-800 text-technical-silver hover:border-signal-red/50 hover:bg-void-900/60'
@@ -63,12 +63,12 @@ export const NetworkSection: React.FC = () => {
           </div>
 
           {/* Right: Detailed Node Card & Related Releases */}
-          <div className="tactical-border lg:col-span-2 p-5 sm:p-8 bg-void-950/90 backdrop-blur-xl border border-void-800 rounded-sm flex flex-col justify-between shadow-2xl">
+          <div className="tactical-border lg:col-span-2 p-5 sm:p-8 bg-void-950/90 backdrop-blur-xl border border-void-700 rounded-none flex flex-col justify-between shadow-2xl">
             <div>
               <div className="flex items-center justify-between border-b border-void-800 pb-4 mb-6">
                 <div>
                   <div className="flex items-center space-x-2 text-[10px] font-mono text-signal-red uppercase tracking-widest mb-1">
-                    <Users size={12} className="text-cyber-purple-glow" />
+                    <Users size={12} className="text-signal-red" />
                     <span>{language === 'ru' ? 'ВЕРИФИЦИРОВАННЫЙ СОАВТОР' : 'VERIFIED PRODUCER'}</span>
                   </div>
                   <h3 className="text-2xl sm:text-4xl font-black font-sans text-white uppercase tracking-tight">
@@ -79,7 +79,7 @@ export const NetworkSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-1.5 text-xs font-mono text-signal-red bg-void-950 px-3 py-1.5 border border-void-800 rounded-sm">
+                <div className="flex items-center space-x-1.5 text-xs font-mono text-signal-red bg-void-950 px-3 py-1.5 border border-void-800 rounded-none">
                   <ShieldCheck size={14} className="text-signal-red animate-pulse" />
                   <span className="font-bold">VERIFIED</span>
                 </div>
@@ -96,7 +96,7 @@ export const NetworkSection: React.FC = () => {
                     <div
                       key={rel.id}
                       onClick={() => setSelectedRelease(rel)}
-                      className="flex items-center space-x-3 p-3 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red/70 hover:shadow-neon-mix rounded-sm cursor-pointer transition-all group"
+                      className="flex items-center space-x-3 p-3 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red rounded-none cursor-pointer transition-all group"
                     >
                       <div className="w-12 h-12 rounded-sm overflow-hidden border border-void-700 shrink-0 group-hover:border-signal-red transition-colors">
                         <img

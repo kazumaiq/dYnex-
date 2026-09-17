@@ -37,7 +37,7 @@ export const MarqueeSection: React.FC = () => {
             <span key={i} className="mr-8 flex items-center space-x-4">
               <span className="text-stroke-ghost">NO FIXED FREQUENCY</span>
               <span className="text-void-800">•</span>
-              <span className="text-cyber-purple-glow">音響周波数</span>
+              <span className="text-signal-red font-mono">音響周波数</span>
               <span className="text-void-800">•</span>
               <span className="text-white">ABSTRACT</span>
               <span className="text-void-800">•</span>

@@ -52,12 +52,12 @@ export const ReleaseDetailModal: React.FC = () => {
           animate={{ scale: 1, y: 0, opacity: 1 }}
           exit={{ scale: 0.95, y: 15, opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 w-full max-w-2xl bg-void-950 border border-void-800 shadow-neon-mix rounded-sm overflow-hidden flex flex-col md:flex-row text-technical-light max-h-[92vh] overflow-y-auto"
+          className="relative z-10 w-full max-w-2xl bg-void-950/95 border border-void-700 shadow-[0_25px_60px_rgba(0,0,0,0.95)] rounded-none overflow-hidden flex flex-col md:flex-row text-technical-light max-h-[92vh] overflow-y-auto"
         >
           {/* Close button */}
           <button
             onClick={() => setSelectedRelease(null)}
-            className="absolute top-4 right-4 z-20 p-2 text-technical-muted hover:text-cyber-purple-glow bg-void-950/80 border border-void-800 hover:border-cyber-purple/50 rounded-sm transition-colors"
+            className="absolute top-4 right-4 z-20 p-2 text-technical-muted hover:text-white bg-void-950/80 border border-void-800 hover:border-signal-red rounded-none transition-colors"
             aria-label="Закрыть"
           >
             <X size={18} />
@@ -121,7 +121,7 @@ export const ReleaseDetailModal: React.FC = () => {
                 {selectedRelease.label && (
                   <div className="flex justify-between">
                     <span className="text-technical-muted">LABEL:</span>
-                    <span className="text-cyber-purple-glow font-bold">{selectedRelease.label}</span>
+                    <span className="text-signal-red font-bold">{selectedRelease.label}</span>
                   </div>
                 )}
                 {selectedRelease.isrc && (
@@ -160,10 +160,10 @@ export const ReleaseDetailModal: React.FC = () => {
                     href={selectedRelease.platforms.appleMusic}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 hover:shadow-cyber-purple-glow text-xs font-mono text-technical-light hover:text-cyber-purple-glow transition-all rounded-sm"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
                   >
                     <span>Apple Music</span>
-                    <ExternalLink size={12} className="text-cyber-purple" />
+                    <ExternalLink size={12} className="text-signal-red" />
                   </a>
                 )}
                 {selectedRelease.platforms.spotify && (
@@ -171,7 +171,7 @@ export const ReleaseDetailModal: React.FC = () => {
                     href={selectedRelease.platforms.spotify}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red/70 hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-sm"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
                   >
                     <span>Spotify</span>
                     <ExternalLink size={12} className="text-signal-red" />
@@ -182,10 +182,10 @@ export const ReleaseDetailModal: React.FC = () => {
                     href={selectedRelease.platforms.vk}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 hover:shadow-cyber-purple-glow text-xs font-mono text-technical-light hover:text-cyber-purple-glow transition-all rounded-sm"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
                   >
                     <span>VK Музыка</span>
-                    <ExternalLink size={12} className="text-cyber-purple" />
+                    <ExternalLink size={12} className="text-signal-red" />
                   </a>
                 )}
                 {selectedRelease.platforms.youtube && (
@@ -193,7 +193,7 @@ export const ReleaseDetailModal: React.FC = () => {
                     href={selectedRelease.platforms.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red/70 hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-sm"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
                   >
                     <span>YouTube</span>
                     <ExternalLink size={12} className="text-signal-red" />
@@ -204,7 +204,7 @@ export const ReleaseDetailModal: React.FC = () => {
                     href={selectedRelease.platforms.soundCloud}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red/70 text-xs font-mono text-technical-light hover:text-signal-red transition-all rounded-sm"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red text-xs font-mono text-technical-light hover:text-signal-red transition-all rounded-none"
                   >
                     <span>SoundCloud</span>
                     <ExternalLink size={12} className="text-signal-red" />
@@ -215,10 +215,10 @@ export const ReleaseDetailModal: React.FC = () => {
                     href={selectedRelease.platforms.yandexMusic}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 text-xs font-mono text-technical-light hover:text-cyber-purple-glow transition-all rounded-sm"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
                   >
                     <span>Яндекс Музыка</span>
-                    <ExternalLink size={12} className="text-cyber-purple" />
+                    <ExternalLink size={12} className="text-signal-red" />
                   </a>
                 )}
               </div>

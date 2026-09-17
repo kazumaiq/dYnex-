@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+﻿import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useArchive } from '../../context/ArchiveContext';
+import { PosterCutout } from '../collage/PosterCutout';
 
 // Character reveal element
 const RevealText: React.FC<{ text: string }> = ({ text }) => {
@@ -13,7 +14,7 @@ const RevealText: React.FC<{ text: string }> = ({ text }) => {
   const words = text.split(' ');
 
   return (
-    <p ref={containerRef} className="flex flex-wrap text-lg sm:text-2xl lg:text-3xl font-sans font-medium text-white leading-relaxed">
+    <p ref={containerRef} className="flex flex-wrap text-base sm:text-xl lg:text-2xl font-sans font-medium text-white leading-relaxed">
       {words.map((word, i) => {
         const start = i / words.length;
         const end = start + 1 / words.length;
@@ -55,10 +56,21 @@ export const AboutSection: React.FC = () => {
       id="about"
       className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 flex flex-col justify-center pointer-events-none select-none overflow-hidden"
     >
+      {/* Background Risograph Rose Floral Motif Layer */}
+      <div className="absolute -right-8 bottom-4 w-80 sm:w-[30rem] lg:w-[38rem] h-80 sm:h-[30rem] lg:h-[38rem] pointer-events-none opacity-20 lg:opacity-25 mix-blend-screen z-0">
+        <PosterCutout
+          src="/assets/collage/risograph-roses.jpg"
+          alt="dYnex Risograph Roses Editorial"
+          maskType="radial"
+          cropPosition="center"
+          className="w-full h-full"
+        />
+      </div>
+
       {/* Ghost Background Typographic Watermark */}
       <div
         aria-hidden="true"
-        className="absolute right-0 top-1/3 -translate-y-1/2 select-none pointer-events-none text-stroke-ghost text-6xl sm:text-8xl lg:text-[13rem] font-black leading-none opacity-20 -z-10 tracking-tighter"
+        className="absolute right-0 top-1/3 -translate-y-1/2 select-none pointer-events-none text-stroke-ghost text-6xl sm:text-8xl lg:text-[13rem] font-black leading-none opacity-15 -z-10 tracking-tighter"
       >
         MANIFESTO
       </div>
@@ -68,21 +80,21 @@ export const AboutSection: React.FC = () => {
         <div className="hidden lg:flex flex-col items-center font-mono text-[9px] text-technical-muted tracking-widest uppercase writing-vertical border-r border-void-800/80 pr-4 mr-8 space-y-6 opacity-60">
           <span>周波数固定なし // 音響マニフェスト</span>
           <div className="barcode-pattern w-2 h-16 opacity-70" />
-          <span>ARCHIVE NODE // ZERO CONSTRAINT</span>
+          <span className="text-signal-red">ARCHIVE NODE // ZERO CONSTRAINT</span>
         </div>
 
         {/* Content Body */}
         <div className="flex-1 w-full">
           {/* Zone indicator */}
           <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-4">
-            <span className="text-cyber-purple-glow">// 03</span>
-            <span className="font-bold">{language === 'ru' ? 'МАНИФЕСТ ИДЕНТИЧНОСТИ' : 'IDENTITY MANIFESTO'}</span>
+            <span className="font-bold">// 03</span>
+            <span className="text-white font-bold">{language === 'ru' ? 'МАНИФЕСТ ИДЕНТИЧНОСТИ' : 'IDENTITY MANIFESTO'}</span>
             <span className="text-void-700">//</span>
             <span className="text-technical-muted font-mono">NODE 0X-DYNEX</span>
           </div>
 
           {/* Primary Statement */}
-          <h2 className="font-sans font-black text-4xl sm:text-6xl lg:text-8xl tracking-tighter text-white uppercase mb-8 sm:mb-12 leading-none">
+          <h2 className="font-sans font-black text-3xl sm:text-5xl lg:text-7xl tracking-tighter text-white uppercase mb-8 sm:mb-12 leading-none">
             {language === 'ru' ? (
               <>
                 БЕЗ ФИКСИРОВАННОЙ<br />
@@ -100,10 +112,13 @@ export const AboutSection: React.FC = () => {
             )}
           </h2>
 
-          {/* Character-by-character scroll revealed paragraph in tactical frame */}
-          <div className="tactical-border mb-10 p-6 sm:p-8 bg-void-950/90 backdrop-blur-xl border border-void-800 rounded-sm hover:border-cyber-purple/50 transition-colors shadow-2xl">
+          {/* Character-by-character scroll revealed paragraph in tactical editorial frame */}
+          <div className="tactical-border mb-10 p-6 sm:p-8 bg-void-950/95 backdrop-blur-xl border border-void-700 rounded-none hover:border-signal-red transition-colors shadow-2xl relative">
+            <div className="absolute top-2 right-4 text-[9px] font-mono text-signal-red tracking-widest uppercase">
+              // ARCHIVE_DOC_2026
+            </div>
             <RevealText text={language === 'ru' ? manifestoRu : manifestoEn} />
-            <div className="barcode-pattern-silver w-24 h-2 mt-6 opacity-40" />
+            <div className="barcode-pattern-silver w-24 h-2 mt-6 opacity-50" />
           </div>
 
           {/* Technical Data Grid */}
@@ -124,7 +139,7 @@ export const AboutSection: React.FC = () => {
             </div>
             <div className="space-y-1">
               <div className="text-technical-muted text-[10px] uppercase">{language === 'ru' ? 'СТАТУС:' : 'STATUS:'}</div>
-              <div className="text-cyber-purple-glow font-bold text-sm">INDEPENDENT</div>
+              <div className="text-signal-red font-bold text-sm">INDEPENDENT</div>
             </div>
           </div>
         </div>

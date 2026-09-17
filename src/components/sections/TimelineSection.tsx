@@ -62,7 +62,7 @@ export const TimelineSection: React.FC = () => {
       <div className="w-full pointer-events-auto">
         {/* Section Header */}
         <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-2">
-          <span className="text-cyber-purple-glow">// 04</span>
+          <span className="font-bold">// 04</span>
           <span className="font-bold">{language === 'ru' ? 'АРХИВ ЭВОЛЮЦИИ ЗВУЧАНИЯ' : 'SONIC EVOLUTION ARCHIVE'}</span>
           <span className="text-void-700">//</span>
           <span className="text-technical-muted">CHRONICLE 2023—2026</span>
@@ -80,7 +80,7 @@ export const TimelineSection: React.FC = () => {
               <button
                 key={m.year}
                 onClick={() => setSelectedYear(m.year)}
-                className={`p-3.5 sm:p-4 text-left rounded-sm transition-all duration-300 relative overflow-hidden group ${
+                className={`p-3.5 sm:p-4 text-left rounded-none transition-all duration-300 relative overflow-hidden group ${
                   isActive
                     ? 'tactical-border bg-void-900 border-signal-red shadow-[0_0_20px_rgba(230,25,36,0.25)]'
                     : 'bg-void-950/80 border border-void-800 hover:border-void-700 hover:bg-void-900/60'
@@ -106,11 +106,11 @@ export const TimelineSection: React.FC = () => {
         </div>
 
         {/* Active Year Detail Box */}
-        <div className="tactical-border p-5 sm:p-8 bg-void-950/90 backdrop-blur-xl border border-void-800 rounded-sm shadow-2xl">
+        <div className="tactical-border p-5 sm:p-8 bg-void-950/90 backdrop-blur-xl border border-void-700 rounded-none shadow-2xl">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 border-b border-void-800/80 pb-6">
             <div>
               <div className="text-[10px] sm:text-xs font-mono text-signal-red tracking-widest uppercase mb-1 flex items-center space-x-2">
-                <Calendar size={13} className="text-cyber-purple-glow" />
+                <Calendar size={13} className="text-signal-red" />
                 <span>{language === 'ru' ? 'ХАРАКТЕРИСТИКА ЭРЫ' : 'ERA SPECIFICATION'}</span>
                 <span className="text-void-700">//</span>
                 <span className="text-technical-muted">NODE {selectedYear}</span>
@@ -127,7 +127,7 @@ export const TimelineSection: React.FC = () => {
           {/* Releases in this year */}
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono text-technical-muted uppercase tracking-widest mb-4">
-              <span className="text-cyber-purple-glow">
+              <span className="text-signal-red font-bold">
                 {language === 'ru' ? `РЕЛИЗЫ ${selectedYear} ГОДА (${yearReleases.length}):` : `CONFIRMED ${selectedYear} RELEASES (${yearReleases.length}):`}
               </span>
               <span className="text-signal-red hidden sm:inline">[ TAP TO INSPECT ]</span>
@@ -138,7 +138,7 @@ export const TimelineSection: React.FC = () => {
                 <div
                   key={r.id}
                   onClick={() => setSelectedRelease(r)}
-                  className="flex items-center space-x-3 p-3 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red/70 hover:shadow-neon-mix rounded-sm cursor-pointer transition-all group"
+                  className="flex items-center space-x-3 p-3 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red rounded-none cursor-pointer transition-all group"
                 >
                   <div className="w-11 h-11 rounded-sm overflow-hidden border border-void-700 shrink-0 group-hover:border-signal-red transition-colors">
                     <img
