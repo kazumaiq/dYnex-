@@ -1,8 +1,47 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Release } from '../../types';
+
+// Global texture cache to prevent duplicate fetches across re-renders
+const textureCache = new Map<string, THREE.Texture>();
+const loader = new THREE.TextureLoader();
+
+// Shared procedural fallback canvas texture (generated once in memory)
+let sharedFallbackTexture: THREE.CanvasTexture | null = null;
+function getSharedFallbackTexture(): THREE.CanvasTexture {
+  if (!sharedFallbackTexture) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.fillStyle = '#08090C';
+      ctx.fillRect(0, 0, 256, 256);
+      ctx.strokeStyle = '#1A1B20';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(8, 8, 240, 240);
+      ctx.fillStyle = '#E61924';
+      ctx.fillRect(8, 8, 16, 4);
+      ctx.fillRect(8, 8, 4, 16);
+      ctx.font = 'bold 24px sans-serif';
+      ctx.fillStyle = '#F2F2EE';
+      ctx.fillText('dYnex?', 20, 50);
+      ctx.font = '16px monospace';
+      ctx.fillStyle = '#77777D';
+      ctx.fillText('ARCHIVE', 20, 90);
+    }
+    sharedFallbackTexture = new THREE.CanvasTexture(canvas);
+  }
+  return sharedFallbackTexture;
+}
+
+// Shared dark materials for card sides and back
+const sharedSideMaterial = new THREE.MeshStandardMaterial({
+  color: '#08090C',
+  roughness: 0.8,
+  metalness: 0.2,
+});
 
 interface ReleaseCard3DProps {
   release: Release;
@@ -25,90 +64,62 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
 }) => {
   const meshRef = useRef<THREE.Group>(null!);
   const [hovered, setHovered] = useState(false);
-  const [textureError, setTextureError] = useState(false);
+  const [texture, setTexture] = useState<THREE.Texture | null>(() => {
+    return release.artworkUrl ? textureCache.get(release.artworkUrl) || null : null;
+  });
 
-  // Load official artwork texture with procedural fallback on failure
-  let texture: THREE.Texture | null = null;
-  try {
-    if (release.artworkUrl && !textureError) {
-      texture = useTexture(release.artworkUrl);
-      if (texture) {
-        texture.generateMipmaps = true;
-        texture.minFilter = THREE.LinearMipmapLinearFilter;
+  // Asynchronous non-suspending texture loading
+  useEffect(() => {
+    if (!release.artworkUrl) return;
+
+    if (textureCache.has(release.artworkUrl)) {
+      setTexture(textureCache.get(release.artworkUrl)!);
+      return;
+    }
+
+    let isMounted = true;
+    loader.load(
+      release.artworkUrl,
+      (loadedTex) => {
+        if (!isMounted) return;
+        loadedTex.generateMipmaps = true;
+        loadedTex.minFilter = THREE.LinearMipmapLinearFilter;
+        textureCache.set(release.artworkUrl, loadedTex);
+        setTexture(loadedTex);
+      },
+      undefined,
+      (err) => {
+        // Silently use procedural fallback without crashing
+        console.warn(`Could not load artwork for ${release.title}`, err);
       }
-    }
-  } catch {
-    // fallback
-  }
+    );
 
-  // Current interpolated position/rotation
+    return () => {
+      isMounted = false;
+    };
+  }, [release.artworkUrl, release.title]);
+
+  // Current interpolated position and rotation vectors
   const currentPos = useRef(new THREE.Vector3(...targetPos));
-  const currentRot = useRef(new THREE.Euler(...targetRot));
 
-  // Front material: Artwork texture or Procedural Fallback
+  // Front cover material: loaded texture or instant procedural fallback
   const frontMaterial = useMemo(() => {
-    if (texture && !textureError) {
-      return new THREE.MeshStandardMaterial({
-        map: texture,
-        roughness: 0.25,
-        metalness: 0.1,
-      });
-    }
-
-    // Procedural Fallback Canvas
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 512;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      ctx.fillStyle = '#08090C';
-      ctx.fillRect(0, 0, 512, 512);
-      // Technical borders
-      ctx.strokeStyle = '#1A1B20';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(16, 16, 480, 480);
-      // Red corner markers
-      ctx.fillStyle = '#E61924';
-      ctx.fillRect(16, 16, 24, 6);
-      ctx.fillRect(16, 16, 6, 24);
-      // Text
-      ctx.font = 'bold 36px "Space Grotesk", sans-serif';
-      ctx.fillStyle = '#F2F2EE';
-      ctx.fillText('dYnex?', 36, 80);
-      ctx.font = '24px monospace';
-      ctx.fillStyle = '#77777D';
-      ctx.fillText(release.title.substring(0, 20), 36, 140);
-      ctx.fillText(String(release.year), 36, 180);
-    }
-    const canvasTex = new THREE.CanvasTexture(canvas);
     return new THREE.MeshStandardMaterial({
-      map: canvasTex,
-      roughness: 0.3,
-      metalness: 0.1,
+      map: texture || getSharedFallbackTexture(),
+      roughness: 0.35,
+      metalness: 0.15,
     });
-  }, [texture, textureError, release.title, release.year]);
+  }, [texture]);
 
-  // Dark industrial materials for sides and back
-  const sideMaterial = useMemo(() => new THREE.MeshStandardMaterial({
-    color: '#0D0E12',
-    roughness: 0.7,
-    metalness: 0.3,
-  }), []);
-
-  const edgeMaterial = useMemo(() => new THREE.MeshBasicMaterial({
-    color: isFeatured || hovered ? '#E61924' : '#1A1B20',
-    wireframe: true,
-  }), [isFeatured, hovered]);
-
-  // Materials array for BoxGeometry: [right, left, top, bottom, front, back]
+  // Materials array for BoxGeometry: [+X, -X, +Y, -Y, +Z (cover), -Z (back)]
   const boxMaterials = useMemo(() => [
-    sideMaterial, // +X
-    sideMaterial, // -X
-    sideMaterial, // +Y
-    sideMaterial, // -Y
-    frontMaterial,// +Z (front cover)
-    sideMaterial, // -Z (back)
-  ], [frontMaterial, sideMaterial]);
+    sharedSideMaterial,
+    sharedSideMaterial,
+    sharedSideMaterial,
+    sharedSideMaterial,
+    frontMaterial,
+    sharedSideMaterial,
+  ], [frontMaterial]);
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
@@ -116,16 +127,15 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
     let destPos = new THREE.Vector3(...targetPos);
     let destRot = new THREE.Euler(...targetRot);
 
-    // If selected, fly directly in front of camera lens for cinematic focus
+    // If selected, fly directly in front of the camera
     if (isSelected) {
       destPos.set(0, 0, cameraZ - 28);
       destRot.set(0, 0, 0);
     } else if (hovered) {
-      // Approach cursor slightly
-      destPos.z += 3.5;
+      destPos.z += 3;
     }
 
-    // Smooth interpolation with delta damping
+    // High performance lerp
     const lerpSpeed = isSelected ? 4.5 : 3.5;
     currentPos.current.lerp(destPos, delta * lerpSpeed);
     meshRef.current.position.copy(currentPos.current);
@@ -135,16 +145,17 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
     meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, destRot.y, delta * lerpSpeed);
     meshRef.current.rotation.z = THREE.MathUtils.lerp(meshRef.current.rotation.z, destRot.z, delta * lerpSpeed);
 
-    // Idle floating micro-bobbing when not selected
-    if (!isSelected) {
+    // Micro-bobbing only when close to viewport to save mobile CPU
+    const distToCam = Math.abs(meshRef.current.position.z - cameraZ);
+    if (!isSelected && distToCam < 200) {
       const t = state.clock.getElapsedTime();
-      meshRef.current.position.y += Math.sin(t * 1.5 + targetPos[0]) * 0.015;
+      meshRef.current.position.y += Math.sin(t * 1.5 + targetPos[0]) * 0.012;
     }
   });
 
-  const cardWidth = isFeatured ? 14 : 11;
-  const cardHeight = isFeatured ? 14 : 11;
-  const cardDepth = 0.35;
+  const cardWidth = isFeatured ? 13 : 10;
+  const cardHeight = isFeatured ? 13 : 10;
+  const cardDepth = 0.3;
 
   return (
     <group
@@ -156,37 +167,25 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
-        document.body.style.cursor = 'pointer';
       }}
       onPointerOut={() => {
         setHovered(false);
-        document.body.style.cursor = 'auto';
       }}
     >
-      {/* 3D Physical Release Card Box */}
-      <mesh material={boxMaterials} castShadow receiveShadow>
+      {/* 3D Physical Release Box */}
+      <mesh material={boxMaterials}>
         <boxGeometry args={[cardWidth, cardHeight, cardDepth]} />
       </mesh>
 
-      {/* Subtle glowing edge reticle */}
+      {/* Glowing Edge Border */}
       <lineSegments>
-        <edgesGeometry args={[new THREE.BoxGeometry(cardWidth + 0.05, cardHeight + 0.05, cardDepth + 0.05)]} />
+        <edgesGeometry args={[new THREE.BoxGeometry(cardWidth + 0.04, cardHeight + 0.04, cardDepth + 0.04)]} />
         <lineBasicMaterial
-          color={isSelected || hovered ? '#E61924' : isFeatured ? '#E61924' : '#2A2B33'}
+          color={isSelected || hovered ? '#E61924' : isFeatured ? '#E61924' : '#1A1B20'}
           transparent
-          opacity={isSelected || hovered ? 0.9 : isFeatured ? 0.65 : 0.25}
+          opacity={isSelected || hovered ? 0.9 : isFeatured ? 0.6 : 0.25}
         />
       </lineSegments>
-
-      {/* Small technical indicator when hovered */}
-      {hovered && !isSelected && (
-        <group position={[0, -cardHeight / 2 - 1.5, 0.5]}>
-          <mesh>
-            <planeGeometry args={[5, 1]} />
-            <meshBasicMaterial color="#050507" transparent opacity={0.85} />
-          </mesh>
-        </group>
-      )}
     </group>
   );
 };

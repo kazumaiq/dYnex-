@@ -57,10 +57,11 @@ export const HeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-sans font-black text-6xl sm:text-8xl lg:text-9xl tracking-tighter text-white leading-none mb-6"
+          className="font-sans font-black text-5xl sm:text-7xl lg:text-9xl tracking-tighter text-white leading-none mb-6"
         >
           dYnex<span className="text-signal-red">?</span>
         </motion.h1>
+
 
         {/* Style & Catalog Metadata */}
         <motion.div

@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useArchive } from '../../context/ArchiveContext';
 import { ReleaseCard3D } from './ReleaseCard3D';
@@ -23,9 +22,8 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
     return releases.filter(r => r.published !== false);
   }, [releases]);
 
-  // Number of releases in the orbital archive
   const totalReleases = publishedReleases.length;
-  const radius = isMobile ? 38 : 56;
+  const radius = isMobile ? 36 : 54;
 
   return (
     <group>
@@ -33,14 +31,9 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
         const isFeatured = release.id === featuredRelease.id;
         const isSelected = selectedRelease?.id === release.id;
 
-        // Calculate positions dynamically based on zone & cameraZ:
-        // When camera is in Hero zone (cameraZ > -500), featured release is front and center
-        // and other releases flank subtly.
-        // When camera travels into Archive zone (cameraZ <= -500), releases expand into the cylindrical ring!
-        
         // Progress into archive zone: 0 = Hero, 1 = Full Cylindrical Archive Ring
         const archiveTransition = THREE.MathUtils.clamp(
-          (-cameraZ - 200) / 600,
+          (-cameraZ - 150) / 550,
           0,
           1
         );
@@ -51,20 +44,20 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
 
         if (isFeatured) {
           heroPos = isMobile
-            ? [0, 1.5, -42]
-            : [12, 1, -38];
-          heroRot = [0.05, -0.15, 0.02];
+            ? [0, 1.2, -38]
+            : [11, 0.5, -36];
+          heroRot = [0.04, -0.12, 0.02];
         } else {
           // Midground and background asymmetric distribution in Hero
           const seed = (index * 137.5) % 360;
           const rad = (seed * Math.PI) / 180;
-          const dist = 30 + (index % 5) * 16;
-          const zDepth = -90 - (index % 6) * 35;
+          const dist = (isMobile ? 20 : 28) + (index % 5) * (isMobile ? 10 : 15);
+          const zDepth = -80 - (index % 6) * 30;
           const xOffset = Math.sin(rad) * dist;
-          const yOffset = Math.cos(rad) * (dist * 0.5) - 4;
+          const yOffset = Math.cos(rad) * (dist * 0.45) - 3;
 
           heroPos = [xOffset, yOffset, zDepth];
-          heroRot = [0.1, Math.sin(index) * 0.4, 0.05];
+          heroRot = [0.08, Math.sin(index) * 0.35, 0.04];
         }
 
         // 2. ORBITAL ARCHIVE RING POSITIONS (centered around Z = -1150)
@@ -73,14 +66,13 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
 
         const ringX = Math.sin(currentAngle) * radius;
         const ringZ = -1150 + Math.cos(currentAngle) * radius;
-        const ringY = Math.sin(index * 1.2) * 5.5; // gentle organic wave
+        const ringY = Math.sin(index * 1.2) * (isMobile ? 3.5 : 5.0);
 
-        // Rotation facing outward from circle center
         const ringRotY = currentAngle;
         const ringRotX = 0;
-        const ringRotZ = Math.sin(index * 0.5) * 0.05;
+        const ringRotZ = Math.sin(index * 0.5) * 0.04;
 
-        // Interpolate smoothly between Hero placement and Orbital Archive placement!
+        // Smooth interpolation
         const finalX = THREE.MathUtils.lerp(heroPos[0], ringX, archiveTransition);
         const finalY = THREE.MathUtils.lerp(heroPos[1], ringY, archiveTransition);
         const finalZ = THREE.MathUtils.lerp(heroPos[2], ringZ, archiveTransition);
@@ -88,6 +80,12 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
         const finalRotX = THREE.MathUtils.lerp(heroPos[0] ? heroRot[0] : 0, ringRotX, archiveTransition);
         const finalRotY = THREE.MathUtils.lerp(heroPos[1] ? heroRot[1] : 0, ringRotY, archiveTransition);
         const finalRotZ = THREE.MathUtils.lerp(heroPos[2] ? heroRot[2] : 0, ringRotZ, archiveTransition);
+
+        // Distance Culling: hide cards that are too far from camera to maintain 60 FPS
+        const distToCam = Math.abs(finalZ - cameraZ);
+        if (distToCam > 1800 && !isSelected) {
+          return null;
+        }
 
         return (
           <ReleaseCard3D

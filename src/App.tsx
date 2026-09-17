@@ -14,11 +14,11 @@ import { TimelineSection } from './components/sections/TimelineSection';
 import { NetworkSection } from './components/sections/NetworkSection';
 import { MusicPlatformsSection } from './components/sections/MusicPlatformsSection';
 import { AdminPanel } from './pages/AdminPanel';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
 const MainContent: React.FC = () => {
   const { setScrollProgress } = useArchive();
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   // Check URL hash or path for admin
   useEffect(() => {
@@ -56,15 +56,17 @@ const MainContent: React.FC = () => {
   }, [setScrollProgress]);
 
   return (
-    <div className="relative w-full min-h-screen bg-void-950 text-technical-light">
-      {/* 01. Cinematic Loading Screen */}
-      <LoadingScreen onComplete={() => setIsLoading(false)} />
+    <div className="relative w-full min-h-screen bg-void-950 text-technical-light overflow-x-hidden">
+      {/* 01. Fast Boot Loading Screen */}
+      <LoadingScreen onComplete={() => {}} />
 
       {/* 02. Minimalist Desktop Cursor */}
       <CustomCursor />
 
-      {/* 03. Primary 3D WebGL World (Persistent Background) */}
-      <SceneCanvas />
+      {/* 03. Primary 3D WebGL World (Persistent Background) wrapped in ErrorBoundary */}
+      <ErrorBoundary>
+        <SceneCanvas />
+      </ErrorBoundary>
 
       {/* 04. Top Navigation Bar */}
       <Navbar />
@@ -103,9 +105,11 @@ const MainContent: React.FC = () => {
 
 export const App: React.FC = () => {
   return (
-    <ArchiveProvider>
-      <MainContent />
-    </ArchiveProvider>
+    <ErrorBoundary>
+      <ArchiveProvider>
+        <MainContent />
+      </ArchiveProvider>
+    </ErrorBoundary>
   );
 };
 

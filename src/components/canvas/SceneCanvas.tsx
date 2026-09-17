@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useArchive } from '../../context/ArchiveContext';
@@ -31,29 +31,29 @@ const CameraRig: React.FC<{
     currentCamZ.current = THREE.MathUtils.lerp(
       currentCamZ.current,
       targetCamZ.current,
-      delta * 3.5
+      Math.min(delta * 4, 0.2)
     );
     setCameraZ(currentCamZ.current);
 
     // Mouse parallax offsets (heavy, cinematic)
-    const parallaxFactor = isMobile ? 1.2 : 3.5;
+    const parallaxFactor = isMobile ? 0.8 : 3.0;
     const targetX = mouseParallax.x * parallaxFactor;
-    const targetY = mouseParallax.y * (parallaxFactor * 0.7);
+    const targetY = mouseParallax.y * (parallaxFactor * 0.6);
 
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetX, delta * 2.5);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, delta * 2.5);
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetX, Math.min(delta * 3, 0.2));
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, Math.min(delta * 3, 0.2));
     camera.position.z = currentCamZ.current;
 
-    // Cinematic look-at / tilt
+    // Subtle look-at / tilt
     camera.rotation.y = THREE.MathUtils.lerp(
       camera.rotation.y,
-      -mouseParallax.x * 0.03,
-      delta * 2.5
+      -mouseParallax.x * 0.025,
+      Math.min(delta * 3, 0.2)
     );
     camera.rotation.x = THREE.MathUtils.lerp(
       camera.rotation.x,
-      mouseParallax.y * 0.02,
-      delta * 2.5
+      mouseParallax.y * 0.018,
+      Math.min(delta * 3, 0.2)
     );
 
     // Inertial deceleration for archive rotation
@@ -64,13 +64,13 @@ const CameraRig: React.FC<{
   });
 
   return (
-    <>
+    <Suspense fallback={null}>
       <AtmosphericLights cameraZ={currentCamZ.current} />
-      <Starfield cameraZ={currentCamZ.current} scrollVelocity={scrollVelocity} />
+      <Starfield cameraZ={currentCamZ.current} scrollVelocity={scrollVelocity} isMobile={isMobile} />
       <DistantGeometry />
       <ReleaseWorld cameraZ={currentCamZ.current} isMobile={isMobile} />
       <CollaboratorNetwork3D cameraZ={currentCamZ.current} />
-    </>
+    </Suspense>
   );
 };
 
@@ -87,10 +87,10 @@ export const SceneCanvas: React.FC = () => {
   const lastScrollY = useRef(0);
   const lastScrollTime = useRef(Date.now());
 
-  // Detect mobile
+  // Detect mobile device
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -126,12 +126,10 @@ export const SceneCanvas: React.FC = () => {
 
   // Drag Interaction with Inertia for 3D Archive Ring
   const isPointerDown = useRef(false);
-  const pointerStartX = useRef(0);
   const lastPointerX = useRef(0);
 
   const handlePointerDown = (e: React.PointerEvent) => {
     isPointerDown.current = true;
-    pointerStartX.current = e.clientX;
     lastPointerX.current = e.clientX;
     setIsDraggingArchive(true);
   };
@@ -140,8 +138,7 @@ export const SceneCanvas: React.FC = () => {
     if (!isPointerDown.current) return;
     const deltaX = e.clientX - lastPointerX.current;
     lastPointerX.current = e.clientX;
-    // Rotate archive ring
-    setArchiveRotation((prev) => prev + deltaX * 0.005);
+    setArchiveRotation((prev) => prev + deltaX * (isMobile ? 0.008 : 0.005));
   };
 
   const handlePointerUp = () => {
@@ -169,11 +166,13 @@ export const SceneCanvas: React.FC = () => {
           far: 9000,
           position: [0, 0, 0],
         }}
-        dpr={isMobile ? [1, 1.5] : [1, 2]}
+        dpr={isMobile ? Math.min(window.devicePixelRatio || 1, 1.25) : Math.min(window.devicePixelRatio || 1, 1.75)}
         gl={{
-          antialias: true,
+          antialias: !isMobile,
           alpha: false,
           powerPreference: 'high-performance',
+          stencil: false,
+          depth: true,
         }}
         onCreated={({ gl }) => {
           gl.setClearColor('#020204', 1);

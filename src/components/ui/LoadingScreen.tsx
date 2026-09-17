@@ -6,6 +6,7 @@ export const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // Fast 600ms progress initialization
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -13,14 +14,24 @@ export const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete
           setTimeout(() => {
             setVisible(false);
             onComplete();
-          }, 400);
+          }, 250);
           return 100;
         }
-        return prev + 12;
+        return prev + 25;
       });
-    }, 90);
+    }, 60);
 
-    return () => clearInterval(timer);
+    // Hard fallback timeout: never stay stuck on loading screen
+    const fallbackTimeout = setTimeout(() => {
+      clearInterval(timer);
+      setVisible(false);
+      onComplete();
+    }, 900);
+
+    return () => {
+      clearInterval(timer);
+      clearTimeout(fallbackTimeout);
+    };
   }, [onComplete]);
 
   return (
@@ -29,37 +40,31 @@ export const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-void-950 text-technical-light select-none font-mono"
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-void-950 text-technical-light select-none font-mono pointer-events-none"
         >
           <div className="flex flex-col items-center space-y-6 max-w-sm px-6 text-center">
             {/* Wordmark */}
-            <div className="font-sans font-bold text-4xl tracking-tighter">
+            <div className="font-sans font-bold text-4xl sm:text-5xl tracking-tighter">
               dYnex<span className="text-signal-red">?</span>
             </div>
 
             {/* Technical Subtext */}
             <div className="space-y-1">
               <div className="text-xs uppercase tracking-widest-tech text-technical-silver font-mono">
-                ИНТЕРАКТИВНЫЙ 3D МУЗЫКАЛЬНЫЙ АРХИВ
+                ИНТЕРАКТИВНЫЙ 3D АРХИВ
               </div>
-              <div className="text-[11px] text-technical-muted font-mono tracking-widest">
-                2023 — 2026 // СИСТЕМА ИНИЦИАЛИЗАЦИИ
+              <div className="text-[10px] text-technical-muted font-mono tracking-widest">
+                2023 — 2026 // FAST BOOT 60 FPS
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-56 h-[2px] bg-void-800 relative overflow-hidden">
-              <motion.div
-                className="h-full bg-signal-red"
+            <div className="w-48 h-[2px] bg-void-800 relative overflow-hidden">
+              <div
+                className="h-full bg-signal-red transition-all duration-100 ease-out"
                 style={{ width: `${progress}%` }}
-                transition={{ ease: 'easeOut' }}
               />
-            </div>
-
-            {/* Status Code */}
-            <div className="text-[10px] text-technical-muted tracking-widest-tech">
-              ЗАГРУЗКА ЗВЁЗДНОГО ПРОСТРАНСТВА [{progress}%]
             </div>
           </div>
         </motion.div>

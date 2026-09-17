@@ -29,10 +29,10 @@ export const CollaboratorNetwork3D: React.FC<CollaboratorNetwork3DProps> = ({ ca
   useFrame((state) => {
     if (!groupRef.current) return;
     const t = state.clock.getElapsedTime();
-    groupRef.current.rotation.y = Math.sin(t * 0.15) * 0.08;
+    groupRef.current.rotation.y = Math.sin(t * 0.15) * 0.06;
   });
 
-  // Only render when camera is within visible range of Zone 4 (-2600 to -4200)
+  // Only render when camera is within visible range of Zone 4
   const isNearZone = cameraZ < -2400 && cameraZ > -4400;
   if (!isNearZone) return null;
 
@@ -41,7 +41,7 @@ export const CollaboratorNetwork3D: React.FC<CollaboratorNetwork3DProps> = ({ ca
       {/* Central Hub: dYnex? */}
       <group position={[0, 0, -3420]}>
         <mesh>
-          <sphereGeometry args={[2.2, 24, 24]} />
+          <sphereGeometry args={[2.2, 16, 16]} />
           <meshBasicMaterial color="#E61924" />
         </mesh>
         <lineSegments>
@@ -50,9 +50,8 @@ export const CollaboratorNetwork3D: React.FC<CollaboratorNetwork3DProps> = ({ ca
         </lineSegments>
         <Text
           position={[0, 4.2, 0]}
-          fontSize={2.4}
+          fontSize={2.2}
           color="#F2F2EE"
-          font="https://fonts.gstatic.com/s/spacegrotesk/v16/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-g.woff"
           anchorX="center"
           anchorY="middle"
         >
@@ -62,7 +61,7 @@ export const CollaboratorNetwork3D: React.FC<CollaboratorNetwork3DProps> = ({ ca
 
       {/* Network Lines */}
       <lineSegments geometry={linesGeometry}>
-        <lineBasicMaterial color="#E61924" transparent opacity={0.25} />
+        <lineBasicMaterial color="#E61924" transparent opacity={0.22} />
       </lineSegments>
 
       {/* Collaborator Nodes */}
@@ -75,49 +74,36 @@ export const CollaboratorNetwork3D: React.FC<CollaboratorNetwork3DProps> = ({ ca
             onPointerOver={(e) => {
               e.stopPropagation();
               setHoveredNode(c.id);
-              document.body.style.cursor = 'pointer';
             }}
             onPointerOut={() => {
               setHoveredNode(null);
-              document.body.style.cursor = 'auto';
             }}
           >
             {/* Node Sphere */}
             <mesh>
-              <sphereGeometry args={[isHovered ? 1.5 : 1.1, 16, 16]} />
+              <sphereGeometry args={[isHovered ? 1.4 : 1.0, 12, 12]} />
               <meshBasicMaterial color={isHovered ? '#E61924' : '#D8D8D5'} />
             </mesh>
 
             {/* Orbit ring around node */}
             <lineSegments>
-              <ringGeometry args={[1.8, 1.9, 24]} />
+              <ringGeometry args={[1.6, 1.7, 16]} />
               <lineBasicMaterial
                 color={isHovered ? '#E61924' : '#77777D'}
                 transparent
-                opacity={isHovered ? 0.8 : 0.4}
+                opacity={isHovered ? 0.8 : 0.35}
               />
             </lineSegments>
 
-            {/* Collaborator Name */}
+            {/* Collaborator Name (no external font URL to avoid network stalls) */}
             <Text
-              position={[0, 2.5, 0]}
-              fontSize={1.4}
+              position={[0, 2.3, 0]}
+              fontSize={1.3}
               color={isHovered ? '#E61924' : '#D8D8D5'}
               anchorX="center"
               anchorY="middle"
             >
               {c.name}
-            </Text>
-
-            {/* Tracks count */}
-            <Text
-              position={[0, 1.2, 0]}
-              fontSize={0.8}
-              color="#77777D"
-              anchorX="center"
-              anchorY="middle"
-            >
-              {`${c.trackCount} TRK`}
             </Text>
           </group>
         );
