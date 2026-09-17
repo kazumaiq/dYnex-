@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Radio, Disc3 } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
@@ -146,7 +146,7 @@ export const MusicPlatformsSection: React.FC = () => {
           <div className="flex items-center space-x-2 font-mono text-[11px] text-technical-muted shrink-0">
             <Radio size={12} className="text-signal-red animate-pulse" />
             <span className="text-signal-red font-bold">
-              {language === 'ru' ? '6 СЕТЕВЫХ КАНАЛОВ ОНЛАЙН' : '6 STREAMING HUBS ONLINE'}
+              {language === 'ru' ? '6 ПЛАТФОРМ • 2 КАНАЛА СВЯЗИ ОНЛАЙН' : '6 HUBS • 2 DIRECT NODES ONLINE'}
             </span>
           </div>
         </div>
@@ -224,6 +224,175 @@ export const MusicPlatformsSection: React.FC = () => {
               </motion.a>
             );
           })}
+        </div>
+
+        {/* Official Channels & Direct Comms (VK & Telegram) */}
+        <div className="mt-10 pt-8 border-t border-void-800/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <div className="flex items-center space-x-3 text-[10px] sm:text-xs font-mono uppercase tracking-widest-tech">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-signal-red opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-signal-red" />
+              </span>
+              <span className="text-signal-red font-bold">// 06.B</span>
+              <span className="text-white font-bold">
+                {language === 'ru' ? 'ОФИЦИАЛЬНЫЕ СООБЩЕСТВА & СВЯЗЬ' : 'OFFICIAL CHANNELS & COMMS'}
+              </span>
+              <span className="text-void-700">//</span>
+              <span className="text-technical-muted">DIRECT FEED</span>
+            </div>
+            <div className="text-[10px] font-mono text-technical-muted">
+              {language === 'ru' ? '// ПРЯМОЙ КОНТАКТ И АНОНСЫ' : '// DIRECT CONTACT & RELEASES'}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* VKontakte Official Hub */}
+            <motion.a
+              href="https://vk.ru/dynexxx"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="group relative p-6 bg-gradient-to-br from-void-950 via-void-900/90 to-void-950 border border-void-700 rounded-none transition-all duration-300 flex flex-col justify-between h-56 overflow-hidden hover:border-[#0077FF] hover:shadow-[0_0_30px_rgba(0,119,255,0.18)] cursor-pointer"
+            >
+              {/* Corner tech accents */}
+              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-void-700 group-hover:border-[#0077FF] transition-colors" />
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-void-700 group-hover:border-[#0077FF] transition-colors" />
+
+              {/* Top Row */}
+              <div className="flex items-start justify-between relative z-10">
+                <div className="flex items-center space-x-3.5">
+                  <div className="w-11 h-11 rounded-none bg-void-900/90 border border-void-700 text-[#0077FF] group-hover:border-[#0077FF] group-hover:bg-[#0077FF]/10 transition-all duration-300 flex items-center justify-center">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                      <path d="M15.686 8.5c.08-.28-.15-.5-.43-.5h-1.43c-.23 0-.34.11-.4.23-.78 2.05-1.86 3.86-2.67 3.86-.14 0-.21-.07-.21-.29V8.5c0-.28-.09-.5-.4-.5h-2.22c-.17 0-.28.13-.28.25 0 .26.4.32.44 1.05v1.59c0 .35-.06.49-.2.49-.38 0-1.31-1.39-1.86-2.98-.08-.24-.2-.4-.44-.4H4.56c-.27 0-.33.13-.33.27 0 .25.33 1.51 1.54 3.23 1.25 1.77 3 2.73 4.49 2.73.9 0 1.11-.2 1.11-.55v-1.28c0-.4.18-.5.44-.5.2 0 .54.1 1.34.87.91.91 1.07 1.46 1.58 1.46h1.43c.27 0 .41-.14.33-.4-.17-.53-1.12-1.74-1.63-2.31-.22-.26-.31-.38 0-.8.01 0 1.78-2.51 1.95-3.37z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-mono tracking-wider text-technical-muted group-hover:text-[#0077FF] transition-colors">
+                      // VK.COMMUNITY.HUB
+                    </div>
+                    <div className="flex items-center space-x-1.5 mt-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0077FF] animate-pulse" />
+                      <span className="text-[9px] font-mono uppercase text-[#0077FF] tracking-widest font-semibold">
+                        {language === 'ru' ? 'ОФИЦИАЛЬНАЯ СТРАНИЦА' : 'OFFICIAL HUB'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-8 h-8 rounded-none bg-void-950 border border-void-700 flex items-center justify-center text-technical-muted group-hover:text-white group-hover:border-[#0077FF] group-hover:bg-[#0077FF]/20 transition-all">
+                  <ArrowUpRight
+                    size={15}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#0077FF] transition-all duration-200"
+                  />
+                </div>
+              </div>
+
+              {/* Middle: Content */}
+              <div className="relative z-10 my-1">
+                <div className="flex items-baseline space-x-2">
+                  <span className="text-xl font-bold font-sans text-white group-hover:text-[#0077FF] transition-colors">
+                    ВКонтакте
+                  </span>
+                  <span className="text-xs font-mono text-technical-silver px-2 py-0.5 bg-void-900 border border-void-800 rounded-none group-hover:border-[#0077FF]/40">
+                    vk.ru/dynexxx
+                  </span>
+                </div>
+                <p className="text-[11px] font-mono text-technical-muted mt-1">
+                  {language === 'ru'
+                    ? 'Официальный паблик dYnex?: анонсы треков, посты, плейлисты и сообщество.'
+                    : 'Official artist public page: track announcements, posts, and listener community.'}
+                </p>
+              </div>
+
+              {/* Bottom: CTA */}
+              <div className="relative z-10 border-t border-void-800/80 pt-3 flex items-center justify-between">
+                <span className="text-[10px] font-mono text-technical-muted">
+                  ID: dynexxx // VERIFIED
+                </span>
+                <span className="text-[11px] font-mono tracking-widest text-[#0077FF] uppercase font-bold group-hover:underline flex items-center space-x-1">
+                  <span>{language === 'ru' ? 'ПЕРЕЙТИ В СООБЩЕСТВО' : 'OPEN VK PAGE'}</span>
+                  <span>→</span>
+                </span>
+              </div>
+            </motion.a>
+
+            {/* Telegram Official Channel & Comms */}
+            <motion.a
+              href="https://t.me/dYnexM"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.08 }}
+              className="group relative p-6 bg-gradient-to-br from-void-950 via-void-900/90 to-void-950 border border-void-700 rounded-none transition-all duration-300 flex flex-col justify-between h-56 overflow-hidden hover:border-[#229ED9] hover:shadow-[0_0_30px_rgba(34,158,217,0.18)] cursor-pointer"
+            >
+              {/* Corner tech accents */}
+              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-void-700 group-hover:border-[#229ED9] transition-colors" />
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-void-700 group-hover:border-[#229ED9] transition-colors" />
+
+              {/* Top Row */}
+              <div className="flex items-start justify-between relative z-10">
+                <div className="flex items-center space-x-3.5">
+                  <div className="w-11 h-11 rounded-none bg-void-900/90 border border-void-700 text-[#229ED9] group-hover:border-[#229ED9] group-hover:bg-[#229ED9]/10 transition-all duration-300 flex items-center justify-center">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                      <path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.672c.46 0 .664-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.411z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-mono tracking-wider text-technical-muted group-hover:text-[#229ED9] transition-colors">
+                      // TG.SIGNAL.TERMINAL
+                    </div>
+                    <div className="flex items-center space-x-1.5 mt-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#229ED9] animate-pulse" />
+                      <span className="text-[9px] font-mono uppercase text-[#229ED9] tracking-widest font-semibold">
+                        {language === 'ru' ? 'ОФИЦИАЛЬНЫЙ КАНАЛ' : 'OFFICIAL FEED'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-8 h-8 rounded-none bg-void-950 border border-void-700 flex items-center justify-center text-technical-muted group-hover:text-white group-hover:border-[#229ED9] group-hover:bg-[#229ED9]/20 transition-all">
+                  <ArrowUpRight
+                    size={15}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#229ED9] transition-all duration-200"
+                  />
+                </div>
+              </div>
+
+              {/* Middle: Content */}
+              <div className="relative z-10 my-1">
+                <div className="flex items-baseline space-x-2">
+                  <span className="text-xl font-bold font-sans text-white group-hover:text-[#229ED9] transition-colors">
+                    Telegram
+                  </span>
+                  <span className="text-xs font-mono text-signal-red font-bold px-2 py-0.5 bg-void-900 border border-void-800 rounded-none group-hover:border-signal-red/60">
+                    @dYnexM
+                  </span>
+                </div>
+                <p className="text-[11px] font-mono text-technical-muted mt-1">
+                  {language === 'ru'
+                    ? 'Официальный Telegram-канал и связь: эксклюзивные сниппеты, бекстейдж и контакт.'
+                    : 'Official dYnex? Telegram: exclusive snippets, backstage updates, and direct contact.'}
+                </p>
+              </div>
+
+              {/* Bottom: CTA */}
+              <div className="relative z-10 border-t border-void-800/80 pt-3 flex items-center justify-between">
+                <span className="text-[10px] font-mono text-technical-muted">
+                  CONTACT: @dYnexM // LIVE
+                </span>
+                <span className="text-[11px] font-mono tracking-widest text-[#229ED9] uppercase font-bold group-hover:underline flex items-center space-x-1">
+                  <span>{language === 'ru' ? 'ПОДПИСАТЬСЯ В TELEGRAM' : 'OPEN TELEGRAM'}</span>
+                  <span>→</span>
+                </span>
+              </div>
+            </motion.a>
+          </div>
         </div>
 
         {/* Bottom Status Banner */}
