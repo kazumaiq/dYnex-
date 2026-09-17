@@ -107,31 +107,33 @@ export const MusicPlatformsSection: React.FC = () => {
   return (
     <section
       id="platforms"
-      className="relative min-h-screen w-full px-6 sm:px-12 py-32 flex flex-col justify-center pointer-events-none select-none overflow-hidden"
+      className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 flex flex-col justify-center pointer-events-none select-none overflow-hidden max-w-7xl mx-auto"
     >
       {/* Subtle background cyber glow accents */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-signal-red/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyber-purple/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto w-full pointer-events-auto">
+      <div className="w-full pointer-events-auto">
         {/* Top Header Tag */}
-        <div className="flex items-center space-x-3 text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-3">
+        <div className="flex items-center space-x-3 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-3">
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-purple opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-signal-red" />
           </span>
           <span className="text-cyber-purple-glow">// 06</span>
-          <span className="text-white/80">
+          <span className="text-white/80 font-bold">
             {language === 'ru' ? 'ЦИФРОВАЯ ДИСТРИБУЦИЯ' : 'DIGITAL DISTRIBUTION MATRIX'}
           </span>
+          <span className="text-void-700">//</span>
+          <span className="text-technical-muted">配信プラットフォーム // TERMINALS</span>
         </div>
 
         {/* Section Headline */}
-        <h2 className="font-sans font-black text-5xl sm:text-7xl lg:text-8xl tracking-tighter text-white uppercase mb-4 leading-none">
+        <h2 className="font-sans font-black text-4xl sm:text-6xl lg:text-8xl tracking-tighter text-white uppercase mb-4 leading-none">
           {language === 'ru' ? (
             <>
               СЛУШАТЬ <br />
-              <span className="bg-gradient-to-r from-signal-red via-cyber-purple to-cyber-purple-glow bg-clip-text text-transparent">
+              <span className="text-signal-red">
                 ВЕЗДЕ.
               </span>
             </>

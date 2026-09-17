@@ -64,19 +64,28 @@ export const Footer: React.FC<{ onOpenAdmin: () => void }> = ({ onOpenAdmin }) =
         </div>
 
         {/* System telemetry & Admin Gateway */}
-        <div className="flex flex-col items-center md:items-end space-y-2">
+        <div className="flex flex-col items-center md:items-end space-y-2.5">
           <div className="flex items-center space-x-2 text-[10px] text-technical-silver">
             <Radio size={12} className="text-signal-red animate-pulse" />
-            <span className="text-cyber-purple-glow">{language === 'ru' ? 'СЕРВЕР: VERCEL EDGE // АКТИВЕН' : 'HOST: VERCEL EDGE // ACTIVE'}</span>
+            <span className="text-signal-red font-bold">{language === 'ru' ? 'СИГНАЛ: 100% // ОНЛАЙН' : 'SIGNAL: 100% // ONLINE'}</span>
+            <span className="text-void-700">//</span>
+            <span className="text-technical-muted">SYS_VER: 2026.4.1</span>
           </div>
 
-          <button
-            onClick={onOpenAdmin}
-            className="flex items-center space-x-1.5 px-2.5 py-1 bg-void-950 hover:bg-void-900 border border-void-800 hover:border-cyber-purple/60 text-[10px] text-technical-muted hover:text-cyber-purple-glow rounded-sm transition-colors"
-          >
-            <Lock size={10} className="text-signal-red" />
-            <span>{language === 'ru' ? 'ПАНЕЛЬ УПРАВЛЕНИЯ /ADMIN' : 'CONTROL TERMINAL /ADMIN'}</span>
-          </button>
+          <div className="text-[9px] text-technical-muted tracking-widest uppercase">
+            // END OF SIGNAL • ARCHIVE SESSION CLOSED • 信号終了
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <div className="barcode-pattern w-14 h-2 opacity-50 hidden sm:block" />
+            <button
+              onClick={onOpenAdmin}
+              className="flex items-center space-x-1.5 px-2.5 py-1 bg-void-950 hover:bg-void-900 border border-void-800 hover:border-signal-red/60 text-[10px] text-technical-muted hover:text-white rounded-sm transition-colors"
+            >
+              <Lock size={10} className="text-signal-red" />
+              <span>{language === 'ru' ? 'ПАНЕЛЬ УПРАВЛЕНИЯ /ADMIN' : 'CONTROL TERMINAL /ADMIN'}</span>
+            </button>
+          </div>
         </div>
       </div>
     </footer>
