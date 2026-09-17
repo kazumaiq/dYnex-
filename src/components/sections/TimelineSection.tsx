@@ -57,25 +57,9 @@ export const TimelineSection: React.FC = () => {
   return (
     <section
       id="timeline"
-      className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 flex flex-col justify-center pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
+      className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 flex flex-col justify-center pointer-events-none select-none max-w-7xl mx-auto"
     >
-      {/* Background Cyberpunk Accents */}
-      <div className="hidden sm:block absolute -right-16 top-1/4 w-80 h-auto pointer-events-none opacity-20 mix-blend-screen z-0">
-        <img
-          src="/assets/collage/hero-roses-bottom.jpg"
-          alt="Roses Accent"
-          className="w-full h-auto object-contain"
-        />
-      </div>
-      <div className="hidden lg:block absolute -left-16 bottom-1/4 w-72 h-auto pointer-events-none opacity-20 mix-blend-screen z-0">
-        <img
-          src="/assets/collage/hero-lily-botanical.jpg"
-          alt="Lily Accent"
-          className="w-full h-auto object-contain"
-        />
-      </div>
-
-      <div className="w-full pointer-events-auto relative z-10">
+      <div className="w-full pointer-events-auto">
         {/* Section Header */}
         <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-2">
           <span className="font-bold">// 04</span>

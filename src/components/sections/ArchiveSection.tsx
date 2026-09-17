@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+﻿import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -178,35 +178,10 @@ export const ArchiveSection: React.FC = () => {
   return (
     <section
       id="archive"
-      className="relative w-full px-4 sm:px-8 lg:px-12 scroll-mt-20 pt-24 sm:pt-28 pb-12 flex flex-col justify-start pointer-events-none select-none max-w-7xl mx-auto space-y-4 sm:space-y-6 overflow-hidden"
+      className="relative w-full px-4 sm:px-8 lg:px-12 scroll-mt-20 pt-24 sm:pt-28 pb-12 flex flex-col justify-start pointer-events-none select-none max-w-7xl mx-auto space-y-4 sm:space-y-6"
     >
-      {/* Background Cyberpunk Collage Elements (Consistent Across Entire Site) */}
-      <div className="hidden sm:block absolute -left-12 top-20 w-72 lg:w-96 h-auto pointer-events-none opacity-30 mix-blend-screen z-0">
-        <img
-          src="/assets/collage/hero-lily-botanical.jpg"
-          alt="Botanical Lily Backdrop"
-          className="w-full h-auto object-contain filter contrast-125"
-        />
-      </div>
-
-      <div className="hidden md:block absolute -right-12 top-10 w-80 lg:w-[32rem] h-auto pointer-events-none opacity-25 mix-blend-screen z-0">
-        <img
-          src="/assets/collage/hero-anby-character.jpg"
-          alt="Anime Character Backdrop"
-          className="w-full h-auto object-contain filter contrast-125"
-        />
-      </div>
-
-      <div className="hidden lg:block absolute bottom-2 right-1/4 w-60 h-auto pointer-events-none opacity-30 mix-blend-screen z-0">
-        <img
-          src="/assets/collage/hero-roses-bottom.jpg"
-          alt="Dark Roses Backdrop"
-          className="w-full h-auto object-contain"
-        />
-      </div>
-
       {/* 01. Top Section Header & Search/Filter Controls */}
-      <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-3 pointer-events-auto relative z-10">
+      <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-3 pointer-events-auto">
         <div>
           <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-1 sm:mb-2">
             <Sparkles size={12} className="text-signal-red" />

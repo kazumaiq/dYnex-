@@ -57,21 +57,25 @@ export const AboutSection: React.FC = () => {
       id="about"
       className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 flex flex-col justify-center pointer-events-none select-none overflow-hidden"
     >
-      {/* Background Anime Character Visuals (Rich, High-Density Tactical Anime) */}
-      <div className="absolute -right-8 bottom-0 w-80 sm:w-[36rem] lg:w-[46rem] h-80 sm:h-[36rem] lg:h-[46rem] pointer-events-none opacity-50 sm:opacity-75 mix-blend-screen z-0">
-        <img
-          src="/assets/collage/hero-anby-character.jpg"
-          alt="Anime Tactical Visual"
-          className="w-full h-full object-contain object-right-bottom filter contrast-125"
+      {/* Background Anime Character Visuals (Rich, High-Density 4K Anime Sound Engineer) */}
+      <div className="absolute right-0 bottom-0 w-80 sm:w-[36rem] lg:w-[46rem] h-80 sm:h-[36rem] lg:h-[46rem] pointer-events-none opacity-60 sm:opacity-80 mix-blend-screen z-0">
+        <PosterCutout
+          src="/assets/anime/sound-engineer.jpg"
+          alt="dYnex Anime Sound Engineer & Synthesizer"
+          maskType="radial"
+          cropPosition="top center"
+          className="w-full h-full"
         />
       </div>
 
-      {/* Botanical Lily & Roses Accent on Left */}
-      <div className="hidden lg:block absolute -left-16 top-1/4 w-80 h-auto pointer-events-none opacity-40 mix-blend-screen z-0">
-        <img
-          src="/assets/collage/hero-lily-botanical.jpg"
-          alt="Botanical Contrast"
-          className="w-full h-auto object-contain filter contrast-125"
+      {/* Atmospheric Secondary Anime Producer Visual on Left */}
+      <div className="hidden lg:block absolute -left-16 bottom-10 w-96 h-96 pointer-events-none opacity-35 mix-blend-screen z-0">
+        <PosterCutout
+          src="/assets/anime/about-producer.jpg"
+          alt="dYnex Studio Producer"
+          maskType="radial"
+          cropPosition="center"
+          className="w-full h-full"
         />
       </div>
 
