@@ -23,7 +23,7 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
   }, [releases]);
 
   const totalReleases = publishedReleases.length;
-  const radius = isMobile ? 32 : 54;
+  const radius = isMobile ? 28 : 50;
 
   return (
     <group>
@@ -66,11 +66,11 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
 
         const ringX = Math.sin(currentAngle) * radius;
         const ringZ = -1150 + Math.cos(currentAngle) * radius;
-        const ringY = isMobile ? 0 : Math.sin(index * 1.2) * 4.5;
+        const ringY = isMobile ? 0.8 : Math.sin(index * 1.2) * 4.5;
 
         const ringRotY = currentAngle;
         const ringRotX = 0;
-        const ringRotZ = Math.sin(index * 0.5) * 0.04;
+        const ringRotZ = isMobile ? 0 : Math.sin(index * 0.5) * 0.04;
 
         // Smooth interpolation
         const finalX = THREE.MathUtils.lerp(heroPos[0], ringX, archiveTransition);

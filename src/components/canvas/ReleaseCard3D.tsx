@@ -131,9 +131,9 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
 
     // If selected, fly directly in front of the camera
     if (isSelected) {
-      destPos.set(0, 0, cameraZ - 28);
+      destPos.set(0, isMobile ? 0.8 : 0, cameraZ - (isMobile ? 22 : 26));
       destRot.set(0, 0, 0);
-    } else if (hovered) {
+    } else if (hovered && !isMobile) {
       destPos.z += 3;
     }
 
@@ -151,13 +151,13 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
     const distToCam = Math.abs(meshRef.current.position.z - cameraZ);
     if (!isSelected && distToCam < 200) {
       const t = state.clock.getElapsedTime();
-      meshRef.current.position.y += Math.sin(t * 1.5 + targetPos[0]) * 0.012;
+      meshRef.current.position.y += Math.sin(t * 1.5 + targetPos[0]) * (isMobile ? 0.006 : 0.012);
     }
   });
 
-  const cardWidth = isFeatured ? (isMobile ? 10.5 : 13) : (isMobile ? 8 : 10);
+  const cardWidth = isFeatured ? (isMobile ? 11.5 : 13) : (isMobile ? 9.6 : 10);
   const cardHeight = cardWidth;
-  const cardDepth = 0.3;
+  const cardDepth = 0.35;
 
   return (
     <group

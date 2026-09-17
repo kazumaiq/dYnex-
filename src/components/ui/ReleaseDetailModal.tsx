@@ -52,7 +52,7 @@ export const ReleaseDetailModal: React.FC = () => {
           animate={{ scale: 1, y: 0, opacity: 1 }}
           exit={{ scale: 0.95, y: 15, opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 w-full max-w-2xl bg-void-950 border border-void-800 shadow-neon-mix rounded-sm overflow-hidden flex flex-col md:flex-row text-technical-light"
+          className="relative z-10 w-full max-w-2xl bg-void-950 border border-void-800 shadow-neon-mix rounded-sm overflow-hidden flex flex-col md:flex-row text-technical-light max-h-[92vh] overflow-y-auto"
         >
           {/* Close button */}
           <button

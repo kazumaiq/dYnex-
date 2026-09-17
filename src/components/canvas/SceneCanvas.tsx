@@ -79,9 +79,76 @@ const CameraRig: React.FC<{
   );
 };
 
+interface SectionWaypoint {
+  id: string;
+  zDesktop: number;
+  zMobile: number;
+}
+
+const SECTION_WAYPOINTS: SectionWaypoint[] = [
+  { id: 'hero', zDesktop: 0, zMobile: 0 },
+  { id: 'archive', zDesktop: -1060, zMobile: -1095 },
+  { id: 'about', zDesktop: -2200, zMobile: -2200 },
+  { id: 'timeline', zDesktop: -2800, zMobile: -2800 },
+  { id: 'network', zDesktop: -3360, zMobile: -3360 },
+  { id: 'platforms', zDesktop: -4200, zMobile: -4200 },
+];
+
+function computeTargetCameraZ(isMobile: boolean): number {
+  if (typeof window === 'undefined') return 0;
+
+  const scrollY = window.scrollY;
+  const viewportCenter = scrollY + window.innerHeight * 0.5;
+
+  const points: { z: number; y: number }[] = [];
+
+  for (const wp of SECTION_WAYPOINTS) {
+    const el = document.getElementById(wp.id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const centerY = scrollY + rect.top + rect.height * 0.5;
+      const targetZ = isMobile ? wp.zMobile : wp.zDesktop;
+      points.push({ z: targetZ, y: centerY });
+    }
+  }
+
+  // Fallback if sections are not yet rendered in DOM
+  if (points.length < 2) {
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollHeight > 0 ? Math.min(Math.max(scrollY / scrollHeight, 0), 1) : 0;
+    return -progress * 5800;
+  }
+
+  // Before first waypoint
+  if (viewportCenter <= points[0].y) {
+    return points[0].z;
+  }
+
+  // Beyond last waypoint
+  if (viewportCenter >= points[points.length - 1].y) {
+    return points[points.length - 1].z;
+  }
+
+  // Interpolate between the two bounding waypoints
+  for (let i = 0; i < points.length - 1; i++) {
+    const p1 = points[i];
+    const p2 = points[i + 1];
+
+    if (viewportCenter >= p1.y && viewportCenter <= p2.y) {
+      const span = p2.y - p1.y;
+      if (span <= 0) return p1.z;
+      const rawT = (viewportCenter - p1.y) / span;
+      // Cosine S-curve interpolation for smooth cinematic acceleration & deceleration
+      const smoothT = 0.5 * (1 - Math.cos(rawT * Math.PI));
+      return p1.z + (p2.z - p1.z) * smoothT;
+    }
+  }
+
+  return points[0].z;
+}
+
 export const SceneCanvas: React.FC = () => {
   const {
-    scrollProgress,
     setMouseParallax,
     setArchiveRotation,
     setIsDraggingArchive,
@@ -89,6 +156,7 @@ export const SceneCanvas: React.FC = () => {
 
   const [isMobile, setIsMobile] = useState(false);
   const [scrollVelocity, setScrollVelocity] = useState(0);
+  const [targetCamZ, setTargetCamZ] = useState(0);
   const lastScrollY = useRef(0);
   const lastScrollTime = useRef(Date.now());
 
@@ -101,6 +169,24 @@ export const SceneCanvas: React.FC = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Compute waypoint-based camera Z dynamically
+  useEffect(() => {
+    const updateCamZ = () => {
+      setTargetCamZ(computeTargetCameraZ(isMobile));
+    };
+
+    updateCamZ();
+    window.addEventListener('scroll', updateCamZ, { passive: true });
+    window.addEventListener('resize', updateCamZ);
+
+    const timer = setTimeout(updateCamZ, 120);
+    return () => {
+      window.removeEventListener('scroll', updateCamZ);
+      window.removeEventListener('resize', updateCamZ);
+      clearTimeout(timer);
+    };
+  }, [isMobile]);
 
   // Compute scroll velocity
   useEffect(() => {
@@ -151,10 +237,6 @@ export const SceneCanvas: React.FC = () => {
     setIsDraggingArchive(false);
   };
 
-  // Map scroll progress (0..1) to Camera Z: 0 to -5800
-  const totalTravelZ = 5800;
-  const targetCamZ = -scrollProgress * totalTravelZ;
-
   return (
     <div
       className="fixed inset-0 w-full h-full z-0 pointer-events-auto select-none touch-pan-y"
@@ -166,7 +248,7 @@ export const SceneCanvas: React.FC = () => {
     >
       <Canvas
         camera={{
-          fov: isMobile ? 62 : 45,
+          fov: isMobile ? 58 : 45,
           near: 0.5,
           far: 9000,
           position: [0, 0, 0],
