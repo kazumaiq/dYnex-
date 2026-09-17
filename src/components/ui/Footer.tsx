@@ -46,12 +46,12 @@ export const Footer: React.FC<{ onOpenAdmin?: () => void }> = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 px-3 py-1.5 bg-void-900/90 border border-void-700 hover:border-[#229ED9] hover:bg-[#229ED9]/10 text-white rounded-none text-[11px] transition-all duration-200 group"
-              title="Telegram: @dYnexM"
+              title="Telegram (Личный контакт / ЛС): @dYnexM"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#229ED9] group-hover:scale-110 transition-transform">
                 <path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.672c.46 0 .664-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.411z" />
               </svg>
-              <span className="font-bold tracking-wider text-technical-light group-hover:text-white">ТГ // @dYnexM</span>
+              <span className="font-bold tracking-wider text-technical-light group-hover:text-white">ТГ ЛС // @dYnexM</span>
               <ExternalLink size={10} className="text-technical-muted group-hover:text-white transition-colors" />
             </a>
           </div>

@@ -236,13 +236,13 @@ export const MusicPlatformsSection: React.FC = () => {
               </span>
               <span className="text-signal-red font-bold">// 06.B</span>
               <span className="text-white font-bold">
-                {language === 'ru' ? 'ОФИЦИАЛЬНЫЕ СООБЩЕСТВА & СВЯЗЬ' : 'OFFICIAL CHANNELS & COMMS'}
+                {language === 'ru' ? 'СООБЩЕСТВО ВК & ЛИЧНЫЙ ЛС' : 'VK COMMUNITY & DIRECT PM'}
               </span>
               <span className="text-void-700">//</span>
               <span className="text-technical-muted">DIRECT FEED</span>
             </div>
             <div className="text-[10px] font-mono text-technical-muted">
-              {language === 'ru' ? '// ПРЯМОЙ КОНТАКТ И АНОНСЫ' : '// DIRECT CONTACT & RELEASES'}
+              {language === 'ru' ? '// ПАБЛИК ВКОНТАКТЕ И ЛИЧНЫЙ КОНТАКТ' : '// VK PUBLIC & PERSONAL CONTACT'}
             </div>
           </div>
 
@@ -320,7 +320,7 @@ export const MusicPlatformsSection: React.FC = () => {
               </div>
             </motion.a>
 
-            {/* Telegram Official Channel & Comms */}
+            {/* Telegram Personal Direct PM */}
             <motion.a
               href="https://t.me/dYnexM"
               target="_blank"
@@ -345,12 +345,12 @@ export const MusicPlatformsSection: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-[10px] font-mono tracking-wider text-technical-muted group-hover:text-[#229ED9] transition-colors">
-                      // TG.SIGNAL.TERMINAL
+                      // TG.DIRECT.PM
                     </div>
                     <div className="flex items-center space-x-1.5 mt-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#229ED9] animate-pulse" />
                       <span className="text-[9px] font-mono uppercase text-[#229ED9] tracking-widest font-semibold">
-                        {language === 'ru' ? 'ОФИЦИАЛЬНЫЙ КАНАЛ' : 'OFFICIAL FEED'}
+                        {language === 'ru' ? 'ЛИЧНЫЙ ЛС АРТИСТА' : 'PERSONAL PM // DIRECT'}
                       </span>
                     </div>
                   </div>
@@ -368,7 +368,7 @@ export const MusicPlatformsSection: React.FC = () => {
               <div className="relative z-10 my-1">
                 <div className="flex items-baseline space-x-2">
                   <span className="text-xl font-bold font-sans text-white group-hover:text-[#229ED9] transition-colors">
-                    Telegram
+                    Telegram ЛС
                   </span>
                   <span className="text-xs font-mono text-signal-red font-bold px-2 py-0.5 bg-void-900 border border-void-800 rounded-none group-hover:border-signal-red/60">
                     @dYnexM
@@ -376,18 +376,18 @@ export const MusicPlatformsSection: React.FC = () => {
                 </div>
                 <p className="text-[11px] font-mono text-technical-muted mt-1">
                   {language === 'ru'
-                    ? 'Официальный Telegram-канал и связь: эксклюзивные сниппеты, бекстейдж и контакт.'
-                    : 'Official dYnex? Telegram: exclusive snippets, backstage updates, and direct contact.'}
+                    ? 'Личные сообщения dYnex?: вопросы, фиты, сотрудничество и прямой контакт.'
+                    : 'Personal direct contact of dYnex?: collabs, questions, and direct messages.'}
                 </p>
               </div>
 
               {/* Bottom: CTA */}
               <div className="relative z-10 border-t border-void-800/80 pt-3 flex items-center justify-between">
                 <span className="text-[10px] font-mono text-technical-muted">
-                  CONTACT: @dYnexM // LIVE
+                  CONTACT: @dYnexM // PM
                 </span>
                 <span className="text-[11px] font-mono tracking-widest text-[#229ED9] uppercase font-bold group-hover:underline flex items-center space-x-1">
-                  <span>{language === 'ru' ? 'ПОДПИСАТЬСЯ В TELEGRAM' : 'OPEN TELEGRAM'}</span>
+                  <span>{language === 'ru' ? 'НАПИСАТЬ В ЛС TELEGRAM' : 'SEND DIRECT MESSAGE'}</span>
                   <span>→</span>
                 </span>
               </div>
