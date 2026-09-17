@@ -7,7 +7,6 @@ export const DistantGeometry: React.FC = () => {
   const ring2Ref = useRef<THREE.Group>(null!);
   const ring3Ref = useRef<THREE.Group>(null!);
   const ring4Ref = useRef<THREE.Group>(null!);
-  const techGridRef = useRef<THREE.Group>(null!);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -24,9 +23,6 @@ export const DistantGeometry: React.FC = () => {
     }
     if (ring4Ref.current) {
       ring4Ref.current.rotation.z = -t * 0.008;
-    }
-    if (techGridRef.current) {
-      techGridRef.current.rotation.z = t * 0.004;
     }
   });
 
@@ -56,14 +52,6 @@ export const DistantGeometry: React.FC = () => {
         </lineSegments>
       </group>
 
-      {/* ZONE 3 (DEEP SPACE): Technical grid planes */}
-      <group ref={techGridRef} position={[0, 0, -2300]}>
-        <gridHelper
-          args={[300, 24, '#8B5CF6', '#120d1f']}
-          rotation={[Math.PI / 2.2, 0, 0]}
-          position={[0, -40, 0]}
-        />
-      </group>
 
       {/* ZONE 4 (NETWORK): Collaborator celestial circles */}
       <group ref={ring3Ref} position={[0, 0, -3450]}>
