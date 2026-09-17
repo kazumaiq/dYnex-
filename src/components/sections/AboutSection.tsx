@@ -1,4 +1,4 @@
-﻿import React, { useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Sparkles, Heart, Zap } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
@@ -57,21 +57,22 @@ export const AboutSection: React.FC = () => {
       id="about"
       className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 flex flex-col justify-center pointer-events-none select-none overflow-hidden"
     >
-      {/* Background Anime Showcase & Botanical Layers (Rich & Filled) */}
-      <div className="absolute right-0 bottom-0 w-80 sm:w-[34rem] lg:w-[44rem] h-80 sm:h-[34rem] lg:h-[44rem] pointer-events-none opacity-40 sm:opacity-55 mix-blend-screen z-0">
+      {/* Background Anime Character Visuals (Rich, High-Density 4K Anime Sound Engineer) */}
+      <div className="absolute right-0 bottom-0 w-80 sm:w-[36rem] lg:w-[46rem] h-80 sm:h-[36rem] lg:h-[46rem] pointer-events-none opacity-60 sm:opacity-80 mix-blend-screen z-0">
         <PosterCutout
-          src="/assets/collage/anime-showcase.jpg"
-          alt="dYnex Anime Showcase"
+          src="/assets/anime/sound-engineer.jpg"
+          alt="dYnex Anime Sound Engineer & Synthesizer"
           maskType="radial"
           cropPosition="top center"
           className="w-full h-full"
         />
       </div>
 
-      <div className="hidden md:block absolute -left-12 top-1/4 w-72 h-72 pointer-events-none opacity-30 mix-blend-screen z-0">
+      {/* Atmospheric Secondary Anime Producer Visual on Left */}
+      <div className="hidden lg:block absolute -left-16 bottom-10 w-96 h-96 pointer-events-none opacity-35 mix-blend-screen z-0">
         <PosterCutout
-          src="/assets/collage/risograph-roses.jpg"
-          alt="dYnex Floral Contrast"
+          src="/assets/anime/about-producer.jpg"
+          alt="dYnex Studio Producer"
           maskType="radial"
           cropPosition="center"
           className="w-full h-full"

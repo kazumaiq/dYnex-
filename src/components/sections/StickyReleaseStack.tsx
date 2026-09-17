@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Play, Disc3, Layers, Zap, Sparkles, Heart } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 
@@ -12,12 +12,12 @@ export const StickyReleaseStack: React.FC = () => {
 
   const displayReleases = stackReleases.length >= 3 ? stackReleases : releases.slice(0, 4);
 
-  // Background artwork references for each stack item to enrich visual density
+  // Bespoke 4K anime artwork backdrops for each stack card
   const stackBackdrops = [
-    '/assets/collage/botanical-cyber.jpg',
-    '/assets/collage/anime-tactical.jpg',
-    '/assets/collage/anime-showcase.jpg',
-    '/assets/collage/risograph-roses.jpg',
+    '/assets/anime/city-backdrop.jpg',
+    '/assets/anime/samurai-character.jpg',
+    '/assets/anime/dj-producer.jpg',
+    '/assets/anime/hero-character.jpg',
   ];
 
   return (
@@ -61,12 +61,12 @@ export const StickyReleaseStack: React.FC = () => {
                 <div className="absolute -inset-1 bg-signal-red/25 border border-signal-red/50 pointer-events-none" />
 
                 <div className="tactical-border relative w-full p-6 sm:p-10 bg-void-950/95 backdrop-blur-2xl border border-void-700 hover:border-signal-red rounded-none shadow-[0_20px_50px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden">
-                  {/* Rich Anime Background Artwork Backdrop Fragment */}
-                  <div className="absolute inset-0 pointer-events-none opacity-20 group-hover:opacity-35 transition-opacity duration-500 mix-blend-screen overflow-hidden">
+                  {/* Rich 4K Anime Background Artwork Backdrop Fragment */}
+                  <div className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-55 transition-opacity duration-500 mix-blend-screen overflow-hidden">
                     <img
                       src={bgImage}
                       alt="Anime Poster Backdrop"
-                      className="w-full h-full object-cover object-center filter grayscale-[30%] contrast-125"
+                      className="w-full h-full object-cover object-center filter contrast-125"
                     />
                   </div>
 

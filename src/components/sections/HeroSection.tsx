@@ -19,35 +19,35 @@ export const HeroSection: React.FC = () => {
       id="hero"
       className="relative min-h-screen w-full flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32 pb-8 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
     >
-      {/* 00. Rich Anime Artwork & Character Background Layer (Prominent & High-Density) */}
-      <div className="absolute -top-10 right-0 sm:right-4 w-80 sm:w-[32rem] lg:w-[42rem] h-80 sm:h-[32rem] lg:h-[42rem] pointer-events-none opacity-50 sm:opacity-75 mix-blend-screen z-0">
-        <PosterCutout
-          src="/assets/collage/anime-tactical.jpg"
-          alt="dYnex Anime Tactical Character"
-          maskType="radial"
-          cropPosition="top center"
-          className="w-full h-full"
+      {/* 00. Atmospheric Cyberpunk Anime City Backdrop */}
+      <div className="absolute inset-0 pointer-events-none opacity-25 mix-blend-screen z-0 overflow-hidden">
+        <img
+          src="/assets/anime/city-backdrop.jpg"
+          alt="Neo Tokyo Phonk City"
+          className="w-full h-full object-cover object-center filter contrast-125"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-void-950 via-void-950/70 to-transparent" />
       </div>
 
-      <div className="hidden lg:block absolute bottom-4 left-0 w-80 h-80 pointer-events-none opacity-40 mix-blend-screen z-0">
+      {/* 00b. Prominent 4K Anime Character Pilot (High-Density, Crisp Artwork) */}
+      <div className="absolute top-1/2 -translate-y-1/2 right-0 sm:right-6 lg:right-16 w-72 sm:w-[28rem] lg:w-[38rem] h-[34rem] sm:h-[42rem] lg:h-[50rem] pointer-events-none opacity-60 sm:opacity-85 mix-blend-screen z-0">
         <PosterCutout
-          src="/assets/collage/botanical-cyber.jpg"
-          alt="dYnex Botanical Cyber Composition"
+          src="/assets/anime/hero-character.jpg"
+          alt="dYnex Anime Pilot Character"
           maskType="radial"
-          cropPosition="center"
+          cropPosition="center 20%"
           className="w-full h-full"
         />
       </div>
 
       {/* Floating Anime Sparkles & Light Points */}
-      <div className="absolute top-1/4 left-1/3 text-signal-red font-mono text-sm pointer-events-none select-none animate-pulse opacity-60">
+      <div className="absolute top-1/4 left-1/3 text-signal-red font-mono text-sm pointer-events-none select-none animate-pulse opacity-70 z-0">
         ✦
       </div>
-      <div className="absolute top-1/2 right-1/4 text-white font-mono text-xs pointer-events-none select-none animate-ping opacity-40">
+      <div className="absolute top-1/2 right-1/4 text-white font-mono text-xs pointer-events-none select-none animate-ping opacity-50 z-0">
         ✧
       </div>
-      <div className="absolute bottom-1/3 left-1/4 text-signal-red font-mono text-xs pointer-events-none select-none opacity-50">
+      <div className="absolute bottom-1/3 left-1/4 text-signal-red font-mono text-xs pointer-events-none select-none opacity-60 z-0">
         ★
       </div>
 
@@ -82,7 +82,7 @@ export const HeroSection: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* 02. Center Main Editorial Poster & Anime Artwork Showcase */}
+      {/* 02. Center Main Editorial Poster & Anime Showcase */}
       <div className="w-full my-auto py-6 sm:py-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pointer-events-auto relative z-10">
         {/* Left: Expressive Layered Brand Typography & Anime Profile Info */}
         <div className="max-w-2xl relative z-10 w-full space-y-4">
@@ -127,16 +127,16 @@ export const HeroSection: React.FC = () => {
             </motion.h1>
           </div>
 
-          {/* Anime Character Profile Telemetry Box (Inspired by Reference Art) */}
+          {/* Anime Character Profile Telemetry Box */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="p-3 sm:p-4 bg-void-950/90 border border-signal-red/50 shadow-poster-red-offset max-w-xl"
+            className="p-3.5 sm:p-4 bg-void-950/90 backdrop-blur-md border border-signal-red/60 shadow-poster-red-offset max-w-xl"
           >
             <div className="flex items-center justify-between text-[10px] font-mono text-signal-red uppercase pb-1.5 mb-2 border-b border-void-800">
               <span className="font-bold flex items-center gap-1">
-                <Heart size={10} className="fill-signal-red" /> ARCHIVE SPEC // プロデューサー
+                <Heart size={10} className="fill-signal-red" /> ARCHIVE PILOT // プロデューサー
               </span>
               <span className="text-technical-silver font-bold">ATTRIBUTE: ELECTRIC ⚡</span>
             </div>
@@ -151,7 +151,7 @@ export const HeroSection: React.FC = () => {
               </div>
               <div className="col-span-2 sm:col-span-1">
                 <span className="text-technical-muted block">STATUS:</span>
-                <span className="text-signal-red font-bold">VERIFIED ARTIST</span>
+                <span className="text-signal-red font-bold">VERIFIED MASTER</span>
               </div>
             </div>
           </motion.div>
