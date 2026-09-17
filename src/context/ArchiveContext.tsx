@@ -17,6 +17,8 @@ interface ArchiveContextType {
   setArchiveRotation: React.Dispatch<React.SetStateAction<number>>;
   isDraggingArchive: boolean;
   setIsDraggingArchive: (dragging: boolean) => void;
+  autoRotate: boolean;
+  setAutoRotate: React.Dispatch<React.SetStateAction<boolean>>;
   language: Language;
   setLanguage: (lang: Language) => void;
   activeYearFilter: number | null;
@@ -104,6 +106,7 @@ export const ArchiveProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [mouseParallax, setMouseParallax] = useState({ x: 0, y: 0 });
   const [archiveRotation, setArchiveRotation] = useState(0);
   const [isDraggingArchive, setIsDraggingArchive] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(false);
 
   // Filters
   const [activeYearFilter, setActiveYearFilter] = useState<number | null>(null);
@@ -199,6 +202,8 @@ export const ArchiveProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setArchiveRotation,
         isDraggingArchive,
         setIsDraggingArchive,
+        autoRotate,
+        setAutoRotate,
         language,
         setLanguage,
         activeYearFilter,

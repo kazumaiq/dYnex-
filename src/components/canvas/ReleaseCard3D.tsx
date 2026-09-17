@@ -50,6 +50,7 @@ interface ReleaseCard3DProps {
   isFeatured?: boolean;
   isSelected?: boolean;
   cameraZ: number;
+  isMobile?: boolean;
   onSelect: (release: Release) => void;
 }
 
@@ -60,6 +61,7 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
   isFeatured = false,
   isSelected = false,
   cameraZ,
+  isMobile = false,
   onSelect,
 }) => {
   const meshRef = useRef<THREE.Group>(null!);
@@ -153,8 +155,8 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
     }
   });
 
-  const cardWidth = isFeatured ? 13 : 10;
-  const cardHeight = isFeatured ? 13 : 10;
+  const cardWidth = isFeatured ? (isMobile ? 10.5 : 13) : (isMobile ? 8 : 10);
+  const cardHeight = cardWidth;
   const cardDepth = 0.3;
 
   return (

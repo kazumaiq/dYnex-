@@ -23,7 +23,7 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
   }, [releases]);
 
   const totalReleases = publishedReleases.length;
-  const radius = isMobile ? 36 : 54;
+  const radius = isMobile ? 32 : 54;
 
   return (
     <group>
@@ -66,7 +66,7 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
 
         const ringX = Math.sin(currentAngle) * radius;
         const ringZ = -1150 + Math.cos(currentAngle) * radius;
-        const ringY = Math.sin(index * 1.2) * (isMobile ? 3.5 : 5.0);
+        const ringY = isMobile ? 0 : Math.sin(index * 1.2) * 4.5;
 
         const ringRotY = currentAngle;
         const ringRotX = 0;
@@ -96,6 +96,7 @@ export const ReleaseWorld: React.FC<ReleaseWorldProps> = ({ cameraZ, isMobile })
             isFeatured={isFeatured && archiveTransition < 0.3}
             isSelected={isSelected}
             cameraZ={cameraZ}
+            isMobile={isMobile}
             onSelect={(rel) => setSelectedRelease(rel)}
           />
         );

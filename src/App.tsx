@@ -72,7 +72,7 @@ const MainContent: React.FC = () => {
       <Navbar />
 
       {/* 05. HTML Content Layer over 3D World */}
-      <main className="relative z-10 w-full flex flex-col">
+      <main className="relative z-10 w-full flex flex-col pointer-events-none">
         <HeroSection />
         <ArchiveSection />
         <MarqueeSection />

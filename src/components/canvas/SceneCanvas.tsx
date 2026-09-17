@@ -15,7 +15,7 @@ const CameraRig: React.FC<{
   isMobile: boolean;
 }> = ({ scrollZ, scrollVelocity, isMobile }) => {
   const { camera } = useThree();
-  const { mouseParallax, setCameraZ, setArchiveRotation, isDraggingArchive } = useArchive();
+  const { mouseParallax, setCameraZ, setArchiveRotation, isDraggingArchive, autoRotate } = useArchive();
 
   // Inertia state for archive rotation
   const dragVelocity = useRef(0);
@@ -55,6 +55,11 @@ const CameraRig: React.FC<{
       mouseParallax.y * 0.018,
       Math.min(delta * 3, 0.2)
     );
+
+    // Auto-rotation when enabled and not dragging
+    if (autoRotate && !isDraggingArchive) {
+      setArchiveRotation((prev) => prev - delta * 0.35);
+    }
 
     // Inertial deceleration for archive rotation
     if (!isDraggingArchive && Math.abs(dragVelocity.current) > 0.0001) {
@@ -161,7 +166,7 @@ export const SceneCanvas: React.FC = () => {
     >
       <Canvas
         camera={{
-          fov: isMobile ? 55 : 45,
+          fov: isMobile ? 62 : 45,
           near: 0.5,
           far: 9000,
           position: [0, 0, 0],
