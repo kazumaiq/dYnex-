@@ -9,6 +9,7 @@ import { MarqueeSection } from './components/ui/MarqueeSection';
 import { Footer } from './components/ui/Footer';
 import { HeroSection } from './components/sections/HeroSection';
 import { ArchiveSection } from './components/sections/ArchiveSection';
+import { StickyReleaseStack } from './components/sections/StickyReleaseStack';
 import { AboutSection } from './components/sections/AboutSection';
 import { TimelineSection } from './components/sections/TimelineSection';
 import { NetworkSection } from './components/sections/NetworkSection';
@@ -78,6 +79,7 @@ const MainContent: React.FC = () => {
       <main className="relative z-10 w-full flex flex-col pointer-events-none">
         <HeroSection />
         <ArchiveSection />
+        <StickyReleaseStack />
         <MarqueeSection />
         <AboutSection />
         <TimelineSection />

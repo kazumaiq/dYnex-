@@ -103,6 +103,10 @@ export const ReleaseDetailModal: React.FC = () => {
               {/* Technical Metadata Table */}
               <div className="space-y-1.5 text-xs font-mono text-technical-muted border-t border-b border-void-800 py-3 mb-4">
                 <div className="flex justify-between">
+                  <span className="text-technical-muted">CATALOGUE ID:</span>
+                  <span className="text-signal-red font-bold">DNX-{selectedRelease.id.padStart ? selectedRelease.id.padStart(3, '0') : selectedRelease.id}</span>
+                </div>
+                <div className="flex justify-between">
                   <span className="text-technical-muted">{language === 'ru' ? 'ДАТА РЕЛИЗА:' : 'RELEASE DATE:'}</span>
                   <span className="text-technical-light">{selectedRelease.date}</span>
                 </div>
@@ -114,11 +118,30 @@ export const ReleaseDetailModal: React.FC = () => {
                   <span className="text-technical-muted">{language === 'ru' ? 'ТРЕКОВ:' : 'TRACKS:'}</span>
                   <span className="text-technical-light">{selectedRelease.trackCount}</span>
                 </div>
+                {selectedRelease.label && (
+                  <div className="flex justify-between">
+                    <span className="text-technical-muted">LABEL:</span>
+                    <span className="text-cyber-purple-glow font-bold">{selectedRelease.label}</span>
+                  </div>
+                )}
+                {selectedRelease.isrc && (
+                  <div className="flex justify-between">
+                    <span className="text-technical-muted">ISRC:</span>
+                    <span className="text-technical-silver font-mono">{selectedRelease.isrc}</span>
+                  </div>
+                )}
+                <div className="flex justify-between pt-1 border-t border-void-900">
+                  <span className="text-technical-muted">STATUS:</span>
+                  <span className="text-signal-red font-bold">VERIFIED MASTER</span>
+                </div>
               </div>
+
+              {/* Barcode Accent */}
+              <div className="barcode-pattern w-full h-2 mb-4 opacity-50" />
 
               {/* Description */}
               {selectedRelease.description && (
-                <p className="text-xs text-technical-muted leading-relaxed mb-4">
+                <p className="text-xs text-technical-silver leading-relaxed mb-4">
                   {selectedRelease.description}
                 </p>
               )}
@@ -126,8 +149,9 @@ export const ReleaseDetailModal: React.FC = () => {
 
             {/* Platform Buttons */}
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-widest text-technical-muted mb-2">
-                {language === 'ru' ? 'СЛУШАТЬ НА ПЛОЩАДКАХ:' : 'STREAMING PLATFORMS:'}
+              <div className="text-[10px] font-mono uppercase tracking-widest text-technical-muted mb-2 flex items-center justify-between">
+                <span>{language === 'ru' ? 'СЛУШАТЬ НА ПЛОЩАДКАХ:' : 'STREAMING PLATFORMS:'}</span>
+                <span className="text-signal-red text-[9px]">// DIRECT DSP LINKS</span>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
@@ -173,6 +197,28 @@ export const ReleaseDetailModal: React.FC = () => {
                   >
                     <span>YouTube</span>
                     <ExternalLink size={12} className="text-signal-red" />
+                  </a>
+                )}
+                {selectedRelease.platforms.soundCloud && (
+                  <a
+                    href={selectedRelease.platforms.soundCloud}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red/70 text-xs font-mono text-technical-light hover:text-signal-red transition-all rounded-sm"
+                  >
+                    <span>SoundCloud</span>
+                    <ExternalLink size={12} className="text-signal-red" />
+                  </a>
+                )}
+                {selectedRelease.platforms.yandexMusic && (
+                  <a
+                    href={selectedRelease.platforms.yandexMusic}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 text-xs font-mono text-technical-light hover:text-cyber-purple-glow transition-all rounded-sm"
+                  >
+                    <span>Яндекс Музыка</span>
+                    <ExternalLink size={12} className="text-cyber-purple" />
                   </a>
                 )}
               </div>

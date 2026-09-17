@@ -254,15 +254,17 @@ export const ArchiveSection: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="my-6 p-6 bg-void-950/95 backdrop-blur-xl border border-void-800 rounded-sm pointer-events-auto max-h-[60vh] overflow-y-auto shadow-2xl z-20"
+          className="tactical-border my-6 p-5 sm:p-6 bg-void-950/95 backdrop-blur-xl border border-void-800 rounded-sm pointer-events-auto max-h-[60vh] overflow-y-auto shadow-2xl z-20"
         >
           <div className="text-xs font-mono text-technical-muted uppercase tracking-widest mb-4 flex justify-between items-center border-b border-void-800 pb-2">
-            <span className="text-cyber-purple-glow">{language === 'ru' ? 'СЕМАНТИЧЕСКИЙ СПИСОК РЕЛИЗОВ' : 'ACCESSIBLE RELEASE ARCHIVE'}</span>
-            <span className="text-signal-red">{filteredReleases.length} {language === 'ru' ? 'НАЙДЕНО' : 'FOUND'}</span>
+            <span className="text-cyber-purple-glow font-bold">
+              {language === 'ru' ? 'ЦИФРОВАЯ БАЗА РЕЛИЗОВ // КАТАЛОГ' : 'ARCHIVED MUSIC DATABASE // CATALOG'}
+            </span>
+            <span className="text-signal-red font-bold">{filteredReleases.length} {language === 'ru' ? 'РЕЛИЗОВ' : 'RELEASES'}</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredReleases.map((r) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            {filteredReleases.map((r, i) => (
               <div
                 key={r.id}
                 onClick={() => setSelectedRelease(r)}
@@ -274,17 +276,27 @@ export const ArchiveSection: React.FC = () => {
                 }}
                 tabIndex={0}
                 role="button"
-                className="flex items-center space-x-3 p-3 bg-void-900/80 hover:bg-void-850 border border-void-800 hover:border-cyber-purple/70 hover:shadow-cyber-purple-glow rounded-sm cursor-pointer transition-all focus:outline-none focus:ring-1 focus:ring-cyber-purple"
+                className="flex items-center space-x-3 p-3 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red/70 hover:shadow-neon-mix rounded-sm cursor-pointer transition-all focus:outline-none focus:ring-1 focus:ring-signal-red group"
               >
-                <img
-                  src={r.artworkUrl}
-                  alt={r.title}
-                  className="w-12 h-12 rounded-sm object-cover border border-void-700 shrink-0"
-                />
-                <div className="overflow-hidden">
-                  <div className="text-xs font-bold text-white truncate">{r.title}</div>
-                  <div className="text-[11px] font-mono text-technical-muted truncate">{r.artists}</div>
-                  <div className="text-[10px] font-mono text-signal-red mt-0.5">{r.year} // {r.genre}</div>
+                <div className="relative w-12 h-12 rounded-sm overflow-hidden border border-void-700 shrink-0 group-hover:border-signal-red transition-colors">
+                  <img
+                    src={r.artworkUrl}
+                    alt={r.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  />
+                  <div className="absolute top-0 left-0 bg-void-950/90 text-[8px] font-mono text-signal-red px-1 rounded-br-xs">
+                    #{String(i + 1).padStart(2, '0')}
+                  </div>
+                </div>
+                <div className="overflow-hidden font-mono flex-1 min-w-0">
+                  <div className="text-xs font-bold text-white group-hover:text-signal-red transition-colors truncate font-sans">
+                    {r.title}
+                  </div>
+                  <div className="text-[10px] text-technical-silver truncate mt-0.5">{r.artists}</div>
+                  <div className="text-[9px] text-technical-muted mt-1 flex items-center justify-between">
+                    <span className="text-signal-red">DNX-{String(i + 1).padStart(3, '0')}</span>
+                    <span>{r.year} // {r.genre}</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -302,9 +314,21 @@ export const ArchiveSection: React.FC = () => {
         onMouseEnter={() => setIsHoveredDragZone(true)}
         onMouseLeave={() => setIsHoveredDragZone(false)}
       >
+        {/* Subtle Targeting Reticle & Radar Wireframe (Pointer Events None) */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+          <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-void-700/60 border-dashed" />
+          <div className="absolute w-44 h-44 sm:w-56 sm:h-56 rounded-full border border-signal-red/30" />
+          <div className="absolute text-[8px] font-mono text-technical-muted top-2 left-2">
+            [ RADIAL TRACKING // CYLINDER 360° ]
+          </div>
+          <div className="absolute text-[8px] font-mono text-signal-red bottom-2 right-2">
+            Z-TARGET: -1150
+          </div>
+        </div>
+
         {/* Subtle touch drag guidance overlay */}
         <div
-          className={`flex items-center space-x-2 px-3 py-1 rounded-full bg-void-950/80 border border-void-800/80 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-technical-silver transition-opacity duration-300 pointer-events-none mt-auto mb-1 ${
+          className={`flex items-center space-x-2 px-3 py-1 rounded-full bg-void-950/80 border border-void-800/80 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-technical-silver transition-opacity duration-300 pointer-events-none mt-auto mb-1 z-10 ${
             isHoveredDragZone ? 'opacity-90' : 'opacity-50 sm:opacity-25'
           }`}
         >
