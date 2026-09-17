@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { motion } from 'framer-motion';
-import { Play, ArrowDown, Disc3, Radio, Crosshair, Zap, Heart } from 'lucide-react';
+import { Play, ArrowDown, Disc3, Radio, Crosshair, Zap, Heart, Sparkles } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 import { PosterCutout } from '../collage/PosterCutout';
 
@@ -19,8 +19,18 @@ export const HeroSection: React.FC = () => {
       id="hero"
       className="relative min-h-screen w-full flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32 pb-8 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
     >
-      {/* 00. Background Collage Atmosphere: Botanical & Tactical Artwork Cutouts */}
-      <div className="absolute top-1/4 -right-12 sm:right-4 w-72 sm:w-96 lg:w-[32rem] h-72 sm:h-96 lg:h-[32rem] pointer-events-none opacity-25 lg:opacity-35 mix-blend-screen z-0">
+      {/* 00. Rich Anime Artwork & Character Background Layer (Prominent & High-Density) */}
+      <div className="absolute -top-10 right-0 sm:right-4 w-80 sm:w-[32rem] lg:w-[42rem] h-80 sm:h-[32rem] lg:h-[42rem] pointer-events-none opacity-50 sm:opacity-75 mix-blend-screen z-0">
+        <PosterCutout
+          src="/assets/collage/anime-tactical.jpg"
+          alt="dYnex Anime Tactical Character"
+          maskType="radial"
+          cropPosition="top center"
+          className="w-full h-full"
+        />
+      </div>
+
+      <div className="hidden lg:block absolute bottom-4 left-0 w-80 h-80 pointer-events-none opacity-40 mix-blend-screen z-0">
         <PosterCutout
           src="/assets/collage/botanical-cyber.jpg"
           alt="dYnex Botanical Cyber Composition"
@@ -30,14 +40,15 @@ export const HeroSection: React.FC = () => {
         />
       </div>
 
-      <div className="hidden 2xl:block absolute top-12 right-0 w-64 h-80 pointer-events-none opacity-15 mix-blend-screen z-0">
-        <PosterCutout
-          src="/assets/collage/anime-tactical.jpg"
-          alt="dYnex Tactical Anime Layer"
-          maskType="radial"
-          cropPosition="top"
-          className="w-full h-full"
-        />
+      {/* Floating Anime Sparkles & Light Points */}
+      <div className="absolute top-1/4 left-1/3 text-signal-red font-mono text-sm pointer-events-none select-none animate-pulse opacity-60">
+        ✦
+      </div>
+      <div className="absolute top-1/2 right-1/4 text-white font-mono text-xs pointer-events-none select-none animate-ping opacity-40">
+        ✧
+      </div>
+      <div className="absolute bottom-1/3 left-1/4 text-signal-red font-mono text-xs pointer-events-none select-none opacity-50">
+        ★
       </div>
 
       {/* 01. Top Tactical HUD & Coordinate Telemetry */}
@@ -45,59 +56,62 @@ export const HeroSection: React.FC = () => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="w-full flex items-center justify-between font-mono text-[10px] sm:text-xs text-technical-silver pointer-events-auto border-b border-void-800/80 pb-3 relative z-10"
+        className="w-full flex items-center justify-between font-mono text-[10px] sm:text-xs text-technical-silver pointer-events-auto border-b border-void-800 pb-3 relative z-10"
       >
         <div className="flex items-center space-x-2.5">
           <span className="w-2 h-2 rounded-full bg-signal-red animate-ping" />
-          <span className="font-bold text-signal-red tracking-widest-tech uppercase">
-            {language === 'ru' ? 'ЗОНА 01 // ОРБИТАЛЬНЫЙ ВХОД' : 'ZONE 01 // ORBITAL ENTRY'}
+          <span className="font-bold text-signal-red tracking-widest-tech uppercase flex items-center gap-1.5">
+            <Sparkles size={11} />
+            {language === 'ru' ? 'ЗОНА 01 // АНИМЕ АРХИВ' : 'ZONE 01 // ANIME ARCHIVE'}
           </span>
           <span className="text-void-700 hidden sm:inline">|</span>
           <span className="text-technical-muted hidden sm:inline tracking-wider">
-            {language === 'ru' ? 'ЦИФРОВОЙ ЗВУКОВОЙ АРХИВ' : 'DIGITAL SOUND ARCHIVE'}
+            {language === 'ru' ? 'ЦИФРОВОЙ ЗВУКОВОЙ ПОРТАЛ' : 'DIGITAL SONIC PORTAL'}
           </span>
         </div>
 
         {/* Right HUD metrics */}
         <div className="flex items-center space-x-3 text-technical-muted text-[10px]">
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="flex items-center space-x-2">
             <Radio size={11} className="text-signal-red animate-pulse" />
             <span>LOC: 55°45'N 37°37'E</span>
-            <span className="text-void-700">//</span>
-            <span className="text-signal-red font-bold">SIGNAL ACTIVE</span>
+            <span className="text-void-700 hidden sm:inline">//</span>
+            <span className="text-signal-red font-bold hidden sm:inline">BROADCAST ACTIVE</span>
           </div>
-          <div className="barcode-pattern w-16 h-3 opacity-70 hidden sm:block" />
+          <div className="barcode-pattern w-14 sm:w-16 h-2.5 sm:h-3 opacity-80" />
         </div>
       </motion.div>
 
-      {/* 02. Center Main Editorial Poster & Artwork Showcase */}
-      <div className="w-full my-auto py-8 sm:py-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pointer-events-auto relative z-10">
-        {/* Left: Expressive Layered Brand Typography & Editorial Text */}
-        <div className="max-w-2xl relative z-10 w-full">
-          {/* Genre & Role Strip with Y2K tactical icons */}
+      {/* 02. Center Main Editorial Poster & Anime Artwork Showcase */}
+      <div className="w-full my-auto py-6 sm:py-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pointer-events-auto relative z-10">
+        {/* Left: Expressive Layered Brand Typography & Anime Profile Info */}
+        <div className="max-w-2xl relative z-10 w-full space-y-4">
+          {/* Genre & Role Strip with anime badges */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-[11px] sm:text-xs font-mono tracking-widest-tech text-technical-muted uppercase mb-3 flex flex-wrap items-center gap-2"
+            className="text-[11px] sm:text-xs font-mono tracking-widest-tech uppercase flex flex-wrap items-center gap-2"
           >
-            <span className="text-signal-red font-bold">[ + ]</span>
+            <span className="px-2 py-0.5 bg-signal-red text-white font-bold text-[10px]">
+              dYnex? STUDIO
+            </span>
             <span className="text-technical-silver">
               {language === 'ru'
                 ? 'МУЗЫКАЛЬНЫЙ ПРОДЮСЕР & ЗВУКОВОЙ АРХИТЕКТОР'
                 : 'SOUND ARCHITECT & MUSIC PRODUCER'}
             </span>
-            <span className="text-void-700 hidden sm:inline">//</span>
-            <span className="text-signal-red hidden sm:inline">2023—2026</span>
-            <Zap size={11} className="text-signal-red fill-signal-red hidden sm:inline" />
+            <span className="text-signal-red flex items-center gap-1 font-bold">
+              <Zap size={11} className="fill-signal-red" /> 2023—2026
+            </span>
           </motion.div>
 
           {/* Massive Artist Wordmark with Ghost Underlay */}
-          <div className="relative">
+          <div className="relative my-2">
             {/* Ghost Wireframe Underlay */}
             <div
               aria-hidden="true"
-              className="absolute -top-3 -left-1 font-sans font-black text-6xl sm:text-8xl lg:text-[10rem] tracking-tighter text-stroke-ghost leading-none select-none pointer-events-none opacity-40"
+              className="absolute -top-3 -left-1 font-sans font-black text-6xl sm:text-8xl lg:text-[10rem] tracking-tighter text-stroke-ghost leading-none select-none pointer-events-none opacity-45"
             >
               dYnex?
             </div>
@@ -107,18 +121,47 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative font-sans font-black text-5xl sm:text-7xl lg:text-9xl tracking-tighter text-white leading-none mb-4"
+              className="relative font-sans font-black text-5xl sm:text-7xl lg:text-9xl tracking-tighter text-white leading-none"
             >
               dYnex<span className="text-signal-red">?</span>
             </motion.h1>
           </div>
+
+          {/* Anime Character Profile Telemetry Box (Inspired by Reference Art) */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="p-3 sm:p-4 bg-void-950/90 border border-signal-red/50 shadow-poster-red-offset max-w-xl"
+          >
+            <div className="flex items-center justify-between text-[10px] font-mono text-signal-red uppercase pb-1.5 mb-2 border-b border-void-800">
+              <span className="font-bold flex items-center gap-1">
+                <Heart size={10} className="fill-signal-red" /> ARCHIVE SPEC // プロデューサー
+              </span>
+              <span className="text-technical-silver font-bold">ATTRIBUTE: ELECTRIC ⚡</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono text-[10px] text-technical-silver">
+              <div>
+                <span className="text-technical-muted block">STYLE:</span>
+                <span className="text-white font-bold">DRIFT & PHONK</span>
+              </div>
+              <div>
+                <span className="text-technical-muted block">SYNTHESIS:</span>
+                <span className="text-white font-bold">DARK ELECTRONIC</span>
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <span className="text-technical-muted block">STATUS:</span>
+                <span className="text-signal-red font-bold">VERIFIED ARTIST</span>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Sound Manifesto Subhead with Japanese subtitle */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-xs sm:text-sm font-mono text-technical-silver tracking-widest space-y-2 mb-8"
+            className="text-xs sm:text-sm font-mono text-technical-silver tracking-widest space-y-1.5"
           >
             <div className="flex items-center space-x-2 text-signal-red text-[11px] font-bold">
               <span>●</span>
@@ -137,7 +180,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap items-center gap-3 sm:gap-4"
+            className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2"
           >
             {/* Primary CTA: Listen Featured */}
             <button
@@ -159,7 +202,7 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Right: Featured Release Tactical Poster Showcase (Layered Collage Card) */}
+        {/* Right: Featured Release Tactical Anime Poster Showcase */}
         {featuredRelease && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -186,7 +229,7 @@ export const HeroSection: React.FC = () => {
                     </span>
                   </div>
                   <div className="flex items-center space-x-1.5 text-signal-red font-mono">
-                    <Heart size={10} className="fill-signal-red/40 text-signal-red" />
+                    <Heart size={10} className="fill-signal-red text-signal-red" />
                     <span>#{featuredRelease.year}</span>
                   </div>
                 </div>
@@ -198,7 +241,8 @@ export const HeroSection: React.FC = () => {
                     alt={featuredRelease.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-2 right-2 px-2 py-0.5 bg-void-950/90 backdrop-blur-sm border border-signal-red text-[9px] font-mono text-signal-red font-bold">
+                  <div className="absolute top-2 right-2 px-2 py-0.5 bg-void-950/90 border border-signal-red text-[9px] font-mono text-signal-red font-bold flex items-center gap-1">
+                    <Sparkles size={9} />
                     VERIFIED
                   </div>
                   <div className="absolute bottom-2 left-2 px-1.5 py-0.5 bg-void-950/80 text-[8px] font-mono text-technical-silver">
@@ -231,7 +275,7 @@ export const HeroSection: React.FC = () => {
         )}
 
         {/* Japanese Vertical Typography Strip (Desktop Decorator) */}
-        <div className="hidden xl:flex absolute -right-8 top-1/2 -translate-y-1/2 flex-col items-center font-mono text-[9px] text-technical-muted tracking-widest uppercase writing-vertical border-l border-void-800/80 pl-2.5 space-y-4 opacity-60">
+        <div className="hidden xl:flex absolute -right-8 top-1/2 -translate-y-1/2 flex-col items-center font-mono text-[9px] text-technical-muted tracking-widest uppercase writing-vertical border-l border-void-800/80 pl-2.5 space-y-4 opacity-75">
           <span>ダイネクス // 音響アーカイブ</span>
           <div className="barcode-pattern-silver w-2 h-16 opacity-50" />
           <span className="text-signal-red">ORBITAL FREQUENCY // 2026</span>
@@ -257,7 +301,7 @@ export const HeroSection: React.FC = () => {
         <div className="flex items-center space-x-3 text-technical-silver">
           <span>SYS_STATUS: ACTIVE</span>
           <span className="text-void-700">//</span>
-          <span className="text-signal-red">Z_ORIGIN: 0000</span>
+          <span className="text-signal-red font-bold">Z_ORIGIN: 0000 ✦</span>
         </div>
       </motion.div>
     </section>

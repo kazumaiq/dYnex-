@@ -87,7 +87,7 @@ interface SectionWaypoint {
 
 const SECTION_WAYPOINTS: SectionWaypoint[] = [
   { id: 'hero', zDesktop: 0, zMobile: 0 },
-  { id: 'archive', zDesktop: -1060, zMobile: -1095 },
+  { id: 'archive', zDesktop: -1060, zMobile: -1070 },
   { id: 'about', zDesktop: -2200, zMobile: -2200 },
   { id: 'timeline', zDesktop: -2800, zMobile: -2800 },
   { id: 'network', zDesktop: -3360, zMobile: -3360 },

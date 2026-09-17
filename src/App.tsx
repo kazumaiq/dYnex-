@@ -70,7 +70,10 @@ const MainContent: React.FC = () => {
       </ErrorBoundary>
 
       {/* Tactile CRT Scanline & Grain Texture Layer */}
-      <div className="fixed inset-0 z-20 pointer-events-none crt-overlay opacity-25 mix-blend-screen" />
+      <div className="fixed inset-0 z-20 pointer-events-none crt-overlay opacity-20 mix-blend-screen" />
+
+      {/* Anime Light Leak Prism & Ambient Glow Layer */}
+      <div className="fixed inset-0 z-20 pointer-events-none anime-prism-overlay mix-blend-screen" />
 
       {/* 04. Top Navigation Bar */}
       <Navbar />

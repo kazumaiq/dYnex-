@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Play, Disc3, Layers, Zap } from 'lucide-react';
+import { Play, Disc3, Layers, Zap, Sparkles, Heart } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 
 export const StickyReleaseStack: React.FC = () => {
@@ -12,32 +12,42 @@ export const StickyReleaseStack: React.FC = () => {
 
   const displayReleases = stackReleases.length >= 3 ? stackReleases : releases.slice(0, 4);
 
+  // Background artwork references for each stack item to enrich visual density
+  const stackBackdrops = [
+    '/assets/collage/botanical-cyber.jpg',
+    '/assets/collage/anime-tactical.jpg',
+    '/assets/collage/anime-showcase.jpg',
+    '/assets/collage/risograph-roses.jpg',
+  ];
+
   return (
     <section
       id="stack"
-      className="relative w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
+      className="relative w-full px-4 sm:px-8 lg:px-12 py-20 sm:py-28 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
     >
-      <div className="w-full pointer-events-auto mb-10 sm:mb-14">
+      <div className="w-full pointer-events-auto mb-8 sm:mb-12">
         <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-2">
-          <Layers size={13} className="text-signal-red" />
+          <Sparkles size={13} className="text-signal-red" />
           <span className="font-bold">
-            {language === 'ru' ? '// 02.5 СТЕК ФЛАГМАНСКИХ ПОСТЕРОВ' : '// 02.5 FLAGSHIP POSTER STACK'}
+            {language === 'ru' ? '// 02.5 АНИМЕ ПОСТЕРНЫЙ СТЕК' : '// 02.5 ANIME POSTER STACK'}
           </span>
           <span className="text-void-700">//</span>
-          <span className="text-technical-muted">物理ポスター // PHYSICAL STACK</span>
+          <span className="text-technical-muted">物理ポスター // VISUAL ARCHIVE</span>
         </div>
         <h2 className="font-sans font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white uppercase">
           {language === 'ru' ? 'КУЛЬТОВЫЕ СИНГЛЫ' : 'LANDMARK ANTHEMS'}
         </h2>
         <p className="text-xs sm:text-sm font-mono text-technical-silver max-w-xl mt-2">
           {language === 'ru'
-            ? 'Физический стек коллекционных постеров. Прокручивайте страницу, чтобы исследовать ключевые релизы в пространстве.'
-            : 'Physical stacking sheets in space. Scroll through to inspect milestone releases across the catalog horizon.'}
+            ? 'Физический стек коллекционных аниме-постеров. Прокручивайте страницу, чтобы исследовать ключевые релизы.'
+            : 'Physical stacking anime poster sheets. Scroll through to inspect milestone releases across the catalog horizon.'}
         </p>
       </div>
 
-      <div className="relative w-full space-y-8 sm:space-y-12 pb-16">
+      <div className="relative w-full space-y-6 sm:space-y-10 pb-16">
         {displayReleases.map((release, index) => {
+          const bgImage = stackBackdrops[index % stackBackdrops.length];
+
           return (
             <div
               key={release.id}
@@ -51,6 +61,15 @@ export const StickyReleaseStack: React.FC = () => {
                 <div className="absolute -inset-1 bg-signal-red/25 border border-signal-red/50 pointer-events-none" />
 
                 <div className="tactical-border relative w-full p-6 sm:p-10 bg-void-950/95 backdrop-blur-2xl border border-void-700 hover:border-signal-red rounded-none shadow-[0_20px_50px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden">
+                  {/* Rich Anime Background Artwork Backdrop Fragment */}
+                  <div className="absolute inset-0 pointer-events-none opacity-20 group-hover:opacity-35 transition-opacity duration-500 mix-blend-screen overflow-hidden">
+                    <img
+                      src={bgImage}
+                      alt="Anime Poster Backdrop"
+                      className="w-full h-full object-cover object-center filter grayscale-[30%] contrast-125"
+                    />
+                  </div>
+
                   <div
                     aria-hidden="true"
                     className="absolute right-4 bottom-2 font-sans font-black text-6xl sm:text-8xl lg:text-[9rem] tracking-tighter text-stroke-ghost select-none pointer-events-none opacity-20 leading-none"
@@ -66,7 +85,8 @@ export const StickyReleaseStack: React.FC = () => {
                         alt={release.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute top-3 left-3 px-2 py-0.5 bg-void-950/90 border border-signal-red text-[10px] font-mono text-signal-red font-bold">
+                      <div className="absolute top-3 left-3 px-2 py-0.5 bg-void-950/90 border border-signal-red text-[10px] font-mono text-signal-red font-bold flex items-center gap-1">
+                        <Sparkles size={10} />
                         FLAGSHIP // {release.year}
                       </div>
                     </div>
@@ -99,7 +119,8 @@ export const StickyReleaseStack: React.FC = () => {
                       </p>
 
                       <div className="flex items-center space-x-4 pt-2 text-xs text-technical-silver">
-                        <span className="px-2.5 py-1 bg-void-900 border border-signal-red/40 text-[10px] text-signal-red font-bold">
+                        <span className="px-2.5 py-1 bg-void-900 border border-signal-red/40 text-[10px] text-signal-red font-bold flex items-center gap-1">
+                          <Heart size={9} className="fill-signal-red" />
                           {release.genre}
                         </span>
                         <span className="text-[11px] text-technical-muted">

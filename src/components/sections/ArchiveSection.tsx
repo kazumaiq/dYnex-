@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+﻿import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -8,8 +8,9 @@ import {
   ChevronRight,
   Play,
   Disc3,
-  Sliders,
-  MoveHorizontal
+  MoveHorizontal,
+  Sparkles,
+  Heart
 } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 
@@ -177,27 +178,29 @@ export const ArchiveSection: React.FC = () => {
   return (
     <section
       id="archive"
-      className="relative min-h-screen w-full px-4 sm:px-8 lg:px-12 scroll-mt-20 pt-24 sm:pt-28 pb-6 sm:pb-10 flex flex-col justify-between pointer-events-none select-none max-w-7xl mx-auto"
+      className="relative w-full px-4 sm:px-8 lg:px-12 scroll-mt-20 pt-24 sm:pt-28 pb-12 flex flex-col justify-start pointer-events-none select-none max-w-7xl mx-auto space-y-4 sm:space-y-6"
     >
       {/* 01. Top Section Header & Search/Filter Controls */}
       <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-3 pointer-events-auto">
         <div>
           <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-mono text-signal-red uppercase tracking-widest-tech mb-1 sm:mb-2">
+            <Sparkles size={12} className="text-signal-red" />
             <span className="font-bold">// 02</span>
             <span>{language === 'ru' ? 'ОРБИТАЛЬНЫЙ АРХИВ МУЗЫКИ' : 'ORBITAL RELEASE ARCHIVE'}</span>
+            <span className="text-technical-muted hidden sm:inline">✦ 軌道シリンダー</span>
           </div>
           <h2 className="font-sans font-black text-2xl sm:text-4xl lg:text-5xl tracking-tight text-white uppercase">
             {language === 'ru' ? 'КАТАЛОГ РЕЛИЗОВ' : 'RELEASE CATALOG'}
           </h2>
         </div>
 
-        {/* Filter & Search Bar */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 bg-void-950/90 backdrop-blur-md p-1.5 sm:p-2.5 border border-void-700 rounded-none w-full md:w-auto overflow-hidden">
-          {/* Year Buttons */}
-          <div className="flex items-center space-x-1 border-r border-void-800 pr-1.5 sm:pr-2.5 shrink-0 overflow-x-auto no-scrollbar">
+        {/* Filter & Search Bar with Clean Mobile Wrapping */}
+        <div className="flex flex-wrap items-center gap-2 bg-void-950/90 backdrop-blur-md p-2 border border-void-700 rounded-none w-full md:w-auto">
+          {/* Year Buttons with Horizontal Scroll on small phones */}
+          <div className="flex items-center space-x-1 pr-2 shrink-0 border-r border-void-800">
             <button
               onClick={() => setActiveYearFilter(null)}
-              className={`px-2 py-1 text-[11px] sm:text-xs font-mono rounded-none transition-all shrink-0 ${
+              className={`px-2.5 py-1 text-[11px] sm:text-xs font-mono rounded-none transition-all shrink-0 ${
                 activeYearFilter === null
                   ? 'bg-signal-red text-white shadow-signal-red-sharp font-bold'
                   : 'text-technical-muted hover:text-signal-red'
@@ -221,7 +224,7 @@ export const ArchiveSection: React.FC = () => {
           </div>
 
           {/* Search Box */}
-          <div className="relative flex-1 md:w-36 lg:w-44 flex items-center min-w-[70px]">
+          <div className="relative flex-1 min-w-[110px] sm:w-40 flex items-center">
             <Search size={13} className="absolute left-2 text-technical-muted shrink-0" />
             <input
               type="text"
@@ -251,19 +254,20 @@ export const ArchiveSection: React.FC = () => {
       {/* Accessible Semantic Release List View */}
       {showAccessibleList && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          className="tactical-border my-6 p-5 sm:p-6 bg-void-950/95 backdrop-blur-xl border border-void-700 rounded-none pointer-events-auto max-h-[60vh] overflow-y-auto shadow-2xl z-20"
+          exit={{ opacity: 0, y: 15 }}
+          className="tactical-border p-4 sm:p-6 bg-void-950/95 backdrop-blur-xl border border-void-700 rounded-none pointer-events-auto max-h-[55vh] overflow-y-auto shadow-2xl z-20"
         >
           <div className="text-xs font-mono text-technical-muted uppercase tracking-widest mb-4 flex justify-between items-center border-b border-void-800 pb-2">
-            <span className="text-signal-red font-bold">
+            <span className="text-signal-red font-bold flex items-center gap-1.5">
+              <Sparkles size={11} />
               {language === 'ru' ? 'ЦИФРОВАЯ БАЗА РЕЛИЗОВ // КАТАЛОГ' : 'ARCHIVED MUSIC DATABASE // CATALOG'}
             </span>
             <span className="text-white font-bold">{filteredReleases.length} {language === 'ru' ? 'РЕЛИЗОВ' : 'RELEASES'}</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredReleases.map((r, i) => (
               <div
                 key={r.id}
@@ -304,9 +308,9 @@ export const ArchiveSection: React.FC = () => {
         </motion.div>
       )}
 
-      {/* 02. Interactive 3D Orbit Touch & Drag Zone (Centered Viewport Area) */}
+      {/* 02. Interactive 3D Orbit Touch & Drag Zone with Dedicated Vertical Space */}
       <div
-        className="w-full my-auto h-72 sm:h-96 relative flex flex-col items-center justify-center pointer-events-auto touch-pan-y cursor-grab active:cursor-grabbing select-none"
+        className="w-full h-60 sm:h-72 md:h-84 relative flex flex-col items-center justify-center pointer-events-auto touch-pan-y cursor-grab active:cursor-grabbing select-none my-2 sm:my-4"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -314,10 +318,10 @@ export const ArchiveSection: React.FC = () => {
         onMouseEnter={() => setIsHoveredDragZone(true)}
         onMouseLeave={() => setIsHoveredDragZone(false)}
       >
-        {/* Subtle Targeting Reticle & Radar Wireframe (Pointer Events None) */}
+        {/* Targeting Reticle & Radar Wireframe */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-          <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-void-700/60 border-dashed" />
-          <div className="absolute w-44 h-44 sm:w-56 sm:h-56 rounded-full border border-signal-red/30" />
+          <div className="w-56 h-56 sm:w-80 sm:h-80 rounded-full border border-void-700/60 border-dashed" />
+          <div className="absolute w-36 h-36 sm:w-56 sm:h-56 rounded-full border border-signal-red/30" />
           <div className="absolute text-[8px] font-mono text-technical-muted top-2 left-2">
             [ RADIAL TRACKING // CYLINDER 360° ]
           </div>
@@ -326,10 +330,10 @@ export const ArchiveSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Subtle touch drag guidance overlay */}
+        {/* Touch drag guidance overlay */}
         <div
-          className={`flex items-center space-x-2 px-3 py-1 bg-void-950/80 border border-void-800/80 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-technical-silver transition-opacity duration-300 pointer-events-none mt-auto mb-1 z-10 ${
-            isHoveredDragZone ? 'opacity-90' : 'opacity-50 sm:opacity-25'
+          className={`flex items-center space-x-2 px-3 py-1 bg-void-950/85 border border-void-800 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-technical-silver transition-opacity duration-300 pointer-events-none mt-auto mb-1 z-10 ${
+            isHoveredDragZone ? 'opacity-90' : 'opacity-60 sm:opacity-30'
           }`}
         >
           <MoveHorizontal size={13} className="text-signal-red animate-pulse" />
@@ -339,17 +343,17 @@ export const ArchiveSection: React.FC = () => {
         </div>
       </div>
 
-      {/* 03. Tactical 3D Orbit Controller & Telemetry Deck */}
-      <div className="w-full flex flex-col gap-2 pointer-events-auto mt-2">
+      {/* 03. Tactical 3D Orbit Controller & Telemetry Deck (Clean Mobile Separation) */}
+      <div className="w-full flex flex-col gap-2.5 pointer-events-auto">
         {/* Top bar: Active Release HUD & Quick Open Button */}
         {currentCenterRelease && (
-          <div className="w-full flex items-center justify-between gap-2.5 p-2 sm:p-3 bg-void-950/90 backdrop-blur-md border border-void-800 rounded-none">
+          <div className="w-full flex items-center justify-between gap-3 p-2.5 sm:p-3 bg-void-950/95 backdrop-blur-md border border-void-700 rounded-none shadow-subtle-card">
             {/* Center release meta */}
             <div
-              className="flex items-center space-x-2.5 overflow-hidden flex-1 cursor-pointer group"
+              className="flex items-center space-x-3 overflow-hidden flex-1 cursor-pointer group"
               onClick={() => setSelectedRelease(currentCenterRelease)}
             >
-              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-none overflow-hidden border border-void-700 shrink-0 group-hover:border-signal-red transition-colors">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-none overflow-hidden border border-void-700 shrink-0 group-hover:border-signal-red transition-colors">
                 <img
                   src={currentCenterRelease.artworkUrl}
                   alt={currentCenterRelease.title}
@@ -374,7 +378,7 @@ export const ArchiveSection: React.FC = () => {
             {/* Quick Open Modal Button */}
             <button
               onClick={() => setSelectedRelease(currentCenterRelease)}
-              className="px-3 sm:px-4 py-2 bg-signal-red hover:bg-signal-red-glow text-white font-mono text-[11px] sm:text-xs tracking-wider uppercase rounded-none flex items-center space-x-1.5 transition-all shrink-0 active:scale-95 shadow-signal-red-sharp"
+              className="px-3.5 sm:px-4 py-2 bg-signal-red hover:bg-signal-red-glow text-white font-mono text-[11px] sm:text-xs tracking-wider uppercase rounded-none flex items-center space-x-1.5 transition-all shrink-0 active:scale-95 shadow-signal-red-sharp"
             >
               <Play size={11} className="fill-white" />
               <span>{language === 'ru' ? 'СЛУШАТЬ' : 'PLAY'}</span>
@@ -382,34 +386,34 @@ export const ArchiveSection: React.FC = () => {
           </div>
         )}
 
-        {/* Bottom bar: Tactile Next/Prev Buttons + Scrubber + Auto-Rotate */}
-        <div className="w-full flex items-center justify-between gap-2 p-2 sm:p-2.5 bg-void-950/90 backdrop-blur-md border border-void-800 rounded-none text-xs font-mono">
-          {/* Previous / Next buttons */}
-          <div className="flex items-center space-x-1.5 shrink-0">
+        {/* Bottom bar: Tactile Next/Prev Buttons + Scrubber (Stacked cleanly on mobile) */}
+        <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 p-2.5 bg-void-950/90 backdrop-blur-md border border-void-800 rounded-none text-xs font-mono">
+          {/* Controls Row */}
+          <div className="flex items-center justify-between sm:justify-start space-x-2 shrink-0">
             <button
               onClick={() => handleStep(-1)}
-              className="px-2.5 sm:px-3 py-1.5 min-h-[36px] bg-void-900 hover:bg-void-850 border border-void-800 hover:border-signal-red text-technical-light hover:text-signal-red transition-all rounded-none flex items-center space-x-1 active:scale-95"
+              className="px-3 py-2 min-h-[38px] bg-void-900 hover:bg-void-850 border border-void-800 hover:border-signal-red text-technical-light hover:text-signal-red transition-all rounded-none flex items-center space-x-1 active:scale-95 flex-1 sm:flex-initial justify-center"
               title={language === 'ru' ? 'Предыдущий релиз' : 'Previous release'}
               aria-label="Previous release"
             >
               <ChevronLeft size={16} className="text-signal-red" />
-              <span className="hidden md:inline">{language === 'ru' ? 'НАЗАД' : 'PREV'}</span>
+              <span>{language === 'ru' ? 'НАЗАД' : 'PREV'}</span>
             </button>
 
             <button
               onClick={() => handleStep(1)}
-              className="px-2.5 sm:px-3 py-1.5 min-h-[36px] bg-void-900 hover:bg-void-850 border border-void-800 hover:border-signal-red text-technical-light hover:text-signal-red transition-all rounded-none flex items-center space-x-1 active:scale-95"
+              className="px-3 py-2 min-h-[38px] bg-void-900 hover:bg-void-850 border border-void-800 hover:border-signal-red text-technical-light hover:text-signal-red transition-all rounded-none flex items-center space-x-1 active:scale-95 flex-1 sm:flex-initial justify-center"
               title={language === 'ru' ? 'Следующий релиз' : 'Next release'}
               aria-label="Next release"
             >
-              <span className="hidden md:inline">{language === 'ru' ? 'ВПЕРЁД' : 'NEXT'}</span>
+              <span>{language === 'ru' ? 'ВПЕРЁД' : 'NEXT'}</span>
               <ChevronRight size={16} className="text-signal-red" />
             </button>
 
             {/* Auto-rotate button */}
             <button
               onClick={() => setAutoRotate((prev) => !prev)}
-              className={`px-2 sm:px-2.5 py-1.5 min-h-[36px] border rounded-none transition-all flex items-center space-x-1 active:scale-95 text-[10px] sm:text-xs ${
+              className={`px-3 py-2 min-h-[38px] border rounded-none transition-all flex items-center space-x-1 active:scale-95 text-[10px] sm:text-xs flex-1 sm:flex-initial justify-center ${
                 autoRotate
                   ? 'bg-signal-red text-white border-signal-red shadow-signal-red-sharp font-bold'
                   : 'bg-void-900 border-void-800 text-technical-silver hover:border-signal-red hover:text-white'
@@ -421,18 +425,18 @@ export const ArchiveSection: React.FC = () => {
             </button>
           </div>
 
-          {/* Interactive Catalog Scrubber Slider */}
-          <div className="flex-1 flex items-center space-x-2 px-1 min-w-[90px]">
+          {/* Scrubber Slider on dedicated line on mobile */}
+          <div className="flex items-center space-x-3 px-1 py-1 w-full sm:flex-1 sm:min-w-[140px]">
             <input
               type="range"
               min="0"
               max={totalReleases - 1}
               value={activeIndex}
               onChange={handleScrubberChange}
-              className="w-full h-1.5 bg-void-800 rounded-lg appearance-none cursor-pointer accent-signal-red focus:outline-none"
+              className="w-full h-2 bg-void-800 rounded-none appearance-none cursor-pointer accent-signal-red focus:outline-none"
               aria-label="Перемотка 3D каталога"
             />
-            <span className="text-[10px] sm:text-[11px] text-technical-muted shrink-0 w-8 text-right font-mono">
+            <span className="text-[11px] text-technical-silver font-mono shrink-0 w-10 text-right">
               {activeIndex + 1}/{totalReleases}
             </span>
           </div>
