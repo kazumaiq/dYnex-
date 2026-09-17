@@ -24,11 +24,16 @@ const MainContent: React.FC = () => {
   // Check URL hash or path for admin
   useEffect(() => {
     const checkRoute = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
       if (
-        window.location.pathname === '/admin' ||
-        window.location.hash === '#admin'
+        path === '/admin' ||
+        path.startsWith('/admin/') ||
+        hash === '#admin'
       ) {
         setIsAdminOpen(true);
+      } else {
+        setIsAdminOpen(false);
       }
     };
     checkRoute();
@@ -90,18 +95,20 @@ const MainContent: React.FC = () => {
         <MusicPlatformsSection />
       </main>
 
-      {/* 06. Footer with Admin Gateway */}
-      <Footer onOpenAdmin={() => setIsAdminOpen(true)} />
+      {/* 06. Footer */}
+      <Footer />
 
       {/* 07. Integrated 3D Release Detail Modal */}
       <ReleaseDetailModal />
 
-      {/* 08. Administrative System Modal / Overlay */}
+      {/* 08. Administrative System Modal (Accessible only via /admin) */}
       {isAdminOpen && (
         <AdminPanel
           onClose={() => {
             setIsAdminOpen(false);
-            if (window.location.hash === '#admin') {
+            if (window.location.pathname.toLowerCase().startsWith('/admin')) {
+              window.history.pushState(null, '', '/');
+            } else if (window.location.hash.toLowerCase() === '#admin') {
               window.history.pushState(null, '', window.location.pathname);
             }
           }}

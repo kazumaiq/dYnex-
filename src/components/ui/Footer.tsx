@@ -1,8 +1,8 @@
 import React from 'react';
-import { Lock, Radio, ExternalLink } from 'lucide-react';
+import { Radio, ExternalLink } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 
-export const Footer: React.FC<{ onOpenAdmin: () => void }> = ({ onOpenAdmin }) => {
+export const Footer: React.FC<{ onOpenAdmin?: () => void }> = () => {
   const { language } = useArchive();
 
   return (
@@ -76,15 +76,9 @@ export const Footer: React.FC<{ onOpenAdmin: () => void }> = ({ onOpenAdmin }) =
             // END OF SIGNAL • ARCHIVE SESSION CLOSED • 信号終了
           </div>
 
-          <div className="flex items-center space-x-3">
-            <div className="barcode-pattern w-14 h-2 opacity-50 hidden sm:block" />
-            <button
-              onClick={onOpenAdmin}
-              className="flex items-center space-x-1.5 px-2.5 py-1 bg-void-950 hover:bg-void-900 border border-void-800 hover:border-signal-red/60 text-[10px] text-technical-muted hover:text-white rounded-sm transition-colors"
-            >
-              <Lock size={10} className="text-signal-red" />
-              <span>{language === 'ru' ? 'ПАНЕЛЬ УПРАВЛЕНИЯ /ADMIN' : 'CONTROL TERMINAL /ADMIN'}</span>
-            </button>
+          <div className="flex items-center space-x-3 text-[10px] text-technical-muted">
+            <div className="barcode-pattern w-16 h-2 opacity-50 hidden sm:block" />
+            <span>© 2023—2026 dYnex? // ALL RIGHTS RESERVED</span>
           </div>
         </div>
       </div>
