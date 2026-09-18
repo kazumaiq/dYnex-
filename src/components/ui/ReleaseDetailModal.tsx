@@ -155,72 +155,65 @@ export const ReleaseDetailModal: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-2">
-                {selectedRelease.platforms.appleMusic && (
-                  <a
-                    href={selectedRelease.platforms.appleMusic}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
-                  >
-                    <span>Apple Music</span>
-                    <ExternalLink size={12} className="text-signal-red" />
-                  </a>
-                )}
-                {selectedRelease.platforms.spotify && (
-                  <a
-                    href={selectedRelease.platforms.spotify}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
-                  >
-                    <span>Spotify</span>
-                    <ExternalLink size={12} className="text-signal-red" />
-                  </a>
-                )}
-                {selectedRelease.platforms.vk && (
-                  <a
-                    href={selectedRelease.platforms.vk}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
-                  >
-                    <span>VK Музыка</span>
-                    <ExternalLink size={12} className="text-signal-red" />
-                  </a>
-                )}
-                {selectedRelease.platforms.youtube && (
-                  <a
-                    href={selectedRelease.platforms.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
-                  >
-                    <span>YouTube</span>
-                    <ExternalLink size={12} className="text-signal-red" />
-                  </a>
-                )}
-                {selectedRelease.platforms.soundCloud && (
-                  <a
-                    href={selectedRelease.platforms.soundCloud}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red text-xs font-mono text-technical-light hover:text-signal-red transition-all rounded-none"
-                  >
-                    <span>SoundCloud</span>
-                    <ExternalLink size={12} className="text-signal-red" />
-                  </a>
-                )}
-                {selectedRelease.platforms.yandexMusic && (
-                  <a
-                    href={selectedRelease.platforms.yandexMusic}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
-                  >
-                    <span>Яндекс Музыка</span>
-                    <ExternalLink size={12} className="text-signal-red" />
-                  </a>
-                )}
+                <a
+                  href={selectedRelease.platforms.appleMusic || "https://music.apple.com/us/artist/dynex/1697850899"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
+                >
+                  <span>Apple Music</span>
+                  <ExternalLink size={12} className="text-signal-red" />
+                </a>
+
+                <a
+                  href={selectedRelease.platforms.spotify || "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
+                >
+                  <span>Spotify</span>
+                  <ExternalLink size={12} className="text-signal-red" />
+                </a>
+
+                <a
+                  href={selectedRelease.platforms.vk || "https://vk.ru/artist/654356884443821665"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
+                >
+                  <span>VK Музыка</span>
+                  <ExternalLink size={12} className="text-signal-red" />
+                </a>
+
+                <a
+                  href={selectedRelease.platforms.yandexMusic || "https://music.yandex.ru/artist/19034250"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
+                >
+                  <span>Яндекс Музыка</span>
+                  <ExternalLink size={12} className="text-signal-red" />
+                </a>
+
+                <a
+                  href={selectedRelease.platforms.youtube || "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
+                >
+                  <span>YouTube</span>
+                  <ExternalLink size={12} className="text-signal-red" />
+                </a>
+
+                <a
+                  href={selectedRelease.platforms.youtubeMusic || "https://music.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-3 py-2 bg-void-900/90 hover:bg-void-850 border border-void-800 hover:border-signal-red hover:shadow-signal-red-glow text-xs font-mono text-technical-light hover:text-white transition-all rounded-none"
+                >
+                  <span>YouTube Music</span>
+                  <ExternalLink size={12} className="text-signal-red" />
+                </a>
               </div>
             </div>
           </div>

@@ -55,10 +55,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/abstract-single/1870622927?uo=4",
-      "spotify": "https://open.spotify.com/search/Abstract%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Abstract%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Abstract%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Abstract%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1870622927
   },
@@ -79,10 +79,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/k-un-single/1845328978?uo=4",
-      "spotify": "https://open.spotify.com/search/K%2B!UN%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=K%2B!UN%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=K%2B!UN%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=K%2B!UN%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1845328978
   },
@@ -103,10 +103,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/exhaustion-single/1845328253?uo=4",
-      "spotify": "https://open.spotify.com/search/Exhaustion%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Exhaustion%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Exhaustion%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Exhaustion%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1845328253
   },
@@ -127,10 +127,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/montagem-bateria-ep/1846182147?uo=4",
-      "spotify": "https://open.spotify.com/search/MONTAGEM%20BATERIA%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=MONTAGEM%20BATERIA%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=MONTAGEM%20BATERIA%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=MONTAGEM%20BATERIA%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1846182147
   },
@@ -151,10 +151,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/fica-quieto-single/1837462874?uo=4",
-      "spotify": "https://open.spotify.com/search/Fica%20quieto%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Fica%20quieto%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Fica%20quieto%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Fica%20quieto%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1837462874
   },
@@ -175,10 +175,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/broca-ep/1834506465?uo=4",
-      "spotify": "https://open.spotify.com/search/Broca%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Broca%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Broca%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Broca%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1834506465
   },
@@ -199,10 +199,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/krido-single/1807766579?uo=4",
-      "spotify": "https://open.spotify.com/search/KRIDO%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=KRIDO%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=KRIDO%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=KRIDO%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1807766579
   },
@@ -223,10 +223,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/time-to-jump-slowed/1805935208?i=1805936287&uo=4",
-      "spotify": "https://open.spotify.com/search/Sx1%20(Slowed%20Down)%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Sx1%20(Slowed%20Down)%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Sx1%20(Slowed%20Down)%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Sx1%20(Slowed%20Down)%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1805935208
   },
@@ -247,10 +247,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/suphire-single/1788661582?uo=4",
-      "spotify": "https://open.spotify.com/search/Suphire%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Suphire%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Suphire%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Suphire%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1788661582
   },
@@ -271,10 +271,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/time-to-jump-single/1788976054?uo=4",
-      "spotify": "https://open.spotify.com/search/Time%20To%20Jump%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Time%20To%20Jump%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Time%20To%20Jump%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Time%20To%20Jump%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1788976054
   },
@@ -295,10 +295,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/oper-club-deluxe-single/1736746938?uo=4",
-      "spotify": "https://open.spotify.com/search/Oper%20Club%20(Deluxe)%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Oper%20Club%20(Deluxe)%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Oper%20Club%20(Deluxe)%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Oper%20Club%20(Deluxe)%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1736746938
   },
@@ -319,10 +319,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/cold-of-heart-single/1736176892?uo=4",
-      "spotify": "https://open.spotify.com/search/Cold%20of%20Heart%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Cold%20of%20Heart%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Cold%20of%20Heart%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Cold%20of%20Heart%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1736176892
   },
@@ -343,10 +343,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/level-up-single/1729838275?uo=4",
-      "spotify": "https://open.spotify.com/search/Level%20Up%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Level%20Up%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Level%20Up%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Level%20Up%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1729838275
   },
@@ -367,10 +367,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/the-beginning-of-a-new-single/1725837493?uo=4",
-      "spotify": "https://open.spotify.com/search/The%20Beginning%20of%20a%20New%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=The%20Beginning%20of%20a%20New%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=The%20Beginning%20of%20a%20New%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=The%20Beginning%20of%20a%20New%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1725837493
   },
@@ -391,10 +391,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/faded-forever-single/1726468819?uo=4",
-      "spotify": "https://open.spotify.com/search/Faded%20Forever%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Faded%20Forever%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Faded%20Forever%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Faded%20Forever%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1726468819
   },
@@ -415,10 +415,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/second-life-single/1725501530?uo=4",
-      "spotify": "https://open.spotify.com/search/Second%20Life%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Second%20Life%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Second%20Life%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Second%20Life%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1725501530
   },
@@ -439,10 +439,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/consequences-single/1723496721?uo=4",
-      "spotify": "https://open.spotify.com/search/Consequences%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Consequences%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Consequences%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Consequences%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1723496721
   },
@@ -463,10 +463,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/hypnodance-single/1717326794?uo=4",
-      "spotify": "https://open.spotify.com/search/HYPNODANCE%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=HYPNODANCE%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=HYPNODANCE%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=HYPNODANCE%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1717326794
   },
@@ -487,10 +487,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/serenity-deluxe-single/1714512323?uo=4",
-      "spotify": "https://open.spotify.com/search/Serenity%20(Deluxe)%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Serenity%20(Deluxe)%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Serenity%20(Deluxe)%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Serenity%20(Deluxe)%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1714512323
   },
@@ -511,10 +511,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/lumminate-single/1714512216?uo=4",
-      "spotify": "https://open.spotify.com/search/Lumminate%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Lumminate%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Lumminate%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Lumminate%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1714512216
   },
@@ -535,10 +535,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/doom-override-single/1758073431?uo=4",
-      "spotify": "https://open.spotify.com/search/Doom%20Override%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Doom%20Override%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Doom%20Override%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Doom%20Override%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1758073431
   },
@@ -559,10 +559,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/bring-it-on-single/1758062743?uo=4",
-      "spotify": "https://open.spotify.com/search/Bring%20It%20On%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Bring%20It%20On%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Bring%20It%20On%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Bring%20It%20On%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1758062743
   },
@@ -583,10 +583,10 @@ export const VERIFIED_RELEASES: Release[] = [
     "verificationStatus": "VERIFIED",
     "platforms": {
       "appleMusic": "https://music.apple.com/us/album/cyber-memories-single/1698019183?uo=4",
-      "spotify": "https://open.spotify.com/search/Cyber%20Memories%20dYnex%3F",
-      "youtube": "https://www.youtube.com/results?search_query=Cyber%20Memories%20dYnex%3F",
-      "vk": "https://vk.com/audio?q=Cyber%20Memories%20dYnex%3F",
-      "soundCloud": "https://soundcloud.com/search?q=Cyber%20Memories%20dYnex%3F"
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
     },
     "appleMusicId": 1698019183
   }

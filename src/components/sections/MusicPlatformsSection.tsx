@@ -33,10 +33,10 @@ export const MusicPlatformsSection: React.FC = () => {
     {
       id: 'spotify',
       name: 'Spotify',
-      url: 'https://open.spotify.com/search/dYnex%3F',
+      url: 'https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg',
       protocolTag: '// SPOTIFY.STREAM.NODE',
-      tagRu: 'Стриминг, дискография и плейлисты',
-      tagEn: 'Global streaming, discography & playlists',
+      tagRu: 'Официальный профиль артиста и вся дискография',
+      tagEn: 'Official verified artist profile & discography',
       svgIcon: (
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
           <path d="M12 2C6.477 2 2 6.477 2 12c0 5.524 4.477 10 10 10s10-4.476 10-10c0-5.523-4.477-10-10-10zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.469-.077-.334.132-.67.467-.747 3.808-.87 7.076-.506 9.722 1.115.293.18.386.563.207.857zm1.224-2.719c-.226.367-.706.482-1.072.257-2.69-1.653-6.79-2.131-9.97-1.165-.413.125-.85-.11-1.004-.523-.125-.413.11-.85.523-.975 3.633-1.102 8.147-.568 11.266 1.349.366.226.482.705.257 1.082zm.106-2.835C14.692 8.95 9.218 8.767 6.046 9.73c-.495.15-1.022-.128-1.173-.623-.15-.495.129-1.022.624-1.173 3.673-1.114 9.715-.903 13.486 1.335.445.264.59.838.327 1.282-.264.444-.838.59-1.282.327z" />
@@ -46,7 +46,7 @@ export const MusicPlatformsSection: React.FC = () => {
     {
       id: 'vk',
       name: 'VK Музыка',
-      url: 'https://vk.com/audio?q=dYnex',
+      url: 'https://vk.ru/artist/654356884443821665',
       protocolTag: '// VK.AUDIO.SYS.FEED',
       tagRu: 'Официальная карточка музыканта ВКонтакте',
       tagEn: 'Verified VK Music artist terminal',
@@ -57,12 +57,25 @@ export const MusicPlatformsSection: React.FC = () => {
       )
     },
     {
+      id: 'yandex',
+      name: 'Яндекс Музыка',
+      url: 'https://music.yandex.ru/artist/19034250',
+      protocolTag: '// YANDEX.WAVE.NODE',
+      tagRu: '«Моя волна», официальный профиль и чарты',
+      tagEn: 'My Wave, verified artist profile & charts',
+      svgIcon: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.8 14.7c-.4.4-1 .4-1.4 0L12 14.3l-2.4 2.4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l2.4-2.4-2.4-2.4c-.4-.4-.4-1 0-1.4.4-.4 1-.4 1.4 0l2.4 2.4 2.4-2.4c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L13.4 12.9l2.4 2.4c.4.4.4 1 0 1.4z" />
+        </svg>
+      )
+    },
+    {
       id: 'youtube',
-      name: 'YouTube Music',
-      url: 'https://www.youtube.com/results?search_query=dYnex%3F+phonk',
-      protocolTag: '// YT.VISUAL.NETWORK',
-      tagRu: 'Официальные треки, визуалы и клипы',
-      tagEn: 'Official audio uploads, visuals & videos',
+      name: 'YouTube Канал',
+      url: 'http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g',
+      protocolTag: '// YT.OFFICIAL.CHANNEL',
+      tagRu: 'Официальный YouTube-канал артиста и клипы',
+      tagEn: 'Official YouTube channel, visuals & videos',
       svgIcon: (
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
           <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -70,28 +83,15 @@ export const MusicPlatformsSection: React.FC = () => {
       )
     },
     {
-      id: 'soundcloud',
-      name: 'SoundCloud',
-      url: 'https://soundcloud.com/search?q=dYnex',
-      protocolTag: '// SC.UNDERGROUND.CORE',
-      tagRu: 'Эксклюзивные ремиксы, Slowed & VIP версии',
-      tagEn: 'Exclusive remixes, bootlegs & slowed versions',
+      id: 'youtubeMusic',
+      name: 'YouTube Music',
+      url: 'https://music.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g',
+      protocolTag: '// YT.MUSIC.TERMINAL',
+      tagRu: 'Стриминг и дискография в YouTube Music',
+      tagEn: 'Official streaming & audio on YouTube Music',
       svgIcon: (
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-          <path d="M1.175 12.225c-.053 0-.095.043-.1.096l-.234 2.378c-.006.056.036.104.092.107l.242.013c.053 0 .096-.043.1-.096l.234-2.378a.105.105 0 0 0-.092-.107l-.242-.013zm1.094-.652c-.066 0-.12.05-.125.116l-.348 3.673c-.006.069.046.128.115.132l.332.016c.066 0 .12-.05.126-.116l.347-3.673c.007-.069-.045-.128-.115-.132l-.332-.016zm1.189-.253c-.08 0-.146.063-.15.143l-.403 4.167c-.007.084.057.155.14.16l.417.017c.08 0 .146-.063.151-.143l.403-4.168a.152.152 0 0 0-.141-.16l-.417-.016zm1.258-.293c-.093 0-.17.073-.177.166l-.427 4.75a.178.178 0 0 0 .165.187l.477.019c.094 0 .17-.074.177-.167l.428-4.75a.179.179 0 0 0-.166-.187l-.477-.018zm1.298-.094c-.107 0-.195.084-.202.191l-.424 5.03c-.008.11.074.202.184.21l.525.021c.107 0 .195-.084.202-.191l.425-5.03a.204.204 0 0 0-.184-.21l-.526-.021zm1.317-.187c-.12 0-.219.095-.227.215l-.397 5.405c-.009.124.083.228.207.237l.564.022c.121 0 .22-.095.228-.216l.397-5.404a.23.23 0 0 0-.208-.237l-.564-.022zm1.32-.423c-.134 0-.244.106-.253.24l-.348 6.06c-.01.139.093.255.231.265l.593.023c.134 0 .245-.106.253-.24l.348-6.06a.256.256 0 0 0-.231-.265l-.593-.023zm1.316-.473c-.148 0-.269.117-.278.265l-.278 7.008c-.01.153.102.281.255.292l.613.024c.148 0 .269-.117.278-.265l.278-7.008a.282.282 0 0 0-.255-.292l-.613-.024zm1.323-.197c-.161 0-.293.128-.304.289l-.192 7.398c-.01.168.112.308.279.32l.624.024c.161 0 .294-.128.304-.289l.192-7.398a.309.309 0 0 0-.279-.32l-.624-.024zm1.328.05c-.175 0-.318.139-.329.314l-.089 7.334c-.01.182.122.334.303.346l.626.024c.175 0 .319-.139.33-.314l.088-7.334a.335.335 0 0 0-.303-.346l-.626-.024zm1.332-.128c-.188 0-.343.15-.355.338l.006 7.462c0 .196.132.36.327.373l.62.025c.189 0 .343-.15.355-.339l-.006-7.461a.36.36 0 0 0-.327-.373l-.62-.025zm1.339-.028c-.202 0-.368.16-.381.363l.089 7.49c.01.21.141.386.351.4l.608.024c.202 0 .368-.161.381-.363l-.089-7.49a.387.387 0 0 0-.351-.401l-.608-.023zm3.763-2.123c-.48 0-.94.11-1.35.31-.22.11-.42.24-.61.4-.23-.74-.8-1.33-1.53-1.63-.39-.16-.81-.24-1.25-.24-.04 0-.08 0-.12.01-.19.01-.35.16-.36.35l.08 10.97c.01.2.17.36.37.37l4.77.19c2.31 0 4.19-1.88 4.19-4.19 0-2.31-1.88-4.18-4.19-4.18z" />
-        </svg>
-      )
-    },
-    {
-      id: 'yandex',
-      name: 'Яндекс Музыка',
-      url: 'https://music.yandex.ru/search?text=dYnex',
-      protocolTag: '// YANDEX.WAVE.NODE',
-      tagRu: '«Моя волна», персональные чарты и треки',
-      tagEn: 'My Wave, Russian charts & verified audio',
-      svgIcon: (
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.8 14.7c-.4.4-1 .4-1.4 0L12 14.3l-2.4 2.4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l2.4-2.4-2.4-2.4c-.4-.4-.4-1 0-1.4.4-.4 1-.4 1.4 0l2.4 2.4 2.4-2.4c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L13.4 12.9l2.4 2.4c.4.4.4 1 0 1.4z" />
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" />
         </svg>
       )
     }
@@ -249,7 +249,7 @@ export const MusicPlatformsSection: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* VKontakte Official Hub */}
             <motion.a
-              href="https://vk.ru/dynexxx"
+              href="https://vk.ru/artist/654356884443821665"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 15 }}
@@ -272,12 +272,12 @@ export const MusicPlatformsSection: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-[10px] font-mono tracking-wider text-technical-muted group-hover:text-[#0077FF] transition-colors">
-                      // VK.COMMUNITY.HUB
+                      // VK.ARTIST.HUB
                     </div>
                     <div className="flex items-center space-x-1.5 mt-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#0077FF] animate-pulse" />
                       <span className="text-[9px] font-mono uppercase text-[#0077FF] tracking-widest font-semibold">
-                        {language === 'ru' ? 'ОФИЦИАЛЬНАЯ СТРАНИЦА' : 'OFFICIAL HUB'}
+                        {language === 'ru' ? 'КАРТОЧКА АРТИСТА // ПАБЛИК' : 'ARTIST CARD // HUB'}
                       </span>
                     </div>
                   </div>
@@ -298,23 +298,23 @@ export const MusicPlatformsSection: React.FC = () => {
                     ВКонтакте
                   </span>
                   <span className="text-xs font-mono text-technical-silver px-2 py-0.5 bg-void-900 border border-void-800 rounded-none group-hover:border-[#0077FF]/40">
-                    vk.ru/dynexxx
+                    vk.ru/artist/654356884443821665
                   </span>
                 </div>
                 <p className="text-[11px] font-mono text-technical-muted mt-1">
                   {language === 'ru'
-                    ? 'Официальный паблик dYnex?: анонсы треков, посты, плейлисты и сообщество.'
-                    : 'Official artist public page: track announcements, posts, and listener community.'}
+                    ? 'Официальная карточка музыканта dYnex? ВКонтакте и паблик сообщества (vk.ru/dynexxx).'
+                    : 'Official dYnex? VK Music artist card and listener community page (vk.ru/dynexxx).'}
                 </p>
               </div>
 
               {/* Bottom: CTA */}
               <div className="relative z-10 border-t border-void-800/80 pt-3 flex items-center justify-between">
                 <span className="text-[10px] font-mono text-technical-muted">
-                  ID: dynexxx // VERIFIED
+                  ID: 654356884443821665 // VERIFIED
                 </span>
                 <span className="text-[11px] font-mono tracking-widest text-[#0077FF] uppercase font-bold group-hover:underline flex items-center space-x-1">
-                  <span>{language === 'ru' ? 'ПЕРЕЙТИ В СООБЩЕСТВО' : 'OPEN VK PAGE'}</span>
+                  <span>{language === 'ru' ? 'ОТКРЫТЬ КАРТОЧКУ АРТИСТА' : 'OPEN ARTIST CARD'}</span>
                   <span>→</span>
                 </span>
               </div>
