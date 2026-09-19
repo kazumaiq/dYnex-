@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArchiveProvider, useArchive } from './context/ArchiveContext';
+import { CommunityProvider } from './context/CommunityContext';
 import { SceneCanvas } from './components/canvas/SceneCanvas';
 import { Navbar } from './components/ui/Navbar';
 import { LoadingScreen } from './components/ui/LoadingScreen';
@@ -10,12 +11,22 @@ import { Footer } from './components/ui/Footer';
 import { HeroSection } from './components/sections/HeroSection';
 import { ArchiveSection } from './components/sections/ArchiveSection';
 import { StickyReleaseStack } from './components/sections/StickyReleaseStack';
+import { CommunitySection } from './components/sections/CommunitySection';
 import { AboutSection } from './components/sections/AboutSection';
 import { TimelineSection } from './components/sections/TimelineSection';
 import { NetworkSection } from './components/sections/NetworkSection';
 import { MusicPlatformsSection } from './components/sections/MusicPlatformsSection';
 import { AdminPanel } from './pages/AdminPanel';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
+
+// Interactive Archive Modals
+import { AuthModal } from './components/community/AuthModal';
+import { UserProfileModal } from './components/community/UserProfileModal';
+import { TraceWallModal } from './components/community/TraceWallModal';
+import { SignatureWallModal } from './components/community/SignatureWallModal';
+import { TransmissionModal } from './components/community/TransmissionModal';
+import { CollabModal } from './components/community/CollabModal';
+import { SecretNodeModal } from './components/community/SecretNodeModal';
 
 const MainContent: React.FC = () => {
   const { setScrollProgress } = useArchive();
@@ -89,6 +100,7 @@ const MainContent: React.FC = () => {
         <ArchiveSection />
         <StickyReleaseStack />
         <MarqueeSection />
+        <CommunitySection />
         <AboutSection />
         <TimelineSection />
         <NetworkSection />
@@ -101,7 +113,16 @@ const MainContent: React.FC = () => {
       {/* 07. Integrated 3D Release Detail Modal */}
       <ReleaseDetailModal />
 
-      {/* 08. Administrative System Modal (Accessible only via /admin) */}
+      {/* 08. Interactive Archive Modals */}
+      <AuthModal />
+      <UserProfileModal />
+      <TraceWallModal />
+      <SignatureWallModal />
+      <TransmissionModal />
+      <CollabModal />
+      <SecretNodeModal />
+
+      {/* 09. Administrative System Modal (Accessible only via /admin) */}
       {isAdminOpen && (
         <AdminPanel
           onClose={() => {
@@ -122,7 +143,9 @@ export const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <ArchiveProvider>
-        <MainContent />
+        <CommunityProvider>
+          <MainContent />
+        </CommunityProvider>
       </ArchiveProvider>
     </ErrorBoundary>
   );

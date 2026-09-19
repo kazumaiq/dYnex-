@@ -1,12 +1,36 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Play, Pause, ExternalLink, Disc3, ShieldCheck } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
+import { useCommunity } from '../../context/CommunityContext';
 
 export const ReleaseDetailModal: React.FC = () => {
   const { selectedRelease, setSelectedRelease, language } = useArchive();
+  const { signals, submitSignal, isMember, openAuthModal, currentUser } = useCommunity();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const [commentText, setCommentText] = useState('');
+  const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+
+  // Audience signals for current release
+  const releaseSignals = useMemo(() => {
+    if (!selectedRelease) return [];
+    return signals.filter(
+      (s) => s.releaseId === selectedRelease.id && (s.status === 'APPROVED' || (currentUser && s.userId === currentUser.id))
+    );
+  }, [signals, selectedRelease, currentUser]);
+
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedRelease || !commentText.trim()) return;
+    setIsSubmittingComment(true);
+    const res = await submitSignal(selectedRelease.id, commentText);
+    setIsSubmittingComment(false);
+    if (res.success) {
+      setCommentText('');
+    }
+  };
 
   // Stop audio on close or switch
   useEffect(() => {
@@ -215,6 +239,101 @@ export const ReleaseDetailModal: React.FC = () => {
                   <ExternalLink size={12} className="text-signal-red" />
                 </a>
               </div>
+            </div>
+
+            {/* Audience Signals (Release Comments Layer) */}
+            <div className="pt-4 border-t border-void-800">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-technical-muted mb-2 flex items-center justify-between">
+                <span className="flex items-center space-x-1.5 text-white font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-signal-red animate-pulse" />
+                  <span>{language === 'ru' ? 'СИГНАЛЫ АУДИТОРИИ // REVIEWS' : 'AUDIENCE SIGNALS'}</span>
+                </span>
+                <span className="text-signal-red text-[9px] font-mono">
+                  [{releaseSignals.length}] {language === 'ru' ? 'ОТЗЫВОВ' : 'SIGNALS'}
+                </span>
+              </div>
+
+              {/* Signals List */}
+              <div className="space-y-2 max-h-40 overflow-y-auto pr-1 mb-3">
+                {releaseSignals.length === 0 ? (
+                  <div className="p-3 bg-void-900/60 border border-void-850 text-center text-[10px] font-mono text-technical-muted">
+                    {language === 'ru'
+                      ? 'В архиве пока нет сигналов к этому релизу. Будьте первым.'
+                      : 'No audience signals for this release yet. Be the first.'}
+                  </div>
+                ) : (
+                  releaseSignals.map((sig) => (
+                    <div
+                      key={sig.id}
+                      className={`p-2.5 bg-void-900 border text-xs font-mono transition-all ${
+                        sig.status === 'PENDING'
+                          ? 'border-dashed border-signal-red/60 bg-signal-red/5'
+                          : 'border-void-800'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between text-[9px] text-technical-muted mb-1">
+                        <span className="font-bold text-white">@{sig.username}</span>
+                        {sig.status === 'PENDING' ? (
+                          <span className="text-signal-red uppercase font-bold">
+                            {language === 'ru' ? '// НА МОДЕРАЦИИ' : '// PENDING MOD'}
+                          </span>
+                        ) : (
+                          <span className="text-technical-silver">
+                            {new Date(sig.createdAt).toLocaleDateString(language === 'ru' ? 'ru-RU' : 'en-US')}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-technical-silver text-[11px] leading-relaxed">
+                        "{sig.content}"
+                      </p>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Leave Signal Form */}
+              {isMember ? (
+                <form onSubmit={handleCommentSubmit} className="space-y-2">
+                  <div className="relative">
+                    <textarea
+                      rows={2}
+                      maxLength={280}
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                      placeholder={language === 'ru' ? 'Оставить сигнал о релизе...' : 'Leave an opinion on this release...'}
+                      className="w-full p-2.5 bg-void-900 border border-void-800 text-xs font-mono text-white placeholder:text-technical-muted/50 rounded-none focus:outline-none focus:border-signal-red resize-none"
+                    />
+                  </div>
+
+                  <div className="flex justify-between items-center text-[9px] font-mono text-technical-muted">
+                    <span>{commentText.length} / 280</span>
+                    <button
+                      type="submit"
+                      disabled={isSubmittingComment || !commentText.trim()}
+                      className="px-3 py-1.5 bg-signal-red hover:bg-signal-red-glow text-white font-bold uppercase tracking-widest transition-all shadow-signal-red-sharp disabled:opacity-40"
+                    >
+                      {isSubmittingComment
+                        ? (language === 'ru' ? 'ПЕРЕДАЧА...' : 'SENDING...')
+                        : (language === 'ru' ? 'ОТПРАВИТЬ СИГНАЛ' : 'TRANSMIT SIGNAL')}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <div className="p-3 bg-void-900 border border-void-800 flex flex-col sm:flex-row items-center justify-between gap-2">
+                  <div className="text-[10px] font-mono text-technical-muted text-center sm:text-left">
+                    {language === 'ru'
+                      ? 'Чтобы оставить отзыв, создайте цифровой идентификатор участника.'
+                      : 'Create a member identity to leave your audience signal.'}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => openAuthModal('register')}
+                    className="px-3 py-1.5 bg-void-950 hover:bg-signal-red border border-void-700 hover:border-signal-red text-white text-[10px] font-mono font-bold tracking-widest uppercase transition-all shrink-0"
+                  >
+                    {language === 'ru' ? 'MEMBER ACCESS' : 'JOIN MEMBER'}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Radio, ExternalLink } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
+import { useCommunity } from '../../context/CommunityContext';
 
 export const Footer: React.FC<{ onOpenAdmin?: () => void }> = () => {
   const { language } = useArchive();
+  const { openTraceWall, openTransmission, openCollab } = useCommunity();
 
   return (
     <footer className="relative z-10 w-full py-16 px-6 border-t border-void-800/80 bg-void-950/60 backdrop-blur-md select-none font-mono text-xs text-technical-muted">
@@ -65,6 +67,25 @@ export const Footer: React.FC<{ onOpenAdmin?: () => void }> = () => {
               <span className="font-bold tracking-wider text-technical-light group-hover:text-white">ТГ ЛС // @dYnexM</span>
               <ExternalLink size={10} className="text-technical-muted group-hover:text-white transition-colors" />
             </a>
+          </div>
+
+          {/* Community Nodes Quick Links */}
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-mono text-technical-muted pt-1">
+            <a href="#community" className="text-technical-silver hover:text-signal-red transition-colors">
+              // {language === 'ru' ? 'СООБЩЕСТВО' : 'COMMUNITY'}
+            </a>
+            <span className="text-void-700">•</span>
+            <button onClick={openTraceWall} className="text-technical-silver hover:text-signal-red transition-colors">
+              {language === 'ru' ? 'СТЕНА СЛЕДОВ' : 'TRACE WALL'}
+            </button>
+            <span className="text-void-700">•</span>
+            <button onClick={openTransmission} className="text-technical-silver hover:text-[#229ED9] transition-colors">
+              {language === 'ru' ? 'НАПИСАТЬ dYnex?' : 'TRANSMIT'}
+            </button>
+            <span className="text-void-700">•</span>
+            <button onClick={openCollab} className="text-technical-silver hover:text-signal-red transition-colors">
+              {language === 'ru' ? 'ФИТ / COLLAB' : 'FIT / COLLAB'}
+            </button>
           </div>
 
           {/* Streaming Platforms */}

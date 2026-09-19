@@ -10,11 +10,14 @@ import {
   Disc3,
   MoveHorizontal,
   Sparkles,
-  Heart
+  Heart,
+  Shuffle
 } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
+import { useCommunity } from '../../context/CommunityContext';
 
 export const ArchiveSection: React.FC = () => {
+  const { triggerRandomNode } = useCommunity();
   const {
     releases,
     selectedRelease,
@@ -224,7 +227,7 @@ export const ArchiveSection: React.FC = () => {
           </div>
 
           {/* Search Box */}
-          <div className="relative flex-1 min-w-[110px] sm:w-40 flex items-center">
+          <div className="relative flex-1 min-w-[110px] sm:w-44 flex items-center">
             <Search size={13} className="absolute left-2 text-technical-muted shrink-0" />
             <input
               type="text"
@@ -233,7 +236,22 @@ export const ArchiveSection: React.FC = () => {
               placeholder={language === 'ru' ? 'Поиск...' : 'Search...'}
               className="w-full bg-void-900 border border-void-800 text-[11px] sm:text-xs font-mono text-technical-light pl-7 pr-2 py-1 rounded-none focus:outline-none focus:border-signal-red placeholder:text-technical-muted/60 transition-colors"
             />
+            {searchQuery.trim() && (
+              <span className="absolute right-2 text-[9px] font-mono text-signal-red font-bold">
+                {filteredReleases.length}
+              </span>
+            )}
           </div>
+
+          {/* Random Node Button */}
+          <button
+            onClick={triggerRandomNode}
+            className="p-1.5 bg-void-900 border border-void-800 hover:border-signal-red text-technical-muted hover:text-signal-red transition-colors shrink-0 flex items-center space-x-1"
+            title={language === 'ru' ? 'Случайный релиз // 3D фокус' : 'Random Node // 3D focus'}
+            aria-label="Случайный релиз"
+          >
+            <Shuffle size={13} />
+          </button>
 
           {/* Accessible List Toggle */}
           <button
