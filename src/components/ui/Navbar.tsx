@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe, Radio, User, Fingerprint, Sparkles, MessageSquare, Edit3, Send, Music2 } from 'lucide-react';
+import { Menu, X, Globe, Radio, User, Fingerprint, Sparkles, MessageSquare, Edit3, Send, Music2, ShieldCheck } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 import { useCommunity } from '../../context/CommunityContext';
 
@@ -124,7 +124,8 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, clipPath: 'circle(150% at 90% 10%)' }}
             exit={{ opacity: 0, clipPath: 'circle(0% at 90% 10%)' }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-void-950/98 flex flex-col justify-between p-6 sm:p-8 lg:hidden select-none font-sans overflow-y-auto"
+            className="fixed inset-0 z-50 bg-void-950/85 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-8 lg:hidden select-none font-sans overflow-y-auto border-l border-void-800"
+            style={{ WebkitBackdropFilter: 'blur(30px)' }}
           >
             {/* Top Close Row */}
             <div className="flex justify-between items-center border-b border-void-800 pb-4">
@@ -234,7 +235,20 @@ export const Navbar: React.FC = () => {
                 </button>
               )}
 
-              <span className="text-[10px] text-technical-muted">NODE 2026</span>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.location.hash = '#admin';
+                  }}
+                  className="flex items-center space-x-1.5 px-2 py-1 bg-void-900 border border-void-800 hover:border-signal-red text-technical-silver hover:text-white text-[10px] font-mono transition-colors"
+                  title="Панель администратора"
+                >
+                  <ShieldCheck size={12} className="text-signal-red" />
+                  <span>ADMIN MATRIX</span>
+                </button>
+                <span className="text-[10px] text-technical-muted">NODE 2026</span>
+              </div>
             </div>
           </motion.div>
         )}

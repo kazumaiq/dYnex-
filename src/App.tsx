@@ -58,9 +58,30 @@ const MainContent: React.FC = () => {
     checkRoute();
     window.addEventListener('popstate', checkRoute);
     window.addEventListener('hashchange', checkRoute);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.altKey && (e.key === 'a' || e.key === 'A' || e.key === 'ф' || e.key === 'Ф')) ||
+          (e.ctrlKey && e.shiftKey && (e.key === 'a' || e.key === 'A' || e.key === 'ф' || e.key === 'Ф'))) {
+        e.preventDefault();
+        setIsAdminOpen((prev) => {
+          const next = !prev;
+          if (next) {
+            window.location.hash = '#admin';
+          } else {
+            if (window.location.hash === '#admin') {
+              window.history.pushState(null, '', window.location.pathname);
+            }
+          }
+          return next;
+        });
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       window.removeEventListener('popstate', checkRoute);
       window.removeEventListener('hashchange', checkRoute);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 

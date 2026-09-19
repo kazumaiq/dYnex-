@@ -158,7 +158,14 @@ export const Footer: React.FC<{ onOpenAdmin?: () => void }> = React.memo(() => {
             <Radio size={12} className="text-signal-red animate-pulse" />
             <span className="text-signal-red font-bold">{language === 'ru' ? 'СИГНАЛ: 100% // ОНЛАЙН' : 'SIGNAL: 100% // ONLINE'}</span>
             <span className="text-void-700">//</span>
-            <span className="text-technical-muted">SYS_VER: 2026.4.1</span>
+            <button
+              onClick={() => { window.location.hash = '#admin'; }}
+              className="text-technical-muted hover:text-signal-red transition-colors flex items-center space-x-1 cursor-pointer"
+              title="Открыть панель администратора dYnex?"
+            >
+              <span>SYS_VER: 2026.4.1</span>
+              <span className="text-signal-red font-bold">[ADMIN]</span>
+            </button>
           </div>
 
           <div className="text-[9px] text-technical-muted tracking-widest uppercase">
