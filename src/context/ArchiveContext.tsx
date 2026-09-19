@@ -100,13 +100,18 @@ export const ArchiveProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Selected release for 3D cinematic focus modal
   const [selectedRelease, setSelectedRelease] = useState<Release | null>(null);
 
-  // 3D camera / scroll states
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [cameraZ, setCameraZ] = useState(0);
-  const [mouseParallax, setMouseParallax] = useState({ x: 0, y: 0 });
+  // 3D camera / scroll states (stabilized: no 60-120fps React re-renders)
   const [archiveRotation, setArchiveRotation] = useState(0);
   const [isDraggingArchive, setIsDraggingArchive] = useState(false);
   const [autoRotate, setAutoRotate] = useState(false);
+
+  // Stubs for backward compatibility that do not trigger React re-renders
+  const scrollProgress = 0;
+  const setScrollProgress = useCallback((_p: number) => {}, []);
+  const cameraZ = 0;
+  const setCameraZ = useCallback((_z: number) => {}, []);
+  const mouseParallax = useMemo(() => ({ x: 0, y: 0 }), []);
+  const setMouseParallax = useCallback((_pos: { x: number; y: number }) => {}, []);
 
   // Filters
   const [activeYearFilter, setActiveYearFilter] = useState<number | null>(null);
@@ -185,42 +190,68 @@ export const ArchiveProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   }, []);
 
+  const contextValue = useMemo<ArchiveContextType>(() => ({
+    releases,
+    featuredRelease,
+    selectedRelease,
+    setSelectedRelease,
+    scrollProgress,
+    setScrollProgress,
+    cameraZ,
+    setCameraZ,
+    mouseParallax,
+    setMouseParallax,
+    archiveRotation,
+    setArchiveRotation,
+    isDraggingArchive,
+    setIsDraggingArchive,
+    autoRotate,
+    setAutoRotate,
+    language,
+    setLanguage,
+    activeYearFilter,
+    setActiveYearFilter,
+    searchQuery,
+    setSearchQuery,
+    addRelease,
+    updateRelease,
+    deleteRelease,
+    toggleFeatured,
+    togglePublish,
+    reorderReleases,
+    importJSON,
+    exportJSON,
+    resetToVerified,
+  }), [
+    releases,
+    featuredRelease,
+    selectedRelease,
+    scrollProgress,
+    setScrollProgress,
+    cameraZ,
+    setCameraZ,
+    mouseParallax,
+    setMouseParallax,
+    archiveRotation,
+    isDraggingArchive,
+    autoRotate,
+    language,
+    setLanguage,
+    activeYearFilter,
+    searchQuery,
+    addRelease,
+    updateRelease,
+    deleteRelease,
+    toggleFeatured,
+    togglePublish,
+    reorderReleases,
+    importJSON,
+    exportJSON,
+    resetToVerified,
+  ]);
+
   return (
-    <ArchiveContext.Provider
-      value={{
-        releases,
-        featuredRelease,
-        selectedRelease,
-        setSelectedRelease,
-        scrollProgress,
-        setScrollProgress,
-        cameraZ,
-        setCameraZ,
-        mouseParallax,
-        setMouseParallax,
-        archiveRotation,
-        setArchiveRotation,
-        isDraggingArchive,
-        setIsDraggingArchive,
-        autoRotate,
-        setAutoRotate,
-        language,
-        setLanguage,
-        activeYearFilter,
-        setActiveYearFilter,
-        searchQuery,
-        setSearchQuery,
-        addRelease,
-        updateRelease,
-        deleteRelease,
-        toggleFeatured,
-        togglePublish,
-        reorderReleases,
-        importJSON,
-        exportJSON,
-        resetToVerified,
-      }}
-    >
+    <ArchiveContext.Provider value={contextValue}>
       {children}
     </ArchiveContext.Provider>
   );

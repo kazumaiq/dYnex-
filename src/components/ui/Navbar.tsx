@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-6 pointer-events-auto bg-void-950/85 backdrop-blur-md px-6 py-2 border border-void-700 rounded-none hover:border-signal-red transition-colors">
+        <nav className="hidden lg:flex items-center space-x-6 pointer-events-auto bg-void-950/95 px-6 py-2 border border-void-700 rounded-none hover:border-signal-red transition-colors">
           {navItems.map((item) => (
             <a
               key={item.href}
@@ -81,32 +81,28 @@ export const Navbar: React.FC = () => {
           {isMember && currentUser ? (
             <button
               onClick={() => openUserProfile()}
-              className="flex items-center space-x-1.5 bg-void-900 hover:bg-void-850 border border-signal-red px-2.5 sm:px-3 py-1 text-xs font-mono text-white transition-all shadow-signal-red-sharp"
-              title="Открыть Digital Identity"
+              className="px-2.5 sm:px-3 py-1.5 bg-void-950/90 hover:bg-void-900 border border-void-700 hover:border-signal-red text-technical-light text-[11px] font-mono flex items-center space-x-2 transition-all"
+              title="Ваш цифровой идентификатор"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-signal-red animate-pulse" />
-              <span className="font-bold truncate max-w-[100px] sm:max-w-[140px]">
-                @{currentUser.username}
-              </span>
+              <Fingerprint size={12} className="text-signal-red" />
+              <span className="font-bold">@{currentUser.username}</span>
             </button>
           ) : (
             <button
               onClick={() => openAuthModal('login')}
-              className="flex items-center space-x-1.5 bg-void-950/85 hover:bg-void-900 border border-void-700 hover:border-signal-red px-2.5 sm:px-3 py-1 text-xs font-mono text-technical-silver hover:text-white transition-all"
+              className="px-2.5 sm:px-3 py-1.5 bg-void-950/90 hover:bg-signal-red border border-void-700 hover:border-signal-red text-white text-[10px] sm:text-[11px] font-mono tracking-wider transition-all"
             >
-              <User size={12} className="text-signal-red" />
-              <span>{language === 'ru' ? 'ВХОД' : 'MEMBER'}</span>
+              {language === 'ru' ? 'ВХОД' : 'MEMBER'}
             </button>
           )}
 
           {/* Language Switcher */}
           <button
             onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-            className="flex items-center space-x-1.5 bg-void-950/80 hover:bg-void-900 border border-void-800 hover:border-signal-red text-xs font-mono px-2.5 py-1 rounded-none text-technical-silver hover:text-white transition-colors"
-            title="Сменить язык / Switch language"
+            className="text-[11px] font-mono tracking-widest text-technical-silver hover:text-signal-red transition-colors px-2 py-1 bg-void-950/90 border border-void-700 rounded-none"
+            aria-label="Сменить язык"
           >
-            <Globe size={12} className="text-signal-red" />
-            <span>{language.toUpperCase()}</span>
+            {language === 'ru' ? 'RU / EN' : 'EN / RU'}
           </button>
 
           {/* Mobile hamburger */}
@@ -127,8 +123,8 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, clipPath: 'circle(0% at 90% 10%)' }}
             animate={{ opacity: 1, clipPath: 'circle(150% at 90% 10%)' }}
             exit={{ opacity: 0, clipPath: 'circle(0% at 90% 10%)' }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-void-950/98 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-8 lg:hidden select-none font-sans overflow-y-auto"
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-50 bg-void-950/98 flex flex-col justify-between p-6 sm:p-8 lg:hidden select-none font-sans overflow-y-auto"
           >
             {/* Top Close Row */}
             <div className="flex justify-between items-center border-b border-void-800 pb-4">

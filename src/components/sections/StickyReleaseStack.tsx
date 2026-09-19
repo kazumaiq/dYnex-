@@ -60,12 +60,14 @@ export const StickyReleaseStack: React.FC = () => {
                 {/* Offset red edge backdrop for physical poster feeling */}
                 <div className="absolute -inset-1 bg-signal-red/25 border border-signal-red/50 pointer-events-none" />
 
-                <div className="tactical-border relative w-full p-6 sm:p-10 bg-void-950/95 backdrop-blur-2xl border border-void-700 hover:border-signal-red rounded-none shadow-[0_20px_50px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden">
-                  {/* Rich 4K Anime Background Artwork Backdrop Fragment */}
-                  <div className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-55 transition-opacity duration-500 mix-blend-screen overflow-hidden">
+                <div className="tactical-border relative w-full p-6 sm:p-10 bg-void-950/98 border border-void-700 hover:border-signal-red rounded-none shadow-[0_20px_50px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden">
+                  {/* Rich Anime Background Artwork Backdrop Fragment */}
+                  <div className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-55 transition-opacity duration-500 overflow-hidden">
                     <img
                       src={bgImage}
                       alt="Anime Poster Backdrop"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-center filter contrast-125"
                     />
                   </div>
@@ -83,6 +85,8 @@ export const StickyReleaseStack: React.FC = () => {
                       <img
                         src={release.artworkUrl}
                         alt={release.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3 px-2 py-0.5 bg-void-950/90 border border-signal-red text-[10px] font-mono text-signal-red font-bold flex items-center gap-1">

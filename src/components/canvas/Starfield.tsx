@@ -1,10 +1,10 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface StarfieldProps {
   cameraZ: number;
-  scrollVelocity: number;
+  scrollVelocity?: number;
   isMobile: boolean;
 }
 
@@ -13,12 +13,12 @@ function pseudoRandom(seed: number) {
   return x - Math.floor(x);
 }
 
-export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, scrollVelocity, isMobile }) => {
-  // Adaptive particle counts: mobile is lightweight for 60fps, desktop is high density
+export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, isMobile }) => {
+  // Adaptive particle counts: mobile is super-lightweight for steady 60fps, desktop is high density
   const counts = useMemo(() => {
     return isMobile
-      ? { deep: 500, mid: 300, near: 100, fg: 30 }
-      : { deep: 1400, mid: 800, near: 300, fg: 80 };
+      ? { deep: 180, mid: 100, near: 40, fg: 15 }
+      : { deep: 1100, mid: 600, near: 200, fg: 50 };
   }, [isMobile]);
 
   // Layer 1: Deep Stars
@@ -98,15 +98,15 @@ export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, scrollVelocity, i
       if (rnd < 0.04) {
         // Signal Red
         colors[i * 3] = 0.95;
-        colors[i * 3 + 1] = 0.15;
+        colors[i * 3 + 1] = 0.12;
         colors[i * 3 + 2] = 0.18;
       } else if (rnd < 0.08) {
         // Cyber Purple
         colors[i * 3] = 0.7;
         colors[i * 3 + 1] = 0.42;
-        colors[i * 3 + 2] = 0.98;
+        colors[i * 3 + 2] = 1.0;
       } else {
-        const b = 0.8 + pseudoRandom(s++) * 0.2;
+        const b = 0.75 + pseudoRandom(s++) * 0.25;
         colors[i * 3] = b;
         colors[i * 3 + 1] = b;
         colors[i * 3 + 2] = b;
@@ -119,24 +119,24 @@ export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, scrollVelocity, i
     return geo;
   }, [counts.near]);
 
-  // Layer 4: Foreground passing particles
+  // Layer 4: Foreground High-Intensity Micro Stars
   const fgStars = useMemo(() => {
     const count = counts.fg;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
-    let s = 1337;
+    let s = 1313;
 
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (pseudoRandom(s++) - 0.5) * 800;
+      positions[i * 3] = (pseudoRandom(s++) - 0.5) * 750;
       positions[i * 3 + 1] = (pseudoRandom(s++) - 0.5) * 600;
-      positions[i * 3 + 2] = (pseudoRandom(s++) - 0.5) * 6500 - 3000;
+      positions[i * 3 + 2] = (pseudoRandom(s++) - 0.5) * 6000 - 3000;
 
       const rnd = pseudoRandom(s++);
       if (rnd < 0.06) {
         // Signal Red
         colors[i * 3] = 1.0;
-        colors[i * 3 + 1] = 0.1;
-        colors[i * 3 + 2] = 0.15;
+        colors[i * 3 + 1] = 0.15;
+        colors[i * 3 + 2] = 0.2;
       } else if (rnd < 0.12) {
         // Cyber Purple
         colors[i * 3] = 0.75;
@@ -154,6 +154,16 @@ export const Starfield: React.FC<StarfieldProps> = ({ cameraZ, scrollVelocity, i
     geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     return geo;
   }, [counts.fg]);
+
+  // Clean up BufferGeometries on unmount / count change to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      deepStars.dispose();
+      midStars.dispose();
+      nearStars.dispose();
+      fgStars.dispose();
+    };
+  }, [deepStars, midStars, nearStars, fgStars]);
 
   const deepRef = useRef<THREE.Points>(null!);
   const midRef = useRef<THREE.Points>(null!);

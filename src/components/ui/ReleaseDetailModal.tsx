@@ -66,7 +66,7 @@ export const ReleaseDetailModal: React.FC = () => {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-void-950/80 backdrop-blur-md"
+          className="absolute inset-0 bg-void-950/90"
           onClick={() => setSelectedRelease(null)}
         />
 
@@ -76,12 +76,12 @@ export const ReleaseDetailModal: React.FC = () => {
           animate={{ scale: 1, y: 0, opacity: 1 }}
           exit={{ scale: 0.95, y: 15, opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 w-full max-w-2xl bg-void-950/95 border border-void-700 shadow-[0_25px_60px_rgba(0,0,0,0.95)] rounded-none overflow-hidden flex flex-col md:flex-row text-technical-light max-h-[92vh] overflow-y-auto"
+          className="relative z-10 w-full max-w-2xl bg-void-950 border border-void-700 shadow-[0_25px_60px_rgba(0,0,0,0.95)] rounded-none overflow-hidden flex flex-col md:flex-row text-technical-light max-h-[92vh] overflow-y-auto"
         >
           {/* Close button */}
           <button
             onClick={() => setSelectedRelease(null)}
-            className="absolute top-4 right-4 z-20 p-2 text-technical-muted hover:text-white bg-void-950/80 border border-void-800 hover:border-signal-red rounded-none transition-colors"
+            className="absolute top-4 right-4 z-20 p-2 text-technical-muted hover:text-white bg-void-950 border border-void-800 hover:border-signal-red rounded-none transition-colors"
             aria-label="Закрыть"
           >
             <X size={18} />
@@ -95,10 +95,11 @@ export const ReleaseDetailModal: React.FC = () => {
                 alt={selectedRelease.title}
                 className="w-full h-full object-cover"
                 loading="eager"
+                decoding="async"
               />
 
               {/* Verified Badge */}
-              <div className="absolute top-2 left-2 bg-void-950/80 backdrop-blur-sm border border-void-800 text-[10px] font-mono text-signal-red px-2 py-0.5 rounded-sm flex items-center space-x-1">
+              <div className="absolute top-2 left-2 bg-void-950 border border-void-800 text-[10px] font-mono text-signal-red px-2 py-0.5 rounded-sm flex items-center space-x-1">
                 <ShieldCheck size={11} />
                 <span>{language === 'ru' ? 'ВЕРИФИЦИРОВАНО' : 'VERIFIED'}</span>
               </div>

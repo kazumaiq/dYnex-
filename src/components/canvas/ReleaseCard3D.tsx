@@ -36,6 +36,23 @@ function getSharedFallbackTexture(): THREE.CanvasTexture {
   return sharedFallbackTexture;
 }
 
+// Pre-allocated shared geometries to eliminate garbage collection & memory leaks
+const geometryCache = new Map<string, { box: THREE.BoxGeometry; edges: THREE.EdgesGeometry }>();
+
+function getSharedCardGeometries(width: number, height: number, depth: number) {
+  const key = `${width}_${height}_${depth}`;
+  let cached = geometryCache.get(key);
+  if (!cached) {
+    const box = new THREE.BoxGeometry(width, height, depth);
+    const edgesBox = new THREE.BoxGeometry(width + 0.04, height + 0.04, depth + 0.04);
+    const edges = new THREE.EdgesGeometry(edgesBox);
+    edgesBox.dispose(); // clean up temporary box
+    cached = { box, edges };
+    geometryCache.set(key, cached);
+  }
+  return cached;
+}
+
 // Shared dark materials for card sides and back
 const sharedSideMaterial = new THREE.MeshStandardMaterial({
   color: '#08090C',
@@ -49,7 +66,7 @@ interface ReleaseCard3DProps {
   targetRot: [number, number, number];
   isFeatured?: boolean;
   isSelected?: boolean;
-  cameraZ: number;
+  cameraZ?: number;
   isMobile?: boolean;
   onSelect: (release: Release) => void;
 }
@@ -60,7 +77,6 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
   targetRot,
   isFeatured = false,
   isSelected = false,
-  cameraZ,
   isMobile = false,
   onSelect,
 }) => {
@@ -91,7 +107,6 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
       },
       undefined,
       (err) => {
-        // Silently use procedural fallback without crashing
         console.warn(`Could not load artwork for ${release.title}`, err);
       }
     );
@@ -123,15 +138,25 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
     sharedSideMaterial,
   ], [frontMaterial]);
 
+  const cardWidth = isFeatured ? (isMobile ? 11.5 : 13) : (isMobile ? 9.6 : 10);
+  const cardHeight = cardWidth;
+  const cardDepth = 0.35;
+
+  const { box: cardBoxGeo, edges: cardEdgesGeo } = useMemo(
+    () => getSharedCardGeometries(cardWidth, cardHeight, cardDepth),
+    [cardWidth, cardHeight, cardDepth]
+  );
+
   useFrame((state, delta) => {
     if (!meshRef.current) return;
+    const camZ = state.camera.position.z;
 
     let destPos = new THREE.Vector3(...targetPos);
     let destRot = new THREE.Euler(...targetRot);
 
     // If selected, fly directly in front of the camera
     if (isSelected) {
-      destPos.set(0, isMobile ? 0.8 : 0, cameraZ - (isMobile ? 22 : 26));
+      destPos.set(0, isMobile ? 0.8 : 0, camZ - (isMobile ? 22 : 26));
       destRot.set(0, 0, 0);
     } else if (hovered && !isMobile) {
       destPos.z += 3;
@@ -148,16 +173,12 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
     meshRef.current.rotation.z = THREE.MathUtils.lerp(meshRef.current.rotation.z, destRot.z, delta * lerpSpeed);
 
     // Micro-bobbing only when close to viewport to save mobile CPU
-    const distToCam = Math.abs(meshRef.current.position.z - cameraZ);
+    const distToCam = Math.abs(meshRef.current.position.z - camZ);
     if (!isSelected && distToCam < 200) {
       const t = state.clock.getElapsedTime();
       meshRef.current.position.y += Math.sin(t * 1.5 + targetPos[0]) * (isMobile ? 0.006 : 0.012);
     }
   });
-
-  const cardWidth = isFeatured ? (isMobile ? 11.5 : 13) : (isMobile ? 9.6 : 10);
-  const cardHeight = cardWidth;
-  const cardDepth = 0.35;
 
   return (
     <group
@@ -174,14 +195,11 @@ export const ReleaseCard3D: React.FC<ReleaseCard3DProps> = ({
         setHovered(false);
       }}
     >
-      {/* 3D Physical Release Box */}
-      <mesh material={boxMaterials}>
-        <boxGeometry args={[cardWidth, cardHeight, cardDepth]} />
-      </mesh>
+      {/* 3D Physical Release Box using shared cached geometry */}
+      <mesh geometry={cardBoxGeo} material={boxMaterials} />
 
-      {/* Glowing Edge Border */}
-      <lineSegments>
-        <edgesGeometry args={[new THREE.BoxGeometry(cardWidth + 0.04, cardHeight + 0.04, cardDepth + 0.04)]} />
+      {/* Glowing Edge Border using shared cached edges */}
+      <lineSegments geometry={cardEdgesGeo}>
         <lineBasicMaterial
           color={isSelected || hovered ? '#E61924' : isFeatured ? '#E61924' : '#1A1B20'}
           transparent

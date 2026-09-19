@@ -13,7 +13,7 @@ interface PlatformItem {
   svgIcon: React.ReactNode;
 }
 
-export const MusicPlatformsSection: React.FC = () => {
+export const MusicPlatformsSection: React.FC = React.memo(() => {
   const { language } = useArchive();
 
   const platforms: PlatformItem[] = [
@@ -164,7 +164,7 @@ export const MusicPlatformsSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.07 }}
-                className="group relative p-6 bg-void-950/95 backdrop-blur-xl border border-void-700 rounded-none transition-all duration-300 flex flex-col justify-between h-56 overflow-hidden hover:border-signal-red shadow-subtle-card cursor-pointer"
+                className="group relative p-6 bg-void-950/98 border border-void-700 rounded-none transition-all duration-300 flex flex-col justify-between h-56 overflow-hidden hover:border-signal-red shadow-subtle-card cursor-pointer"
               >
                 {/* Top Row: Icon + Protocol Tag + External Link Arrow */}
                 <div className="flex items-start justify-between relative z-10">
@@ -396,7 +396,7 @@ export const MusicPlatformsSection: React.FC = () => {
         </div>
 
         {/* Bottom Status Banner */}
-        <div className="mt-8 p-4 bg-void-900/60 backdrop-blur-md border border-void-800 rounded-none flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-technical-muted">
+        <div className="mt-8 p-4 bg-void-900/90 border border-void-800 rounded-none flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-technical-muted">
           <div className="flex items-center space-x-2">
             <Disc3 size={13} className="text-signal-red animate-spin-slow" />
             <span className="text-technical-silver">
@@ -412,4 +412,4 @@ export const MusicPlatformsSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});

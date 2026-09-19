@@ -4,7 +4,7 @@ import { Share2, Users, Disc3, ShieldCheck } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 import { VERIFIED_COLLABORATORS } from '../../data/collaborators';
 
-export const NetworkSection: React.FC = () => {
+export const NetworkSection: React.FC = React.memo(() => {
   const { setSelectedRelease, releases, language } = useArchive();
   const [activeCollaboratorId, setActiveCollaboratorId] = useState<string>('vervix');
 
@@ -63,7 +63,7 @@ export const NetworkSection: React.FC = () => {
           </div>
 
           {/* Right: Detailed Node Card & Related Releases */}
-          <div className="tactical-border lg:col-span-2 p-5 sm:p-8 bg-void-950/90 backdrop-blur-xl border border-void-700 rounded-none flex flex-col justify-between shadow-2xl">
+          <div className="tactical-border lg:col-span-2 p-5 sm:p-8 bg-void-950/98 border border-void-700 rounded-none flex flex-col justify-between shadow-2xl">
             <div>
               <div className="flex items-center justify-between border-b border-void-800 pb-4 mb-6">
                 <div>
@@ -102,6 +102,8 @@ export const NetworkSection: React.FC = () => {
                         <img
                           src={rel.artworkUrl}
                           alt={rel.title}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                         />
                       </div>
@@ -128,4 +130,4 @@ export const NetworkSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});

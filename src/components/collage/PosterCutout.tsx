@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 interface PosterCutoutProps {
   src: string;
@@ -14,7 +14,7 @@ export const PosterCutout: React.FC<PosterCutoutProps> = ({
   src,
   alt,
   maskType = 'radial',
-  blendMode = 'mix-blend-screen',
+  blendMode = 'normal',
   className = '',
   cropPosition = 'center',
   hasRedBorder = false,
@@ -38,6 +38,7 @@ export const PosterCutout: React.FC<PosterCutoutProps> = ({
         src={src}
         alt={alt}
         loading="lazy"
+        decoding="async"
         className={`w-full h-full object-cover ${maskClass} ${blendMode}`}
         style={{ objectPosition: cropPosition }}
       />

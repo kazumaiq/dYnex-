@@ -41,7 +41,7 @@ const Word: React.FC<{ word: string; progress: any; range: [number, number] }> =
   );
 };
 
-export const AboutSection: React.FC = () => {
+export const AboutSection: React.FC = React.memo(() => {
   const { language, releases } = useArchive();
 
   const publishedCount = releases.filter((r) => r.published !== false).length;
@@ -126,7 +126,7 @@ export const AboutSection: React.FC = () => {
           </h2>
 
           {/* Character-by-character scroll revealed paragraph in anime-styled frame */}
-          <div className="tactical-border p-6 sm:p-8 bg-void-950/95 backdrop-blur-xl border border-void-700 rounded-none hover:border-signal-red transition-colors shadow-2xl relative">
+          <div className="tactical-border p-6 sm:p-8 bg-void-950/98 border border-void-700 rounded-none hover:border-signal-red transition-colors shadow-2xl relative">
             <div className="flex items-center justify-between text-[9px] font-mono text-signal-red tracking-widest uppercase mb-4 pb-2 border-b border-void-800">
               <span className="flex items-center gap-1.5 font-bold">
                 <Heart size={10} className="fill-signal-red" />
@@ -172,4 +172,4 @@ export const AboutSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});

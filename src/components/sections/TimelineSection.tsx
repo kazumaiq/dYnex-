@@ -12,7 +12,7 @@ interface Milestone {
   highlights: string[];
 }
 
-export const TimelineSection: React.FC = () => {
+export const TimelineSection: React.FC = React.memo(() => {
   const { setSelectedRelease, releases, language } = useArchive();
   const [selectedYear, setSelectedYear] = useState<number>(2026);
 
@@ -106,7 +106,7 @@ export const TimelineSection: React.FC = () => {
         </div>
 
         {/* Active Year Detail Box */}
-        <div className="tactical-border p-5 sm:p-8 bg-void-950/90 backdrop-blur-xl border border-void-700 rounded-none shadow-2xl">
+        <div className="tactical-border p-5 sm:p-8 bg-void-950/98 border border-void-700 rounded-none shadow-2xl">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 border-b border-void-800/80 pb-6">
             <div>
               <div className="text-[10px] sm:text-xs font-mono text-signal-red tracking-widest uppercase mb-1 flex items-center space-x-2">
@@ -144,6 +144,8 @@ export const TimelineSection: React.FC = () => {
                     <img
                       src={r.artworkUrl}
                       alt={r.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                   </div>
@@ -167,4 +169,4 @@ export const TimelineSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});

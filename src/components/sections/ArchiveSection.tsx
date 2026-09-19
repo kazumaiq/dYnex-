@@ -80,6 +80,8 @@ export const ArchiveSection: React.FC = () => {
   const velocity = useRef(0);
   const totalDragDist = useRef(0);
   const animationFrameId = useRef<number | null>(null);
+  const rafMoveId = useRef<number | null>(null);
+  const accumulatedDx = useRef(0);
 
   // Inertia decay loop
   const runInertia = () => {
@@ -93,6 +95,14 @@ export const ArchiveSection: React.FC = () => {
     }
   };
 
+  // Ensure RAF cleanup on component unmount
+  useEffect(() => {
+    return () => {
+      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+      if (rafMoveId.current) cancelAnimationFrame(rafMoveId.current);
+    };
+  }, []);
+
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
@@ -101,6 +111,11 @@ export const ArchiveSection: React.FC = () => {
     if (animationFrameId.current) {
       cancelAnimationFrame(animationFrameId.current);
       animationFrameId.current = null;
+    }
+    if (rafMoveId.current) {
+      cancelAnimationFrame(rafMoveId.current);
+      rafMoveId.current = null;
+      accumulatedDx.current = 0;
     }
 
     isPointerDown.current = true;
@@ -125,8 +140,17 @@ export const ArchiveSection: React.FC = () => {
     lastX.current = currentX;
     lastTime.current = now;
 
-    // Direct rotation update (adapted for desktop & mobile touch)
-    setArchiveRotation((prev) => prev + dx * 0.0065);
+    // Throttle high-frequency pointer movement to 1 update per frame
+    accumulatedDx.current += dx;
+    if (!rafMoveId.current) {
+      rafMoveId.current = requestAnimationFrame(() => {
+        if (accumulatedDx.current !== 0) {
+          setArchiveRotation((prev) => prev + accumulatedDx.current * 0.0065);
+          accumulatedDx.current = 0;
+        }
+        rafMoveId.current = null;
+      });
+    }
   };
 
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -137,6 +161,16 @@ export const ArchiveSection: React.FC = () => {
     try {
       e.currentTarget.releasePointerCapture(e.pointerId);
     } catch {}
+
+    // Flush any pending move
+    if (rafMoveId.current) {
+      cancelAnimationFrame(rafMoveId.current);
+      rafMoveId.current = null;
+      if (accumulatedDx.current !== 0) {
+        setArchiveRotation((prev) => prev + accumulatedDx.current * 0.0065);
+        accumulatedDx.current = 0;
+      }
+    }
 
     // If tap/click with minimal movement, open the center release modal
     if (totalDragDist.current < 8 && currentCenterRelease) {
@@ -275,7 +309,7 @@ export const ArchiveSection: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 15 }}
-          className="tactical-border p-4 sm:p-6 bg-void-950/95 backdrop-blur-xl border border-void-700 rounded-none pointer-events-auto max-h-[55vh] overflow-y-auto shadow-2xl z-20"
+          className="tactical-border p-4 sm:p-6 bg-void-950/98 border border-void-700 rounded-none pointer-events-auto max-h-[55vh] overflow-y-auto shadow-2xl z-20"
         >
           <div className="text-xs font-mono text-technical-muted uppercase tracking-widest mb-4 flex justify-between items-center border-b border-void-800 pb-2">
             <span className="text-signal-red font-bold flex items-center gap-1.5">
@@ -304,6 +338,8 @@ export const ArchiveSection: React.FC = () => {
                   <img
                     src={r.artworkUrl}
                     alt={r.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                   <div className="absolute top-0 left-0 bg-void-950/90 text-[8px] font-mono text-signal-red px-1">
@@ -344,7 +380,7 @@ export const ArchiveSection: React.FC = () => {
 
         {/* Touch drag guidance overlay */}
         <div
-          className={`flex items-center space-x-2 px-3 py-1 bg-void-950/85 border border-void-800 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-technical-silver transition-opacity duration-300 pointer-events-none mt-auto mb-1 z-10 ${
+          className={`flex items-center space-x-2 px-3 py-1 bg-void-950/90 border border-void-800 text-[10px] sm:text-[11px] font-mono text-technical-silver transition-opacity duration-300 pointer-events-none mt-auto mb-1 z-10 ${
             isHoveredDragZone ? 'opacity-90' : 'opacity-60 sm:opacity-30'
           }`}
         >
@@ -359,7 +395,7 @@ export const ArchiveSection: React.FC = () => {
       <div className="w-full flex flex-col gap-2.5 pointer-events-auto">
         {/* Top bar: Active Release HUD & Quick Open Button */}
         {currentCenterRelease && (
-          <div className="w-full flex items-center justify-between gap-3 p-2.5 sm:p-3 bg-void-950/95 backdrop-blur-md border border-void-700 rounded-none shadow-subtle-card">
+          <div className="w-full flex items-center justify-between gap-3 p-2.5 sm:p-3 bg-void-950/98 border border-void-700 rounded-none shadow-subtle-card">
             {/* Center release meta */}
             <div
               className="flex items-center space-x-3 overflow-hidden flex-1 cursor-pointer group"
@@ -369,6 +405,8 @@ export const ArchiveSection: React.FC = () => {
                 <img
                   src={currentCenterRelease.artworkUrl}
                   alt={currentCenterRelease.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -399,7 +437,7 @@ export const ArchiveSection: React.FC = () => {
         )}
 
         {/* Bottom bar: Tactile Next/Prev Buttons + Scrubber (Stacked cleanly on mobile) */}
-        <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 p-2.5 bg-void-950/90 backdrop-blur-md border border-void-800 rounded-none text-xs font-mono">
+        <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 p-2.5 bg-void-950/98 border border-void-800 rounded-none text-xs font-mono">
           {/* Controls Row */}
           <div className="flex items-center justify-between sm:justify-start space-x-2 shrink-0">
             <button

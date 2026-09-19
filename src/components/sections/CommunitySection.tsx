@@ -112,6 +112,8 @@ export const CommunitySection: React.FC = () => {
                     <img
                       src={todaySignalRelease.artworkUrl}
                       alt={todaySignalRelease.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                     <div className="absolute top-1 left-1 bg-void-950/80 text-[8px] font-mono text-signal-red px-1">

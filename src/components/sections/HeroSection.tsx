@@ -4,7 +4,7 @@ import { Play, ArrowDown, Disc3, Radio, Crosshair, Zap, Heart, Sparkles } from '
 import { useArchive } from '../../context/ArchiveContext';
 import { PosterCutout } from '../collage/PosterCutout';
 
-export const HeroSection: React.FC = () => {
+export const HeroSection: React.FC = React.memo(() => {
   const { featuredRelease, setSelectedRelease, language } = useArchive();
 
   const handleEnterArchive = () => {
@@ -20,17 +20,18 @@ export const HeroSection: React.FC = () => {
       className="relative min-h-screen w-full flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32 pb-8 pointer-events-none select-none max-w-7xl mx-auto overflow-hidden"
     >
       {/* 00. Atmospheric Cyberpunk Anime City Backdrop */}
-      <div className="absolute inset-0 pointer-events-none opacity-25 mix-blend-screen z-0 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none opacity-20 z-0 overflow-hidden">
         <img
           src="/assets/anime/city-backdrop.jpg"
           alt="Neo Tokyo Phonk City"
+          decoding="async"
           className="w-full h-full object-cover object-center filter contrast-125"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-void-950 via-void-950/70 to-transparent" />
       </div>
 
       {/* 00b. Prominent 4K Anime Character Pilot (Hidden on mobile to prevent text collision, prominent on desktop) */}
-      <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 right-0 sm:right-6 lg:right-16 w-72 sm:w-[28rem] lg:w-[38rem] h-[34rem] sm:h-[42rem] lg:h-[50rem] pointer-events-none opacity-60 sm:opacity-85 mix-blend-screen z-0">
+      <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 right-0 sm:right-6 lg:right-16 w-72 sm:w-[28rem] lg:w-[38rem] h-[34rem] sm:h-[42rem] lg:h-[50rem] pointer-events-none opacity-60 sm:opacity-85 z-0">
         <PosterCutout
           src="/assets/anime/hero-character.jpg"
           alt="dYnex Anime Pilot Character"
@@ -132,7 +133,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="hidden sm:block p-3.5 sm:p-4 bg-void-950/90 backdrop-blur-md border border-signal-red/60 shadow-poster-red-offset max-w-xl"
+            className="hidden sm:block p-3.5 sm:p-4 bg-void-950/98 border border-signal-red/60 shadow-poster-red-offset max-w-xl"
           >
             <div className="flex items-center justify-between text-[10px] font-mono text-signal-red uppercase pb-1.5 mb-2 border-b border-void-800">
               <span className="font-bold flex items-center gap-1">
@@ -218,7 +219,7 @@ export const HeroSection: React.FC = () => {
               {/* Main Poster Container */}
               <div
                 onClick={() => setSelectedRelease(featuredRelease)}
-                className="tactical-border relative p-3 sm:p-4 bg-void-950/95 backdrop-blur-xl border border-void-700 group-hover:border-signal-red transition-all duration-300 rounded-none cursor-pointer w-full shadow-2xl"
+                className="tactical-border relative p-3 sm:p-4 bg-void-950/98 border border-void-700 group-hover:border-signal-red transition-all duration-300 rounded-none cursor-pointer w-full shadow-2xl"
               >
                 {/* Header inside frame */}
                 <div className="flex items-center justify-between text-[10px] font-mono text-technical-muted mb-3 border-b border-void-800 pb-2">
@@ -239,6 +240,7 @@ export const HeroSection: React.FC = () => {
                   <img
                     src={featuredRelease.artworkUrl}
                     alt={featuredRelease.title}
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-2 right-2 px-2 py-0.5 bg-void-950/90 border border-signal-red text-[9px] font-mono text-signal-red font-bold flex items-center gap-1">
@@ -306,4 +308,4 @@ export const HeroSection: React.FC = () => {
       </motion.div>
     </section>
   );
-};
+});

@@ -3,12 +3,12 @@ import { Radio, ExternalLink } from 'lucide-react';
 import { useArchive } from '../../context/ArchiveContext';
 import { useCommunity } from '../../context/CommunityContext';
 
-export const Footer: React.FC<{ onOpenAdmin?: () => void }> = () => {
+export const Footer: React.FC<{ onOpenAdmin?: () => void }> = React.memo(() => {
   const { language } = useArchive();
   const { openTraceWall, openTransmission, openCollab } = useCommunity();
 
   return (
-    <footer className="relative z-10 w-full py-16 px-6 border-t border-void-800/80 bg-void-950/60 backdrop-blur-md select-none font-mono text-xs text-technical-muted">
+    <footer className="relative z-10 w-full py-16 px-6 border-t border-void-800/80 bg-void-950/98 select-none font-mono text-xs text-technical-muted">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Brand & Concept */}
         <div className="flex flex-col space-y-2 text-center md:text-left">
@@ -173,4 +173,4 @@ export const Footer: React.FC<{ onOpenAdmin?: () => void }> = () => {
       </div>
     </footer>
   );
-};
+});

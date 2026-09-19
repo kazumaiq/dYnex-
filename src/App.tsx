@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { ArchiveProvider, useArchive } from './context/ArchiveContext';
-import { CommunityProvider } from './context/CommunityContext';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { ArchiveProvider } from './context/ArchiveContext';
+import { CommunityProvider, useCommunity } from './context/CommunityContext';
 import { SceneCanvas } from './components/canvas/SceneCanvas';
 import { Navbar } from './components/ui/Navbar';
 import { LoadingScreen } from './components/ui/LoadingScreen';
@@ -16,21 +16,29 @@ import { AboutSection } from './components/sections/AboutSection';
 import { TimelineSection } from './components/sections/TimelineSection';
 import { NetworkSection } from './components/sections/NetworkSection';
 import { MusicPlatformsSection } from './components/sections/MusicPlatformsSection';
-import { AdminPanel } from './pages/AdminPanel';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
-// Interactive Archive Modals
-import { AuthModal } from './components/community/AuthModal';
-import { UserProfileModal } from './components/community/UserProfileModal';
-import { TraceWallModal } from './components/community/TraceWallModal';
-import { SignatureWallModal } from './components/community/SignatureWallModal';
-import { TransmissionModal } from './components/community/TransmissionModal';
-import { CollabModal } from './components/community/CollabModal';
-import { SecretNodeModal } from './components/community/SecretNodeModal';
+// Code Splitting: Lazy-load heavy administrative panel and community modals on demand
+const AdminPanel = lazy(() => import('./pages/AdminPanel').then(m => ({ default: m.AdminPanel })));
+const AuthModal = lazy(() => import('./components/community/AuthModal').then(m => ({ default: m.AuthModal })));
+const UserProfileModal = lazy(() => import('./components/community/UserProfileModal').then(m => ({ default: m.UserProfileModal })));
+const TraceWallModal = lazy(() => import('./components/community/TraceWallModal').then(m => ({ default: m.TraceWallModal })));
+const SignatureWallModal = lazy(() => import('./components/community/SignatureWallModal').then(m => ({ default: m.SignatureWallModal })));
+const TransmissionModal = lazy(() => import('./components/community/TransmissionModal').then(m => ({ default: m.TransmissionModal })));
+const CollabModal = lazy(() => import('./components/community/CollabModal').then(m => ({ default: m.CollabModal })));
+const SecretNodeModal = lazy(() => import('./components/community/SecretNodeModal').then(m => ({ default: m.SecretNodeModal })));
 
 const MainContent: React.FC = () => {
-  const { setScrollProgress } = useArchive();
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const {
+    isAuthModalOpen,
+    isProfileOpen,
+    isTraceWallOpen,
+    isSignatureWallOpen,
+    isTransmissionOpen,
+    isCollabOpen,
+    isSecretNodeOpen,
+  } = useCommunity();
 
   // Check URL hash or path for admin
   useEffect(() => {
@@ -56,21 +64,16 @@ const MainContent: React.FC = () => {
     };
   }, []);
 
-  // Track page scroll to drive 3D camera along Z axis
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        const progress = Math.min(Math.max(window.scrollY / scrollHeight, 0), 1);
-        setScrollProgress(progress);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [setScrollProgress]);
+  // Determine if any opaque modal is open to pause 3D WebGL rendering
+  const isAnyModalOpen =
+    isAdminOpen ||
+    isAuthModalOpen ||
+    isProfileOpen ||
+    isTraceWallOpen ||
+    isSignatureWallOpen ||
+    isTransmissionOpen ||
+    isCollabOpen ||
+    isSecretNodeOpen;
 
   return (
     <div className="relative w-full min-h-screen bg-void-950 text-technical-light overflow-x-hidden">
@@ -80,16 +83,16 @@ const MainContent: React.FC = () => {
       {/* 02. Minimalist Desktop Cursor */}
       <CustomCursor />
 
-      {/* 03. Primary 3D WebGL World (Persistent Background) wrapped in ErrorBoundary */}
+      {/* 03. Primary 3D WebGL World (Persistent Background, pauses when modal covers screen) */}
       <ErrorBoundary>
-        <SceneCanvas />
+        <SceneCanvas isPaused={isAnyModalOpen} />
       </ErrorBoundary>
 
-      {/* Tactile CRT Scanline & Grain Texture Layer */}
-      <div className="fixed inset-0 z-20 pointer-events-none crt-overlay opacity-20 mix-blend-screen" />
+      {/* Tactile CRT Scanline & Grain Texture Layer (GPU friendly standard compositing) */}
+      <div className="fixed inset-0 z-20 pointer-events-none crt-overlay opacity-20" />
 
       {/* Anime Light Leak Prism & Ambient Glow Layer */}
-      <div className="fixed inset-0 z-20 pointer-events-none anime-prism-overlay mix-blend-screen" />
+      <div className="fixed inset-0 z-20 pointer-events-none anime-prism-overlay opacity-25" />
 
       {/* 04. Top Navigation Bar */}
       <Navbar />
@@ -113,28 +116,30 @@ const MainContent: React.FC = () => {
       {/* 07. Integrated 3D Release Detail Modal */}
       <ReleaseDetailModal />
 
-      {/* 08. Interactive Archive Modals */}
-      <AuthModal />
-      <UserProfileModal />
-      <TraceWallModal />
-      <SignatureWallModal />
-      <TransmissionModal />
-      <CollabModal />
-      <SecretNodeModal />
+      {/* 08. Interactive Community Archive Modals (Mounted only when active) */}
+      <Suspense fallback={null}>
+        {isAuthModalOpen && <AuthModal />}
+        {isProfileOpen && <UserProfileModal />}
+        {isTraceWallOpen && <TraceWallModal />}
+        {isSignatureWallOpen && <SignatureWallModal />}
+        {isTransmissionOpen && <TransmissionModal />}
+        {isCollabOpen && <CollabModal />}
+        {isSecretNodeOpen && <SecretNodeModal />}
 
-      {/* 09. Administrative System Modal (Accessible only via /admin) */}
-      {isAdminOpen && (
-        <AdminPanel
-          onClose={() => {
-            setIsAdminOpen(false);
-            if (window.location.pathname.toLowerCase().startsWith('/admin')) {
-              window.history.pushState(null, '', '/');
-            } else if (window.location.hash.toLowerCase() === '#admin') {
-              window.history.pushState(null, '', window.location.pathname);
-            }
-          }}
-        />
-      )}
+        {/* 09. Administrative System Modal (Accessible only via /admin) */}
+        {isAdminOpen && (
+          <AdminPanel
+            onClose={() => {
+              setIsAdminOpen(false);
+              if (window.location.pathname.toLowerCase().startsWith('/admin')) {
+                window.history.pushState(null, '', '/');
+              } else if (window.location.hash.toLowerCase() === '#admin') {
+                window.history.pushState(null, '', window.location.pathname);
+              }
+            }}
+          />
+        )}
+      </Suspense>
     </div>
   );
 };
