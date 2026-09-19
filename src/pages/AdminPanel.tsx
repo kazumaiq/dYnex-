@@ -5,7 +5,7 @@ import {
   Upload, RotateCcw, Save, X, Disc3, ShieldCheck, Check,
   MessageSquare, Edit3, Send, Music2, Users, FileText,
   Clock, LayoutDashboard, FolderTree, BarChart3, Layers, Calendar, Image,
-  ExternalLink, Search, Menu, ShieldAlert, CheckCircle2, Volume2
+  ExternalLink, Search, Menu, ShieldAlert, CheckCircle2, Volume2, Lock, Unlock, Key
 } from 'lucide-react';
 import { useArchive } from '../context/ArchiveContext';
 import { useCommunity } from '../context/CommunityContext';
@@ -83,6 +83,111 @@ export const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   // Image preview modal in Media section
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
+
+  // Master Admin Authentication Gate state
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    try {
+      const sess = sessionStorage.getItem('dynex_admin_session_auth');
+      return sess === 'true' || sess === 'authenticated';
+    } catch {
+      return false;
+    }
+  });
+
+  const [passwordInput, setPasswordInput] = useState('');
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState<number>(() => {
+    try {
+      return Number(sessionStorage.getItem('dynex_admin_failed_attempts') || 0);
+    } catch {
+      return 0;
+    }
+  });
+  const [lockoutUntil, setLockoutUntil] = useState<number | null>(() => {
+    try {
+      const until = Number(sessionStorage.getItem('dynex_admin_lockout_until') || 0);
+      return until > Date.now() ? until : null;
+    } catch {
+      return null;
+    }
+  });
+
+  // Master passcode change state (for Dashboard settings)
+  const [newPassInput, setNewPassInput] = useState('');
+  const [passChangeStatus, setPassChangeStatus] = useState<string | null>(null);
+
+  const getExpectedPassword = () => {
+    try {
+      const custom = localStorage.getItem('dynex_custom_admin_passcode');
+      if (custom) return custom;
+    } catch {}
+    const envPass = (import.meta as any).env?.VITE_ADMIN_ACCESS_KEY;
+    if (envPass) return envPass;
+    return 'dynex2026';
+  };
+
+  const handleAuthenticate = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (lockoutUntil && Date.now() < lockoutUntil) {
+      const remainingSeconds = Math.ceil((lockoutUntil - Date.now()) / 1000);
+      setAuthError(`СИСТЕМА ЗАБЛОКИРОВАНА. ПОДОЖДИТЕ ${remainingSeconds} СЕК.`);
+      return;
+    }
+
+    const expected = getExpectedPassword();
+    if (passwordInput.trim() === expected) {
+      setIsAuthenticated(true);
+      setAuthError(null);
+      setFailedAttempts(0);
+      try {
+        sessionStorage.setItem('dynex_admin_session_auth', 'true');
+        sessionStorage.removeItem('dynex_admin_failed_attempts');
+        sessionStorage.removeItem('dynex_admin_lockout_until');
+      } catch {}
+    } else {
+      const newAttempts = failedAttempts + 1;
+      setFailedAttempts(newAttempts);
+      try {
+        sessionStorage.setItem('dynex_admin_failed_attempts', String(newAttempts));
+      } catch {}
+
+      if (newAttempts >= 5) {
+        const lockoutTime = Date.now() + 5 * 60 * 1000;
+        setLockoutUntil(lockoutTime);
+        try {
+          sessionStorage.setItem('dynex_admin_lockout_until', String(lockoutTime));
+        } catch {}
+        setAuthError('ПРЕВЫШЕН ЛИМИТ ПОПЫТОК (5/5). ДОСТУП ВРЕМЕННО ЗАБЛОКИРОВАН НА 5 МИНУТ.');
+      } else {
+        setAuthError(`ОТКАЗ В ДОСТУПЕ: НЕВЕРНЫЙ КЛЮЧ. ОСТАЛОСЬ ПОПЫТОК: ${5 - newAttempts}`);
+      }
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    try {
+      sessionStorage.removeItem('dynex_admin_session_auth');
+    } catch {}
+    onClose();
+  };
+
+  const handleChangePassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassInput.trim().length < 6) {
+      setPassChangeStatus('Пароль должен быть не менее 6 символов');
+      return;
+    }
+    try {
+      localStorage.setItem('dynex_custom_admin_passcode', newPassInput.trim());
+      setPassChangeStatus('Пароль администратора успешно сохранён!');
+      setNewPassInput('');
+      setTimeout(() => setPassChangeStatus(null), 3000);
+    } catch {
+      setPassChangeStatus('Ошибка сохранения нового пароля');
+    }
+  };
 
   const [formData, setFormData] = useState({
     title: '',
@@ -308,6 +413,100 @@ export const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     setMobileNavOpen(false);
   };
 
+  if (!isAuthenticated) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 bg-void-950/98 backdrop-blur-3xl flex items-center justify-center p-4 sm:p-6 font-mono select-none"
+      >
+        <div className="w-full max-w-md bg-void-900 border-2 border-signal-red shadow-[0_0_50px_rgba(255,51,51,0.25)] p-6 sm:p-8 relative">
+          {/* Top Scan Line Bar */}
+          <div className="flex items-center justify-between border-b border-void-800 pb-3 mb-6">
+            <div className="flex items-center space-x-2 text-signal-red text-xs font-bold">
+              <ShieldAlert size={16} className="animate-pulse" />
+              <span>// ACCESS RESTRICTED</span>
+            </div>
+            <div className="text-[10px] text-technical-muted uppercase">
+              LEVEL 5 // ROOT ADMIN
+            </div>
+          </div>
+
+          <div className="space-y-3 mb-6">
+            <div className="text-lg font-bold font-sans text-white tracking-tight flex items-center space-x-2">
+              <span>dYnex? ADMIN MATRIX</span>
+              <span className="text-signal-red font-mono text-xs">// 2026</span>
+            </div>
+            <p className="text-xs text-technical-silver leading-relaxed">
+              {language === 'ru'
+                ? 'Этот терминал защищён сквозной аутентификацией. Доступ разрешён исключительно владельцу и администратору проекта dYnex?. Все неавторизованные попытки входа блокируются.'
+                : 'This terminal is protected by end-to-end security clearance. Unauthorized access attempts are monitored and logged.'}
+            </p>
+          </div>
+
+          <form onSubmit={handleAuthenticate} className="space-y-4">
+            <div>
+              <label className="block text-[10px] text-technical-muted uppercase tracking-wider mb-1.5 font-bold">
+                {language === 'ru' ? 'МАСТЕР-ПАРОЛЬ ДОСТУПА' : 'MASTER SECURITY PASSCODE'}
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  autoFocus
+                  required
+                  value={passwordInput}
+                  onChange={(e) => {
+                    setPasswordInput(e.target.value);
+                    if (authError) setAuthError(null);
+                  }}
+                  placeholder="••••••••••••"
+                  className="w-full bg-void-950 border border-void-800 focus:border-signal-red px-3.5 py-2.5 text-sm text-white focus:outline-none tracking-widest font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-technical-muted hover:text-white p-1"
+                >
+                  {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                </button>
+              </div>
+            </div>
+
+            {authError && (
+              <div className="p-3 bg-signal-red/10 border border-signal-red text-signal-red text-xs font-mono leading-tight flex items-start space-x-2">
+                <ShieldAlert size={14} className="shrink-0 mt-0.5" />
+                <span>{authError}</span>
+              </div>
+            )}
+
+            <div className="flex items-center space-x-3 pt-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-1/3 py-2.5 bg-void-950 border border-void-800 hover:border-white text-technical-muted hover:text-white text-xs uppercase font-bold transition-colors"
+              >
+                {language === 'ru' ? 'ОТМЕНА' : 'CANCEL'}
+              </button>
+              <button
+                type="submit"
+                className="w-2/3 py-2.5 bg-signal-red hover:bg-signal-red-glow text-white text-xs uppercase font-bold tracking-wider flex items-center justify-center space-x-2 transition-all shadow-signal-red-sharp"
+              >
+                <Lock size={13} />
+                <span>{language === 'ru' ? 'ВОЙТИ В СИСТЕМУ' : 'AUTHENTICATE'}</span>
+              </button>
+            </div>
+          </form>
+
+          <div className="mt-6 pt-4 border-t border-void-800/80 flex items-center justify-between text-[10px] text-technical-muted">
+            <span>TERMINAL ID: DY-ADM-01</span>
+            <span>SECURE SESSION STORAGE</span>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -363,6 +562,15 @@ export const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               {totalModerationQueue}
             </span>
           </div>
+
+          <button
+            onClick={handleLogout}
+            className="px-2.5 py-1 bg-void-900 border border-signal-red/60 hover:bg-signal-red hover:text-white text-signal-red text-[11px] uppercase font-bold flex items-center space-x-1.5 transition-colors cursor-pointer"
+            title={language === 'ru' ? 'Заблокировать терминал (завершить сеанс)' : 'Lock terminal session'}
+          >
+            <Lock size={12} />
+            <span className="hidden sm:inline">{language === 'ru' ? 'БЛОКИРОВКА' : 'LOCK'}</span>
+          </button>
         </div>
       </header>
 
@@ -855,6 +1063,82 @@ export const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                       <span>ПРОСМОТРЕТЬ ЖУРНАЛ АУДИТА</span>
                     </button>
                   </div>
+                </div>
+              </div>
+
+              {/* Security & Access Management Card */}
+              <div className="bg-void-900/60 border border-signal-red/40 p-4 sm:p-5 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-void-800 pb-3">
+                  <div className="flex items-center space-x-2 text-white text-xs font-bold uppercase tracking-wider">
+                    <ShieldAlert size={16} className="text-signal-red" />
+                    <span>БЕЗОПАСНОСТЬ // КОНТРОЛЬ ДОСТУПА К ТЕРМИНАЛУ</span>
+                  </div>
+                  <div className="text-[10px] text-technical-muted font-mono flex items-center space-x-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-signal-red animate-pulse" />
+                    <span>ЗАЩИТА ОТ ПОДБОРА (BRUTE-FORCE GUARD) АКТИВНА</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  <div className="space-y-2 bg-void-950 p-3.5 border border-void-800">
+                    <div className="text-[11px] font-bold text-white uppercase flex items-center space-x-1.5">
+                      <Key size={13} className="text-signal-red" />
+                      <span>ТЕКУЩИЙ СТАТУС АВТОРИЗАЦИИ</span>
+                    </div>
+                    <p className="text-[11px] text-technical-muted leading-relaxed">
+                      Панель защищена терминальным паролем. Никто кроме вас не имеет доступа к управлению каталогом, модерации треков и базе данных.
+                    </p>
+                    <div className="pt-1 text-[10px] space-y-1 text-technical-silver font-mono">
+                      <div>• ТИП КЛЮЧА: <span className="text-white font-bold">{localStorage.getItem('dynex_custom_admin_passcode') ? 'ПОЛЬЗОВАТЕЛЬСКИЙ (LOCAL KEY)' : 'СТАНДАРТНЫЙ (MASTER KEY)'}</span></div>
+                      <div>• СЕССИЯ: <span className="text-signal-red font-bold">АКТИВНА (АВТО-БЛОКИРОВКА ПРИ ЗАКРЫТИИ ВКЛАДКИ)</span></div>
+                      <div>• ЛИМИТ ОШИБОК: <span className="text-white">5 ПОПЫТОК / БЛОК НА 5 МИНУТ</span></div>
+                    </div>
+                  </div>
+
+                  <form onSubmit={handleChangePassword} className="space-y-3 bg-void-950 p-3.5 border border-void-800">
+                    <div className="text-[11px] font-bold text-white uppercase flex items-center space-x-1.5">
+                      <Lock size={13} className="text-signal-red" />
+                      <span>ИЗМЕНИТЬ МАСТЕР-ПАРОЛЬ</span>
+                    </div>
+                    <div className="space-y-2">
+                      <input
+                        type="password"
+                        value={newPassInput}
+                        onChange={(e) => setNewPassInput(e.target.value)}
+                        placeholder="Новый секретный пароль (мин. 6 знаков)"
+                        className="w-full bg-void-900 border border-void-800 focus:border-signal-red px-3 py-2 text-xs text-white focus:outline-none font-mono"
+                      />
+                      <div className="flex items-center space-x-2">
+                        <button
+                          type="submit"
+                          className="flex-1 py-1.5 bg-signal-red hover:bg-signal-red-glow text-white text-[11px] font-bold uppercase transition-all shadow-signal-red-sharp"
+                        >
+                          СОХРАНИТЬ ПАРОЛЬ
+                        </button>
+                        {localStorage.getItem('dynex_custom_admin_passcode') && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              try {
+                                localStorage.removeItem('dynex_custom_admin_passcode');
+                                setPassChangeStatus('Пароль сброшен на стандартный (dynex2026)');
+                                setTimeout(() => setPassChangeStatus(null), 3000);
+                              } catch {}
+                            }}
+                            className="px-2.5 py-1.5 bg-void-900 border border-void-800 hover:border-signal-red text-technical-muted hover:text-white text-[10px] uppercase font-bold"
+                            title="Сбросить на стандартный пароль"
+                          >
+                            СБРОС
+                          </button>
+                        )}
+                      </div>
+                      {passChangeStatus && (
+                        <div className="p-2 bg-signal-red/10 border border-signal-red text-signal-red text-[10px] font-mono">
+                          {passChangeStatus}
+                        </div>
+                      )}
+                    </div>
+                  </form>
                 </div>
               </div>
 

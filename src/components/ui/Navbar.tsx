@@ -242,10 +242,10 @@ export const Navbar: React.FC = () => {
                     window.location.hash = '#admin';
                   }}
                   className="flex items-center space-x-1.5 px-2 py-1 bg-void-900 border border-void-800 hover:border-signal-red text-technical-silver hover:text-white text-[10px] font-mono transition-colors"
-                  title="Панель администратора"
+                  title="Root Console // Restricted Access"
                 >
                   <ShieldCheck size={12} className="text-signal-red" />
-                  <span>ADMIN MATRIX</span>
+                  <span>ROOT CONSOLE</span>
                 </button>
                 <span className="text-[10px] text-technical-muted">NODE 2026</span>
               </div>

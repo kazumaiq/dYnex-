@@ -160,11 +160,11 @@ export const Footer: React.FC<{ onOpenAdmin?: () => void }> = React.memo(() => {
             <span className="text-void-700">//</span>
             <button
               onClick={() => { window.location.hash = '#admin'; }}
-              className="text-technical-muted hover:text-signal-red transition-colors flex items-center space-x-1 cursor-pointer"
-              title="Открыть панель администратора dYnex?"
+              className="text-technical-muted hover:text-signal-red transition-colors flex items-center space-x-1 cursor-pointer font-mono"
+              title="Kernel / System Console"
             >
               <span>SYS_VER: 2026.4.1</span>
-              <span className="text-signal-red font-bold">[ADMIN]</span>
+              <span className="text-void-600 hover:text-signal-red text-[9px]">•</span>
             </button>
           </div>
 
