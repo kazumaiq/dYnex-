@@ -1,0 +1,12 @@
+# ============================================================
+# robots.txt for dynexmusic.com (dYnex? Official Website)
+# ============================================================
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /#admin
+
+# Crawl-delay: 1
+Host: https://www.dynexmusic.com
+Sitemap: https://www.dynexmusic.com/sitemap.xml
