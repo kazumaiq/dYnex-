@@ -41,6 +41,7 @@ export const TraceWallModal: React.FC = () => {
     setIsSubmitting(false);
     if (res.success) {
       setTraceInput('');
+      closeLeaveTrace();
     } else if (res.error) {
       setErrorMsg(res.error);
     }

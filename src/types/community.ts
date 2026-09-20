@@ -34,12 +34,18 @@ export interface SignalComment {
 }
 
 export interface TraceItem {
-  id: string; // e.g. 'TRACE_004281'
-  userId: string;
+  id: string; // e.g. 'TRACE_000001'
+  traceId?: string; // DB trace_id
+  userId?: string;
   username: string;
-  content: string; // max 140 chars
+  content: string; // max 140 chars (mapped to message in DB)
   status: ModerationStatus;
   createdAt: string;
+  approvedAt?: string;
+  approvedBy?: string;
+  rejectedAt?: string;
+  rejectedBy?: string;
+  deletedAt?: string;
   reviewedAt?: string;
 }
 

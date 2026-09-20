@@ -48,6 +48,7 @@ export const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     traces,
     updateTraceStatus,
     deleteTrace,
+    refreshTraces,
     signatures,
     updateSignatureStatus,
     deleteSignature,
@@ -2026,26 +2027,53 @@ export const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     <span>COMMUNITY // TRACE WALL MODERATION</span>
                   </h1>
                   <p className="text-xs text-technical-muted">
-                    Модерация следов участников со стены архива
+                    Постоянное серверное хранилище Supabase: реальные следы участников архива
                   </p>
                 </div>
-                <div className="text-xs text-technical-muted">
-                  ВСЕГО СЛЕДОВ: {traces.length}
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => refreshTraces && refreshTraces()}
+                    className="px-2.5 py-1.5 bg-void-900 border border-void-800 hover:border-signal-red text-technical-silver hover:text-white text-xs flex items-center space-x-1.5 transition-colors"
+                    title="Синхронизировать с Supabase"
+                  >
+                    <RotateCcw size={12} />
+                    <span>ОБНОВИТЬ ИЗ БД</span>
+                  </button>
+                  <div className="text-xs text-technical-muted font-mono">
+                    ВСЕГО: <strong className="text-white">{traces.length}</strong>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2 text-xs pb-2">
-                {(['ALL', 'PENDING', 'APPROVED', 'REJECTED'] as const).map((st) => (
+              {/* Dynamic Filter Buttons with Real Database Counts */}
+              <div className="flex flex-wrap items-center gap-2 text-xs pb-2">
+                {[
+                  { key: 'ALL', label: 'ALL', count: traces.length },
+                  { key: 'PENDING', label: 'PENDING', count: traces.filter((t) => t.status === 'PENDING').length },
+                  { key: 'APPROVED', label: 'APPROVED', count: traces.filter((t) => t.status === 'APPROVED').length },
+                  { key: 'REJECTED', label: 'REJECTED', count: traces.filter((t) => t.status === 'REJECTED').length },
+                ].map((tab) => (
                   <button
-                    key={st}
-                    onClick={() => setTraceFilter(st)}
-                    className={`px-3 py-1.5 border transition-all ${
-                      traceFilter === st
+                    key={tab.key}
+                    onClick={() => setTraceFilter(tab.key as any)}
+                    className={`px-3 py-1.5 border flex items-center space-x-1.5 transition-all ${
+                      traceFilter === tab.key
                         ? 'border-signal-red bg-signal-red text-white font-bold'
                         : 'border-void-800 bg-void-900 text-technical-muted hover:text-white'
                     }`}
                   >
-                    {st}
+                    <span>{tab.label}</span>
+                    <span
+                      className={`text-[10px] px-1 py-0.2 font-mono ${
+                        traceFilter === tab.key
+                          ? 'bg-void-950 text-signal-red'
+                          : tab.count > 0 && tab.key === 'PENDING'
+                          ? 'bg-signal-red text-white font-bold'
+                          : 'bg-void-950 text-technical-silver'
+                      }`}
+                    >
+                      {tab.count}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -2064,17 +2092,35 @@ export const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         className="p-4 bg-void-900 border border-void-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                       >
                         <div className="space-y-1 min-w-0">
-                          <div className="flex items-center space-x-2 text-[10px]">
-                            <span className="text-signal-red font-bold">{trace.id}</span>
+                          <div className="flex flex-wrap items-center gap-2 text-[10px]">
+                            <span className="text-signal-red font-bold font-mono">{trace.id}</span>
                             <span className="text-void-700">•</span>
                             <span className="text-white font-bold">@{trace.username}</span>
                             <span className="text-void-700">•</span>
-                            <span className="text-technical-muted">{trace.createdAt}</span>
-                            <span className="px-1.5 py-0.2 bg-void-950 border border-void-700 text-technical-silver font-bold">
+                            <span className="text-technical-muted">
+                              {new Date(trace.createdAt).toLocaleDateString()} {new Date(trace.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                            <span className={`px-1.5 py-0.2 border font-bold ${
+                              trace.status === 'APPROVED'
+                                ? 'border-emerald-500/50 bg-emerald-950/40 text-emerald-400'
+                                : trace.status === 'REJECTED'
+                                ? 'border-signal-red/50 bg-signal-red/10 text-signal-red'
+                                : 'border-amber-500/50 bg-amber-950/40 text-amber-300'
+                            }`}>
                               {trace.status}
                             </span>
+                            {trace.approvedBy && (
+                              <span className="text-technical-muted text-[9px] font-mono">
+                                [Одобрил: {trace.approvedBy}]
+                              </span>
+                            )}
+                            {trace.rejectedBy && (
+                              <span className="text-signal-red/80 text-[9px] font-mono">
+                                [Отклонил: {trace.rejectedBy}]
+                              </span>
+                            )}
                           </div>
-                          <p className="text-xs text-technical-silver">"{trace.content}"</p>
+                          <p className="text-xs text-technical-silver font-mono">"{trace.content}"</p>
                         </div>
 
                         <div className="flex items-center space-x-2 shrink-0">

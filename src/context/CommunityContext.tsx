@@ -80,10 +80,11 @@ interface CommunityContextType {
   // Traces
   traces: TraceItem[];
   userActiveTrace: TraceItem | null;
-  submitTrace: (content: string) => Promise<{ success: boolean; error?: string }>;
+  submitTrace: (content: string) => Promise<{ success: boolean; error?: string; trace?: TraceItem }>;
   deleteUserTrace: () => Promise<void>;
-  updateTraceStatus: (id: string, status: ModerationStatus) => void;
-  deleteTrace: (id: string) => void;
+  updateTraceStatus: (id: string, status: ModerationStatus) => Promise<void>;
+  deleteTrace: (id: string) => Promise<void>;
+  refreshTraces: () => Promise<void>;
 
   // Signatures
   signatures: SignatureItem[];
@@ -517,13 +518,71 @@ export const CommunityProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     addAuditLog('SIGNAL', id, 'SIGNAL_DELETED');
   }, [addAuditLog]);
 
-  // Traces
+  // Traces: Real Server-backed Fetching from Supabase
+  const fetchTraces = useCallback(async () => {
+    if (!isSupabaseConfigured()) return;
+    try {
+      const { data, error } = await supabase
+        .from('trace_wall')
+        .select('*')
+        .is('deleted_at', null)
+        .order('created_at', { ascending: true });
+
+      if (error) {
+        console.error('[Supabase] Error loading trace_wall records:', error);
+        return;
+      }
+
+      if (data && Array.isArray(data)) {
+        const loaded: TraceItem[] = data.map((row: any) => ({
+          id: row.trace_id || row.id,
+          traceId: row.trace_id,
+          userId: row.user_id,
+          username: row.username,
+          content: row.message || row.content || '',
+          status: (row.status as ModerationStatus) || 'PENDING',
+          createdAt: row.created_at,
+          approvedAt: row.approved_at,
+          approvedBy: row.approved_by,
+          rejectedAt: row.rejected_at,
+          rejectedBy: row.rejected_by,
+          deletedAt: row.deleted_at,
+        }));
+        setTraces(loaded);
+      }
+    } catch (err) {
+      console.error('[Supabase] Unexpected exception in fetchTraces:', err);
+    }
+  }, []);
+
+  // Fetch traces on startup and listen to realtime updates if Supabase is active
+  useEffect(() => {
+    fetchTraces();
+
+    if (isSupabaseConfigured()) {
+      const channel = supabase
+        .channel('trace_wall_realtime_sync')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'trace_wall' },
+          () => {
+            fetchTraces();
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
+  }, [fetchTraces]);
+
   const userActiveTrace = useMemo(() => {
     if (!currentUser) return null;
     return traces.find((t) => t.userId === currentUser.id) || null;
   }, [currentUser, traces]);
 
-  const submitTrace = useCallback(async (content: string) => {
+  const submitTrace = useCallback(async (content: string): Promise<{ success: boolean; error?: string; trace?: TraceItem }> => {
     if (!currentUser) {
       openAuthModal('register');
       return { success: false, error: 'Требуется идентификация участника' };
@@ -535,38 +594,186 @@ export const CommunityProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!cleanContent) return { success: false, error: 'След не может быть пустым' };
     if (cleanContent.length > 140) return { success: false, error: 'Превышен лимит (140 символов)' };
 
-    const traceNum = String(traces.length + 1).padStart(6, '0');
-    const newTrace: TraceItem = {
-      id: `TRACE_${traceNum}`,
-      userId: currentUser.id,
-      username: currentUser.username,
-      content: cleanContent,
-      status: 'PENDING',
-      createdAt: new Date().toISOString(),
-    };
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      return {
+        success: false,
+        error: 'База данных Supabase не подключена. Настройте переменные окружения VITE_SUPABASE_URL и VITE_SUPABASE_ANON_KEY в панели Vercel или файле .env.',
+      };
+    }
 
-    // 1 active trace per user: replace existing or add
-    setTraces((prev) => [newTrace, ...prev.filter((t) => t.userId !== currentUser.id)]);
-    setIsLeaveTraceOpen(false);
-    return { success: true };
-  }, [currentUser, traces.length, openAuthModal]);
+    try {
+      const { data, error } = await supabase
+        .from('trace_wall')
+        .insert({
+          username: currentUser.username,
+          user_id: currentUser.id,
+          message: cleanContent,
+          status: 'PENDING',
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error('[Supabase] Failed to insert into trace_wall:', error);
+        return {
+          success: false,
+          error: `Ошибка записи в базу данных Supabase: ${error.message || 'Сбой запроса'}`,
+        };
+      }
+
+      const newTrace: TraceItem = {
+        id: data.trace_id || data.id,
+        traceId: data.trace_id,
+        userId: data.user_id || currentUser.id,
+        username: data.username,
+        content: data.message || cleanContent,
+        status: (data.status as ModerationStatus) || 'PENDING',
+        createdAt: data.created_at || new Date().toISOString(),
+      };
+
+      // Record in audit log
+      try {
+        await supabase.from('audit_logs').insert({
+          action: 'TRACE_CREATED',
+          target_type: 'TRACE',
+          target_id: newTrace.id,
+          admin: `@${currentUser.username}`,
+          details: `След отправлен на модерацию: "${cleanContent.slice(0, 30)}..."`,
+        });
+      } catch {}
+
+      // 1 active trace per user: update state
+      setTraces((prev) => [newTrace, ...prev.filter((t) => t.userId !== currentUser.id && t.id !== newTrace.id)]);
+      setIsLeaveTraceOpen(false);
+      return { success: true, trace: newTrace };
+    } catch (err: any) {
+      console.error('[Supabase] Network or system error submitting trace:', err);
+      return {
+        success: false,
+        error: `Сетевая ошибка: ${err?.message || 'Не удалось связаться с сервером базы данных'}`,
+      };
+    }
+  }, [currentUser, openAuthModal]);
 
   const deleteUserTrace = useCallback(async () => {
     if (!currentUser) return;
+    const existing = traces.find((t) => t.userId === currentUser.id);
+    if (!existing) return;
+
+    // Optimistic UI update
     setTraces((prev) => prev.filter((t) => t.userId !== currentUser.id));
-  }, [currentUser]);
 
-  const updateTraceStatus = useCallback((id: string, status: ModerationStatus) => {
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase
+          .from('trace_wall')
+          .update({ deleted_at: new Date().toISOString() })
+          .eq('user_id', currentUser.id);
+
+        addAuditLog('TRACE', existing.id, 'TRACE_DELETED_BY_USER', 'След удалён автором');
+      } catch (err) {
+        console.error('[Supabase] Failed to delete user trace in DB:', err);
+      }
+    }
+  }, [currentUser, traces, addAuditLog]);
+
+  const updateTraceStatus = useCallback(async (id: string, status: ModerationStatus) => {
+    const now = new Date().toISOString();
+    const adminName = currentUser?.username ? `@${currentUser.username}` : '@kazumaiq';
+
+    // Optimistic UI update
     setTraces((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, status, reviewedAt: new Date().toISOString() } : t))
+      prev.map((t) =>
+        t.id === id || t.traceId === id
+          ? {
+              ...t,
+              status,
+              reviewedAt: now,
+              approvedAt: status === 'APPROVED' ? now : undefined,
+              approvedBy: status === 'APPROVED' ? adminName : undefined,
+              rejectedAt: status === 'REJECTED' ? now : undefined,
+              rejectedBy: status === 'REJECTED' ? adminName : undefined,
+            }
+          : t
+      )
     );
-    addAuditLog('TRACE', id, `TRACE_${status}`);
-  }, [addAuditLog]);
 
-  const deleteTrace = useCallback((id: string) => {
-    setTraces((prev) => prev.filter((t) => t.id !== id));
+    if (isSupabaseConfigured()) {
+      try {
+        const rpcAction = status === 'APPROVED' ? 'APPROVE' : 'REJECT';
+        const { error: rpcErr } = await supabase.rpc('moderate_trace', {
+          p_trace_id: id,
+          p_action: rpcAction,
+          p_admin: adminName,
+        });
+
+        if (rpcErr) {
+          // Direct table update fallback
+          const updatePayload: any = {
+            status,
+            approved_at: status === 'APPROVED' ? now : null,
+            approved_by: status === 'APPROVED' ? adminName : null,
+            rejected_at: status === 'REJECTED' ? now : null,
+            rejected_by: status === 'REJECTED' ? adminName : null,
+          };
+          await supabase
+            .from('trace_wall')
+            .update(updatePayload)
+            .or(`trace_id.eq.${id},id.eq.${id}`);
+
+          await supabase.from('audit_logs').insert({
+            action: `TRACE_${status}`,
+            target_type: 'TRACE',
+            target_id: id,
+            admin: adminName,
+            details: `Статус изменён на ${status}`,
+          });
+        }
+      } catch (err) {
+        console.error('[Supabase] Error moderating trace:', err);
+      }
+    }
+
+    addAuditLog('TRACE', id, `TRACE_${status}`);
+  }, [currentUser, addAuditLog]);
+
+  const deleteTrace = useCallback(async (id: string) => {
+    const adminName = currentUser?.username ? `@${currentUser.username}` : '@kazumaiq';
+
+    // Optimistic UI update
+    setTraces((prev) => prev.filter((t) => t.id !== id && t.traceId !== id));
+
+    if (isSupabaseConfigured()) {
+      try {
+        const { error: rpcErr } = await supabase.rpc('moderate_trace', {
+          p_trace_id: id,
+          p_action: 'DELETE',
+          p_admin: adminName,
+        });
+
+        if (rpcErr) {
+          // Soft delete: sets deleted_at = NOW(), never physically deletes from table
+          await supabase
+            .from('trace_wall')
+            .update({ deleted_at: new Date().toISOString() })
+            .or(`trace_id.eq.${id},id.eq.${id}`);
+
+          await supabase.from('audit_logs').insert({
+            action: 'TRACE_DELETED',
+            target_type: 'TRACE',
+            target_id: id,
+            admin: adminName,
+            details: 'След мягко удалён администратором (soft-delete)',
+          });
+        }
+      } catch (err) {
+        console.error('[Supabase] Error soft-deleting trace:', err);
+      }
+    }
+
     addAuditLog('TRACE', id, 'TRACE_DELETED');
-  }, [addAuditLog]);
+  }, [currentUser, addAuditLog]);
 
   // Signatures
   const userActiveSignature = useMemo(() => {
@@ -909,6 +1116,7 @@ export const CommunityProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         deleteUserTrace,
         updateTraceStatus,
         deleteTrace,
+        refreshTraces: fetchTraces,
 
         signatures,
         userActiveSignature,
