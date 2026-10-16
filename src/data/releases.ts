@@ -35,9 +35,110 @@ export interface Release {
   label?: string;
 }
 
-export const INITIAL_FEATURED_ID = 'dynex-1870622927'; // Abstract (dYnex? & VERV!X)
+export const INITIAL_FEATURED_ID = 'dynex-6815192456'; // Echoes in the Fog
 
 export const VERIFIED_RELEASES: Release[] = [
+  {
+    "id": "dynex-6815192456",
+    "title": "Echoes in the Fog",
+    "artists": "dYnex?",
+    "year": 2026,
+    "date": "2026-09-25",
+    "type": "SINGLE",
+    "genre": "Electronic",
+    "artworkUrl": "/assets/covers/echoes-in-the-fog.jpg",
+    "description": "Официальный релиз Echoes in the Fog от dYnex?. Релиз 25 сентября 2026. Лейбл: MEDIAHATE MUSIC. Атмосферное электронное звучание с глубоким басом.",
+    "trackCount": 1,
+    "featured": true,
+    "published": true,
+    "verified": true,
+    "verificationStatus": "VERIFIED",
+    "platforms": {
+      "appleMusic": "https://music.apple.com/us/album/echoes-in-the-fog/6815192456?i=6815192458",
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "https://www.youtube.com/playlist?list=OLAK5uy_mzaXJxQ1Cl5FNJjtene4nlCHsnE89zvc8",
+      "youtubeMusic": "https://music.youtube.com/playlist?list=OLAK5uy_mzaXJxQ1Cl5FNJjtene4nlCHsnE89zvc8",
+      "vk": "https://vk.ru/audio-2001974033_154974033",
+      "yandexMusic": "https://music.yandex.ru/album/44121637"
+    },
+    "appleMusicId": 6815192456,
+    "label": "MEDIAHATE MUSIC"
+  },
+  {
+    "id": "dynex-6815212095",
+    "title": "FANTÁSMA",
+    "artists": "dYnex?",
+    "year": 2026,
+    "date": "2026-09-18",
+    "type": "SINGLE",
+    "genre": "Brazilian Phonk",
+    "artworkUrl": "/assets/covers/fantasma.jpg",
+    "description": "Официальный релиз FANTÁSMA от dYnex?. Релиз 18 сентября 2026. Лейбл: MEDIAHATE MUSIC. Бразильский фонк с напористым ритмом.",
+    "trackCount": 1,
+    "featured": false,
+    "published": true,
+    "verified": true,
+    "verificationStatus": "VERIFIED",
+    "platforms": {
+      "appleMusic": "https://music.apple.com/us/album/fant%C3%A1sma/6815212095?i=6815212098",
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/artist/654356884443821665",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
+    },
+    "appleMusicId": 6815212095,
+    "label": "MEDIAHATE MUSIC"
+  },
+  {
+    "id": "dynex-6815192137",
+    "title": "Sem Virar",
+    "artists": "dYnex?",
+    "year": 2026,
+    "date": "2026-09-18",
+    "type": "SINGLE",
+    "genre": "Brazilian Phonk",
+    "artworkUrl": "/assets/covers/sem-virar.jpg",
+    "description": "Официальный релиз Sem Virar от dYnex?. Релиз 18 сентября 2026. Лейбл: MEDIAHATE MUSIC. Бразильский фонк с качающим ритмическим рисунком.",
+    "trackCount": 1,
+    "featured": false,
+    "published": true,
+    "verified": true,
+    "verificationStatus": "VERIFIED",
+    "platforms": {
+      "appleMusic": "https://music.apple.com/us/album/sem-virar/6815192137?i=6815212098",
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/audio-2001975793_154975793",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
+    },
+    "appleMusicId": 6815192137,
+    "label": "MEDIAHATE MUSIC"
+  },
+  {
+    "id": "dynex-6815210147",
+    "title": "CONTAGEM",
+    "artists": "dYnex?",
+    "year": 2026,
+    "date": "2026-09-18",
+    "type": "SINGLE",
+    "genre": "Brazilian Phonk",
+    "artworkUrl": "/assets/covers/contagem.jpg",
+    "description": "Официальный релиз CONTAGEM от dYnex?. Релиз 18 сентября 2026. Лейбл: MEDIAHATE MUSIC. Тяжёлый бразильский фонк с плотным басом.",
+    "trackCount": 1,
+    "featured": false,
+    "published": true,
+    "verified": true,
+    "verificationStatus": "VERIFIED",
+    "platforms": {
+      "appleMusic": "https://music.apple.com/us/album/contagem/6815210147?i=6815210148",
+      "spotify": "https://open.spotify.com/artist/1AnrK4s39q55gZbNkcnuDg",
+      "youtube": "http://www.youtube.com/channel/UCvfg0sozSo6rPRkQVsjqm7g",
+      "vk": "https://vk.ru/audio-2001975793_154975793",
+      "yandexMusic": "https://music.yandex.ru/artist/19034250"
+    },
+    "appleMusicId": 6815210147,
+    "label": "MEDIAHATE MUSIC"
+  },
   {
     "id": "dynex-1870622927",
     "title": "Abstract",
@@ -49,7 +150,7 @@ export const VERIFIED_RELEASES: Release[] = [
     "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/bd/09/4cbd09b3-e559-c241-6a7d-2101dc0c4157/cover.png/1000x1000bb.jpg",
     "description": "Официальный релиз Abstract от dYnex? & VERV!X. Официальный каталог Apple Music. Жанр: Electronic.",
     "trackCount": 1,
-    "featured": true,
+    "featured": false,
     "published": true,
     "verified": true,
     "verificationStatus": "VERIFIED",

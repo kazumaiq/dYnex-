@@ -38,7 +38,7 @@ interface ArchiveContextType {
   resetToVerified: () => void;
 }
 
-const STORAGE_KEY = 'dynex_archive_releases_v1';
+const STORAGE_KEY = 'dynex_archive_releases_v2';
 const LANG_KEY = 'dynex_archive_language';
 
 const ArchiveContext = createContext<ArchiveContextType | undefined>(undefined);
@@ -51,6 +51,11 @@ export const ArchiveProvider: React.FC<{ children: React.ReactNode }> = ({ child
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
+          const existingIds = new Set(parsed.map((p: Release) => p.id));
+          const missingVerified = VERIFIED_RELEASES.filter(vr => !existingIds.has(vr.id));
+          if (missingVerified.length > 0) {
+            return [...missingVerified, ...parsed];
+          }
           return parsed;
         }
       }
